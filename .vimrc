@@ -1,4 +1,5 @@
 set nocompatible
+colorscheme xoria256
 
 "------------------------------------------------------------
 " Vundle
@@ -19,12 +20,10 @@ Bundle 'mru.vim'
 let MRU_Auto_Close=0
 let MRU_Max_Entries=100000
 let MRU_Exclude_Files="^/tmp/.*\|^/var/tmp/.*"
-Bundle 'The-NERD-Tree'
-Bundle 'jistr/vim-nerdtree-tabs'
-map <F1> <plug>NERDTreeTabsToggle<CR>
+Bundle 'The-NERD-tree'
 Bundle 'The-NERD-Commenter'
-nmap <leader>/ <Plug>NERDCommenterToggle
-nmap <leader>/ <Plug>NERDCommenterToggle
+nmap <Leader>/ <Plug>NERDCommenterToggle
+vmap <Leader>/ <Plug>NERDCommenterToggle
 let NERDShutUp = 1
 Bundle 'EasyMotion'
 Bundle 'L9'
@@ -34,10 +33,6 @@ let g:fuf_keyOpenTabpage = '<CR>'
 nnoremap bf :<C-u>FufFile **/<CR>
 nnoremap br :<C-u>FufMruFile<CR>
 Bundle 'AutoClose'
-
-" javascrit bundle
-Bundle 'JavaScript-syntax'
-Bundle 'pangloss/vim-javascript'
 
 "------------------------------------------------------------
 " General options
@@ -97,6 +92,3 @@ augroup BufferAu
     autocmd!
     autocmd BufNewFile,BufRead,BufEnter * if isdirectory(expand("%:p:h")) && bufname("%") !~ "NERD_tree" | cd %:p:h | endif
 augroup END
-
-" settings for tab
-set showtabline=2

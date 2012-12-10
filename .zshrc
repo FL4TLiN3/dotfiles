@@ -1,17 +1,11 @@
 # global paths
-export ANDROID_HOME=/Developer/android-sdk-mac_x86
-export PATH=$PATH:${ANDROID_HOME}/tools
-export PATH=$PATH:${ANDROID_HOME}/platform-tools
-export PATH=$PATH:/opt/local/bin:/opt/local/sbin
-export PATH=$PATH:/opt/local/apache2/bin
-export PATH=$PATH:/Developer/android-sdk-macosx/tools:/Developer/android-sdk-macosx/platform-tools
-export PATH=$PATH:~/workspace/moshikyaba/lib/pngquant/
+export PATH=/usr/local/bin:$PATH
+export PATH=/usr/bin:$PATH
+export PATH=/usr/local/share/npm/bin:$PATH
 export MANPATH=$MANPATH:/opt/local/man
 export SVN_EDITOR=vi
-export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home
-export JIRA_HOME=/Users/hirano_masaaki_gn/workspace/jira
-
-# users generic .zshrc file for zsh(1)
+export RBENV_ROOT=/usr/local/opt/rbenv
+export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
 
 ## Environment variable configuration
 #
@@ -75,42 +69,31 @@ case ${UID} in
 esac
 
 # auto change directory
-#
 setopt auto_cd
 
 # auto directory pushd that you can get dirs list by cd -[tab]
-#
 setopt auto_pushd
 
 # command correct edition before each completion attempt
-#
 setopt correct
 
 # compacked complete list display
-#
 setopt list_packed
 
 # no remove postfix slash of command line
-#
 setopt noautoremoveslash
 
 # no beep sound when complete list displayed
-#
 setopt nolistbeep
 
 
 ## Keybind configuration
-#
-# emacs like keybind (e.x. Ctrl-a gets to line head and Ctrl-e gets
-#   to end) and something additions
-#
 bindkey -e
 bindkey "^[[1~" beginning-of-line # Home gets to line head
 bindkey "^[[4~" end-of-line # End gets to line end
 bindkey "^[[3~" delete-char # Del
 
 # historical backward/forward search with linehead string binded to ^P/^N
-#
 autoload history-search-end
 zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
@@ -120,12 +103,10 @@ bindkey "\\ep" history-beginning-search-backward-end
 bindkey "\\en" history-beginning-search-forward-end
 
 # reverse menu completion binded to Shift-Tab
-#
 bindkey "\e[Z" reverse-menu-complete
 
 
 ## Command history configuration
-#
 HISTFILE=${HOME}/.zsh_history
 HISTSIZE=500000000
 SAVEHIST=500000000
@@ -134,28 +115,25 @@ setopt share_history        # share command history data
 
 
 ## Completion configuration
-#
 fpath=(${HOME}/.zsh/functions/Completion ${fpath})
 autoload -U compinit
 compinit
 
 
 ## zsh editor
-#
 autoload zed
 
 
 ## Prediction configuration
-#
 #autoload predict-on
 #predict-off
 
 
 ## Alias configuration
-#
-# expand aliases before completing
-#
 setopt complete_aliases     # aliased ls needs if file/dir completions work
+
+alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
+alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
 
 alias jake="noglob jake"
 alias where="command -v"
@@ -180,7 +158,6 @@ alias df="df -h"
 alias su="su -l"
 
 ## terminal configuration
-#
 case "${TERM}" in
 screen)
     TERM=xterm
@@ -216,7 +193,6 @@ jfbterm-color)
 esac
 
 # set terminal title including current directory
-#
 case "${TERM}" in
 xterm|xterm-color|kterm|kterm-color)
     precmd() {
@@ -243,9 +219,10 @@ if ( ! test $TMUX ) && ( ! expr $TERM : "^screen" > /dev/null ) && which tmux > 
 fi
 
 ## load user .zshrc configuration file
-#
 [ -f ${HOME}/.zshrc.mine ] && source ${HOME}/.zshrc.mine
 
 ## load git completion
-#
 source ~/.git-completion.bash
+
+## rbenv
+eval "$(rbenv init - zsh)"
