@@ -11,9 +11,3 @@ Icon
 .vim/bundle/*
 .vim/vim_swap/*
 .vim/vim_backup/*
-
-# project specified
-.project
-war/WEB-INF/web.xml
-ios/moshikyaba/Classes/ViewController.m
-.metadata/
