@@ -1,0 +1,140 @@
+<?php
+/**
+ *
+ * 緊急メンテナンス用ページ(DB非接続のため手動)
+ *
+ * @author aoki_ryo_gn
+ */
+$lib3gk = new Lib3gk();
+$titleTime = date('n月j日G時i分', strtotime($maintStartTime));
+if ($lib3gk->is_android() || $lib3gk->is_iphone()) {    // SP用のコンテンツ
+    header("Content-type: text/html; charset=UTF-8");
+    $encoding = 'UTF-8';
+
+    $document = <<<EOF
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+        <meta charset="UTF-8" />
+        <title>みんなのバータウン</title>
+        <meta name="Description" content="" />
+        <meta name="Keywords" content="" />
+        <meta name="author" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <link rel="apple-touch-icon" href="http://sp.minnanobar.cyberx.co.jp/img/sm/common/appicon.png" />
+        <link rel="apple-touch-icon-precomposed" href="http://sp.minnanobar.cyberx.co.jp/img/sm/common/appicon.png" />
+        <link rel="stylesheet" href="http://sp.minnanobar.cyberx.co.jp/css/sm_common.css" media="screen" />
+</head>
+
+
+<body id="content">
+<a id="top" name="top"></a>
+<div style="text-align:center; background-color:#0051a3;">
+    <img src="http://img.common.cyberx.co.jp/minnanobar_prod/img/sm/tmp/rogo.png" width="100%" alt="みんなのバータウン"><br />
+
+    <div style="background-color:#071e66; padding:2px;">
+        $titleTime 更新
+    </div>
+
+    <div style="font-size:1.2em; margin:5px auto;">メンテナンス中</div>
+
+    <img src="http://img.common.cyberx.co.jp/minnanobar_prod/img/sm/tmp/sorry.png" width="100%" /><br />
+
+    <div style="text-align:left;">
+        いつもみんなのバータウンをご利用頂き､誠にありがとうございます｡<br />
+        <br />
+        只今メンテナンスを実施いたしております｡<br />
+        <br />
+        ━━メンテナンス実施期間<br />
+        8月22日(水)2:00～10:00(予定)<br />
+        <br />
+        ※メンテナンス終了時間は変更する場合がございます｡<br />
+        <br />
+        ご迷惑をおかけし、誠に申し訳ございません。<br />
+        <br />
+        今後ともみんなのバータウンを宜しくお願いいたします｡<br />
+    </div>
+
+    <br />
+    <a href="$blogUrlSp" class="btnInpt">みんなのバータウンオフィシャルブログ</a><br />
+    <br />
+
+</div>
+</body>
+
+</html>
+EOF;
+} else {    // FP用のコンテンツ
+    $ua = $_SERVER['HTTP_USER_AGENT'];
+
+    // ソフトバンクならUTF8に。それ以外はShift-JIS
+    if(ereg("^J-PHONE|^Vodafone|^SoftBank", $ua) !== FALSE) {    // softbankの場合
+        header("Content-type: text/html; charset=UTF-8");
+        $encoding = 'UTF-8';
+    } else {    // auまたはdocomoの場合
+        header("Content-type: text/html; charset=Shift_JIS");
+        $encoding = 'SJIS-win';
+    }
+
+    $document = <<<EOF
+<?xml version="1.0" encoding="$encoding" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+        <title>みんなのﾊﾞｰﾀｳﾝ</title>
+  <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=<?= $encoding; ?>" />
+        <meta http-equiv="Content-Style-Type" content="text/css" />
+        <meta http-equiv="pragma" content="no-cache" />
+        <meta http-equiv="cache-control" content="no-cache" />
+        <meta http-equiv="expires" content="-1" />
+  <meta name="keywords" content="" />
+        <meta name="description" content="" />
+</head>
+
+<body style="background-color:#0051A3; color:#ffffff;">
+
+<div style="text-align:center; font-size:x-small;">
+    <img src="http://img.common.cyberx.co.jp/minnanobar_prod/img/tmp/rogo.gif" width="240" alt="みんなのﾊﾞｰﾀｳﾝ" /><br />
+
+    <img src="http://img.common.cyberx.co.jp/minnanobar_prod/img/dot0.gif" width="1" height="5" /><br />
+
+    <div style="background-color:#071e66; padding:2px;">
+        $titleTime 更新
+    </div>
+    <img src="http://img.common.cyberx.co.jp/minnanobar_prod/img/dot0.gif" width="1" height="5" /><br />
+
+    <span style="font-size:medium;">緊急ﾒﾝﾃﾅﾝｽ中</span><br />
+
+    <img src="http://img.common.cyberx.co.jp/minnanobar_prod/img/dot0.gif" width="1" height="5" /><br />
+    <img src="http://img.common.cyberx.co.jp/minnanobar_prod/img/tmp/sorry.gif" width="240" /><br />
+    <img src="http://img.common.cyberx.co.jp/minnanobar_prod/img/dot0.gif" width="1" height="5" /><br />
+
+    <div style="text-align:left;">
+        いつもみんなのﾊﾞｰﾀｳﾝをご利用頂き､誠にありがとうございます｡<br />
+        <br />
+        只今ﾒﾝﾃﾅﾝｽを実施いたしております｡<br />
+        <br />
+        ━━ﾒﾝﾃﾅﾝｽ実施期間<br />
+        8月22日(水)2:00～10:00(予定)<br />
+        <br />
+        ※ﾒﾝﾃﾅﾝｽ終了時間は変更する場合がございます｡<br />
+        <br />
+        ご迷惑をおかけし、誠に申し訳ございません。<br />
+        <br />
+        今後ともみんなのﾊﾞｰﾀｳﾝを宜しくお願いいたします｡<br />
+    </div>
+
+    <img src="http://img.common.cyberx.co.jp/minnanobar_prod/img/dot0.gif" width="1" height="10" /><br />
+    <a href="$blogUrlFp"><span style="color:#FFD600;">みんなのﾊﾞｰﾀｳﾝｵﾌｨｼｬﾙﾌﾞﾛｸﾞ</span></a><br />
+    <img src="http://img.common.cyberx.co.jp/minnanobar_prod/img/dot0.gif" width="1" height="10" /><br />
+
+</div>
+
+</body>
+</html>
+EOF;
+}
+echo mb_convert_encoding($document, $encoding);

@@ -1,0 +1,144 @@
+#!/bin/bash
+
+################################################################################
+#
+# Oh!! takeshi!!
+#
+# 使い方: 
+#       tks.sh {SRC_DIR}
+#       SRC_DIR の中身を各サーバに rsync で送ります。
+#       現状はディレクトリしか指定できません。
+#
+################################################################################
+
+################################################################################
+# settings.
+################################################################################
+
+KEY=/home/shinoda_masahito_gn/.ssh/id_rsa.deploy
+# Ubuntu
+USER_U=www-data
+# Amazon Linux
+USER_A=apache
+
+FP_DST="/var/www/minnanobar_stg"
+SP_DST="/var/www/sp_minnanobar_stg"
+
+# アプリのコードをアップするための rsync 。
+export RSYNC_RSH="/usr/bin/ssh -i $KEY"
+#RSYNC="rsync -aCn --exclude gadget.xml  --exclude 'app/webroot/data/users/*' --include app/webroot/data/users/0/"
+
+# イメージをアップするための rsync
+RSYNC="rsync -aC"
+FP_DST="/var/www/minnanobar_stg"
+SP_DST="/var/www/sp_minnanobar_stg"
+FP_DST="$FP_DST/app/webroot/data"
+SP_DST="$SP_DST/app/webroot/data"
+
+
+########################################
+# Check source directory.
+SRC="$1"
+if [ ! -e "$SRC" ]; then
+    cat <<__EOL__
+usage: $(basename "$0") {RSYNC SRC_DIR}
+__EOL__
+    exit 1;
+fi
+
+# 現状はディレクトリのみ許可。
+if [ ! -d "$SRC" ]; then
+    echo "ディレクトリ以外は指定できません。すみません。ごめんなさい。反省してます。"
+    exit 1
+fi
+
+
+########################################
+# FM01
+h=fm01.minnanobar.quunapp.com
+echo $h
+$RSYNC "$SRC/" $USER_U@"$h:$FP_DST" || { echo "rsync error. $h:$FP_DST"; exit 3; }
+$RSYNC "$SRC/" $USER_U@"$h:$SP_DST" || { echo "rsync error. $h:$SP_DST"; exit 3; }
+
+########################################
+# FP
+
+# FM03
+#fm03.minnanobar.quunapp.com
+
+# web-fp a
+#175.41.253.144
+#54.248.88.28
+#54.248.88.134
+#54.248.88.136
+
+# web-fp b
+#54.248.88.29
+#54.248.88.31
+#54.248.88.135
+#54.248.88.137
+
+# STG は全部。
+#fm03.minnanobar.quunapp.com
+#54.248.88.28
+#54.248.88.29
+#175.41.253.144
+#54.248.88.31
+#54.248.88.134
+#54.248.88.135
+#54.248.88.136
+#54.248.88.137
+
+FP_HOST=(
+fm03.minnanobar.quunapp.com
+175.41.253.144
+54.248.88.28
+54.248.88.29
+54.248.88.31
+54.248.88.126
+54.248.88.129
+54.248.88.136
+54.248.88.135
+54.248.88.134
+54.248.88.137
+)
+
+for h in ${FP_HOST[@]}; do
+    echo FP: $h
+    #$RSYNC "$SRC/" $USER_A@"$h:$FP_DST" || { echo "rsync error. $h:$FP_DST"; exit 3; }
+    $RSYNC "$SRC/" $USER_A@"$h:$FP_DST"
+    sleep 1
+done
+
+########################################
+# SP
+
+# web-sp a
+#54.248.88.34
+#54.248.88.25
+
+# web-sp a
+#54.248.88.36
+#54.248.88.37
+
+# STG は全部。
+#54.248.88.34
+#54.248.88.25
+#54.248.88.36
+#54.248.88.37
+SP_HOST=(
+54.248.88.25
+54.248.88.34
+54.248.88.36
+54.248.88.37
+54.248.88.131
+54.248.88.133
+)
+
+for h in ${SP_HOST[@]}; do
+    echo SP: $h
+    #$RSYNC "$SRC/" $USER_A"@$h:$SP_DST" || { echo "rsync error. $h:$SP_DST"; exit 3; }
+    $RSYNC "$SRC/" $USER_A"@$h:$SP_DST"
+    sleep 1
+done
+

@@ -1,0 +1,348 @@
+<?php
+/**
+ * ビットを立てる
+ */
+function activateBit($string, $index){
+	return substr($string, 0, $index).'1'.substr($string, $index+1);
+}
+
+/**
+ * ビットをセットする
+ */
+function setBit($string, $index, $bit){
+	if(strlen($bit) != 1){
+		$this->cakeError('unknown', func_get_args());
+	}
+	return substr($string, 0, $index).$bit.substr($string, $index+1);
+}
+
+/**
+ * ビットをトグルさせる
+ */
+function toggleBit($string, $index){
+	$bit = intval(substr($string, $index, 1));
+	$bit ^= 1;
+	return substr($string, 0, $index).$bit.substr($string, $index+1);
+}
+
+
+/**
+ * ビットが立っているか返す
+ * @return 立っていたらtrue
+ */
+function onBit($string, $index){
+	$bit = substr($string, $index, 1);
+	if($bit === '0'){
+		return false;
+	}
+	else if($bit === '1'){
+		return true;
+	}
+//	$this->cakeError('unknown', func_get_args());
+}
+
+
+/**
+ * 指定のtime2がtime1の次の日になっているかを返す
+ */
+function pastDay($time){
+	$nowDate = intval(date('Ymd', time()));
+	$compDate = intval(date('Ymd', $time));
+	if($nowDate > $compDate){
+		return true;
+	}
+	return false;
+}
+
+/**
+ * 残り時間のキャプションを返す
+ */
+function caption_rest($time){
+	if (!is_numeric($time)){
+		$time=strtotime($time) - time();
+	}
+	if ($time < 0){
+		$caption_rest=0;
+	}elseif ($time <= 60){
+		$caption_rest=$time . '秒';
+	}elseif ($time <= 3600){
+		$caption_rest=floor($time / 60) . '分';
+	}elseif ($time <= 86400){
+		$caption_rest=floor($time / 3600) . '時間';
+	}else{
+		$caption_rest=floor($time / 86400) . '日';
+	}
+	return $caption_rest;
+}
+
+function hours_and_minutes($time){
+	$timeAdjusted = $time - 3600 * 9;
+	if ($time < 3600){
+		$s = date('i分', $timeAdjusted);
+	}elseif ($time % 3600 == 0){
+		$s = date('H時間', $timeAdjusted);
+	}else{
+		$s = date('H時間i分', $timeAdjusted);
+	}
+	$s=trim($s, '0');
+	return $s;
+}
+
+/**
+ * 数値に付加文字を付ける
+ */
+function appendNumberExtra($number){
+	$number = strval($number);
+	$add = '';
+	if($number === '1'){
+		$add = 'st';
+	}
+	else if($number === '2'){
+		$add = 'nd';
+	}
+	else if($number === '3'){
+		$add = 'rd';
+	}
+	else{
+		$add = 'th';
+	}
+	return $number.$add;
+}
+
+
+function isFoodDrinkId($drinkId){
+	return in_array($drinkId, ConstArrays::get()->FOOD_MENU);
+}
+
+function isMotivationMaxDrink($drinkId){
+	return in_array($drinkId, array(SEA_EVENT_KAKIGOORI_DRINK_ID, SEA_EVENT_YAKISOBA_DRINK_ID, RAMUNE_DRINK_ID));
+}
+
+function isMotivationRefreshDrink($drinkId){
+	return in_array($drinkId, ConstArrays::get()->MOTIVATION_REFRESH_MENU);
+}
+
+function isEventWineDrink($drinkId){
+	if($drinkId >= WINE_OFFSET_ID && $drinkId < (WINE_OFFSET_ID + 100)){
+		return true;
+	}
+	return false;
+}
+
+function isChampagneEventDrink($drinkId){
+	if($drinkId >= CHAMPAGNE_OFFSET_ID && $drinkId < (CHAMPAGNE_OFFSET_ID + 11)){
+		return true;
+	}
+	return false;
+}
+
+function isOtosoEventDrink($drinkId){
+	if($drinkId >= OTOSO_OFFSET_ID && $drinkId < (OTOSO_OFFSET_ID + 10)){
+		return true;
+	}
+	return false;
+}
+
+function isFoodId($drinkId){
+	if($drinkId >= FOOD_OFFSET_ID && $drinkId < (FOOD_OFFSET_ID + 100)){
+		return true;
+	}
+	return false;
+}
+
+function getMotivationRefreshPoints($drinkId){
+	return ConstArrays::get()->MOTIVATION_REFRESH_POINTS[$drinkId];
+}
+
+function isMatsuriDrink($drinkId){
+	if($drinkId == RAMUNE_DRINK_ID){
+		return true;
+	}
+	return false;
+}
+
+function isSeaEventDrink($drinkId){
+	if($drinkId == SEA_EVENT_KAKIGOORI_DRINK_ID || $drinkId == SEA_EVENT_YAKISOBA_DRINK_ID){
+		return true;
+	}
+	return false;
+}
+
+function canSellByPoint($sellPlan){
+	if($sellPlan == 2 || $sellPlan == 3){
+		return true;
+	}
+	return false;
+}
+
+function isNoNeedMakeDrink($categoryId){
+	if($categoryId == 10 || $categoryId == 11 || $categoryId == 12 || $categoryId == 13){
+		return true;
+	}
+	return false;
+}
+
+function canSellByTender($sellPlan){
+	if($sellPlan == 1 || $sellPlan == 3){
+		return true;
+	}
+	return false;
+}
+
+function issets(){
+	$args = func_get_args();
+	if(empty($args)){
+		return false;
+	}
+	if(!is_array($args[0])){
+		return false;
+	}
+	if(isset($args[1])){
+		if(is_array($args[1])){
+			foreach($args[1] as $value){
+				if(!isset($args[0][$value])){
+					return false;
+				}
+			}
+		}else{
+			return false;
+		}
+	}
+	else{
+		return false;
+	}
+	return true;
+}
+
+function buildItemName($nameEn, $kindId, $colorId, $spFlag = false){
+    if ($spFlag === true) {
+        return sprintf("%s_%03d_%02d.png", $nameEn, $kindId, $colorId);
+    }
+	return sprintf("%s_%03d_%02d.gif", $nameEn, $kindId, $colorId);
+}
+
+function array_pickup($array, $pickUpKey){
+	$res = array();
+	foreach($array as $values){
+		foreach($values as $key =>$value){
+			if($key == $pickUpKey){
+				$res[] = $value;
+			}
+		}
+	}
+	return $res;
+}
+
+function replaceThumnail($thumbnail_url) {
+	$thumbnail_url = str_replace('s.jpg', 'm.jpg', $thumbnail_url);
+	return str_replace('76.gif', '40.gif', $thumbnail_url);
+}
+
+function stop($sentence, $file, $line){
+	exit('FATAL ERROR !!!!!!! '.$sentence.' => '.'file:'.$file.', line:'.$line);
+}
+
+/**
+ * ○分→○時間○分みたいにできるようにarray('hour'=>3, 'min'=>44)みたいに返す
+ */
+function min2hourmin($min){
+	$min = intval($min);
+	return array('hour'=>intval($min / 60), 'min'=>$min % 60);
+}
+
+function canWineGacha(){
+
+	return true;
+}
+
+/**
+ * isEventSakuraDrink
+ * お花見イベントカクテルかチェック
+ * @param integer $drinkId
+ * @return boolean
+ */
+function isEventSakuraDrink($drinkId){
+	if (in_array($drinkId, array(1919,1920,1921,1922,1923,1924,1925,1926))) {
+		return true;
+	}
+	return false;
+}
+
+function mySqlDateTimeToTimeStamp($datetime)
+{
+	$date_and_time = explode(" " , $datetime);
+	$date = explode("-" , $date_and_time[0]);
+	$time = explode(":" , $date_and_time[1]);
+
+	return mktime($time[0], $time[1], $time[2], $date[1],  $date[2], $date[0]);
+}
+
+function sanitizeAmebaId($v){
+	$l=strlen($v);
+	if ($l < 3) {
+		$v='___';
+	}elseif ($l > 24) {
+		$v='___';
+	}
+	$ngLetters=array('/',"'",'"',';',':','?','&','\\',' ',);
+	$substitutes=array('','','','','','','','','',);
+	$v=str_replace($ngLetters, $substitutes, $v);
+	return $v;
+
+}
+
+function sanitizeForSql($v){
+	$v=str_replace("'", "\\'", $v);
+	return "'" . $v . "'";
+}
+
+/**
+ *
+ * ログ収集サーバへのログ送信
+ * アメーバの統計に使用中
+ * @param array $params パラメータ
+ */
+function log_patriot($params){
+	switch (Configure::read('ENV_MODE')){
+		case 'PRODUCTION':
+		case 'TOUCH_PRODUCTION':
+			$d=0;
+			break;
+		//TODO スマホ用の設定
+		default:
+			$d=1;
+	}
+	if ($d == 0 && isset($_GET[OPENSOCIAL_OWNER_ID])){
+	    if (DEVICE_TYPE == 'SP') {
+	        $execstr='wget -q -O /dev/null "http://54.248.88.101:28080/?d=' . $d . '&opensocial_owner_id=' . $_GET[OPENSOCIAL_OWNER_ID];
+
+	        $params['user_agent'] = $_SERVER['HTTP_USER_AGENT'];
+	    } else {
+		    $execstr='wget -q -O /dev/null "http://54.248.88.101:18080/?d=' . $d . '&opensocial_owner_id=' . $_GET[OPENSOCIAL_OWNER_ID];
+	    }
+		if (is_array($params)){
+			foreach ($params as $key => $value){
+				$execstr .= '&' . urlencode($key) . '=' . urlencode($value);
+			}
+		}elseif (is_string($params)){
+			$execstr.= $params;
+		}
+		$execstr .= '" >/dev/null &';
+		exec($execstr);
+	}
+
+}
+
+function timeFromMicrotimeAccess($n){
+	return $n / 100 + 1312000000;
+}
+
+function flashCommonBackUrl($s){
+	return str_replace('/','_____',$s);
+}
+
+function randNum(){
+	$rnd=floor((getMicrotime() - time()) * 1000 + mt_rand(0,999)) % 1000;
+	$rnd /= 10;
+	return $rnd;
+}

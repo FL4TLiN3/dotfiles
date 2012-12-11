@@ -1,0 +1,174 @@
+package jp.co.talentmedia.kyabatuku.controller.payment;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import jp.co.talentmedia.TENGA.controller.MultiModelController;
+import jp.co.talentmedia.TENGA.exception.ApiException;
+import jp.co.talentmedia.TENGA.exception.Code;
+import jp.co.talentmedia.TENGA.model.GlobalTransactionModel;
+import jp.co.talentmedia.kyabatuku.model.GachaEvent;
+import jp.co.talentmedia.kyabatuku.model.PaymentInfo;
+import jp.co.talentmedia.kyabatuku.model.PresentItem;
+import jp.co.talentmedia.kyabatuku.model.UserAuth;
+import jp.co.talentmedia.kyabatuku.model.UserBottle;
+import jp.co.talentmedia.kyabatuku.model.UserDress;
+import jp.co.talentmedia.kyabatuku.model.UserGachaInfo;
+import jp.co.talentmedia.kyabatuku.model.UserParameter;
+import jp.co.talentmedia.kyabatuku.model.UserShopEventInfo;
+import jp.co.talentmedia.kyabatuku.model.UserWallet;
+import jp.co.talentmedia.kyabatuku.service.common.ameba.AuthService;
+import jp.co.talentmedia.kyabatuku.service.common.ameba.PaymentService;
+import jp.co.talentmedia.kyabatuku.service.gacha.GachaService;
+import jp.co.talentmedia.kyabatuku.service.gacha.ShopEventService;
+import jp.co.talentmedia.kyabatuku.service.item.ItemCategory;
+<<<<<<< HEAD
+import jp.co.talentmedia.kyabatuku.service.userItem.UserItemService;
+import jp.co.talentmedia.kyabatuku.util.ServerUtil;
+=======
+import jp.co.talentmedia.kyabatuku.service.user.UserService;
+import jp.co.talentmedia.kyabatuku.service.userItem.ItemLockManager;
+import jp.co.talentmedia.kyabatuku.service.userItem.UserItemsExecuter;
+>>>>>>> 94264d7691e80ac3a3d920ab7321a655f9ef8912
+
+public class CompleteGachaController extends MultiModelController implements UserItemsExecuter {
+    private String paymentId;
+    public void setPaymentId(String paymentId) { this.paymentId = paymentId; }
+    private Long userNo;
+    public void setUserNo(Long userNo) { this.userNo = userNo; }
+
+    @Override
+    public void get() {
+<<<<<<< HEAD
+        if (!ServerUtil.isLocalhost()) {
+            PaymentService paymentService = PaymentService.getInstance();
+            UserAuth auth = AuthService.getInstance().findUserAuth(userNo);
+            PaymentInfo paymentInfo = paymentService.getPaymentGacha(paymentId, auth.getAsId());
+            logging.info(paymentInfo);
+            ProcessStatus status = ProcessStatus.findById(paymentInfo.getProcessStatus());
+            switch (status) {
+                case UNPROCESSS:
+                case PROCESSING:
+                    throw new ApiException("message.E300", "was processing.", HttpServletResponse.SC_MULTIPLE_CHOICES);
+                case COMPLETE:
+                    if (1 == paymentInfo.getStatus().longValue()) {
+                    } else if (2 == paymentInfo.getStatus().longValue()) {
+                        setGachaData(paymentInfo);
+                    } else if (3 == paymentInfo.getStatus().longValue()) {
+                        // Amebaでエラー。rollback.
+                        rollback(paymentInfo);
+                    } else
+                        throw new ApiException(Code.E500.key, "");
+                    paymentInfo.save();
+                    break;
+                case FAIL:
+                    throw new ApiException(Code.E500.key, "failed to grant items.");
+                default:
+                    throw new ApiException(Code.E500.key, "Undefined Error.");
+            }
+        } else {
+            PaymentInfo temp = new PaymentInfo();
+            temp.query().equal("paymentId", paymentId);
+            List<PaymentInfo> list = temp.find();
+            if (list != null && !list.isEmpty()) {
+                PaymentInfo paymentInfo = list.get(0);
+                logging.info(paymentInfo);
+                ProcessStatus status = ProcessStatus.findById(paymentInfo.getProcessStatus());
+                switch (status) {
+                    case UNPROCESSS:
+                    case PROCESSING:
+                        throw new ApiException(Code.E400.key, "was processing.");
+                    case COMPLETE:
+                        if (1 == paymentInfo.getStatus().longValue()) {
+                        } else if (2 == paymentInfo.getStatus().longValue()) {
+                            setGachaData(paymentInfo);
+                        } else if (3 == paymentInfo.getStatus().longValue()) {
+                            rollback(paymentInfo);
+                        } else
+                            throw new ApiException(Code.E500.key, "other status.");
+                        paymentInfo.save();
+                        break;
+                    case FAIL:
+                        throw new ApiException(Code.E500.key, "failed to grant items.");
+                    default:
+                        throw new ApiException(Code.E500.key, "Undefined Error.");
+                }
+            } else
+                throw new ApiException(Code.E404);
+        }
+    }
+    private void setGachaData(PaymentInfo paymentInfo) {
+        GachaEvent temp = new GachaEvent();
+        this.event = temp.findById(paymentInfo.getEventId());
+        UserGachaInfo gachaInfo = new UserGachaInfo();
+        gachaInfo = gachaInfo.findById(paymentInfo.getGachaInfoId());
+        event.setUserInfo(gachaInfo);
+
+        this.coordeSetName = paymentInfo.getCoordeSetName();
+=======
+        ItemLockManager manager = new ItemLockManager(userNo);
+        manager.setUserItemsService(this);
+        manager.executeRequest();
+    }
+    @Override
+    public void executeRequest() {
+        PaymentService paymentService = PaymentService.getInstance();
+        UserAuth auth = AuthService.getInstance().findUserAuth(userNo);
+        PaymentInfo paymentInfo = paymentService.getPaymentGacha(paymentId, auth.getAsId());
+        logging.info(paymentInfo);
+        if (1 == paymentInfo.getStatus().longValue()) {
+        } else if (2 == paymentInfo.getStatus().longValue()) {
+            GachaService gachaService = GachaService.getInstance();
+            GachaEvent event = gachaService.findGachaEventByManageNo(paymentInfo.getManageNo());
+            paymentInfo.setEventId(event.getId());
+            
+            UserParameter parameter = UserService.getInstance().findUserParameter(userNo);
+            if (parameter == null)
+                throw new ApiException(Code.E404.key, "UserParameter is not found.");
+            UserWallet wallet = UserService.getInstance().findUserWallet(userNo);
+            if (wallet == null)
+                throw new ApiException(Code.E404.key, "UserWallet is not found.");
+            
+            List<GlobalTransactionModel> rets = gachaService.setPrizesToItems(parameter, paymentInfo.getPrizeIds(), event.getName());
+            gachaService.payment(event, event.getNumber(), paymentInfo.getPaymentMethod(), parameter, wallet);
+            UserGachaInfo gachaInfo = gachaService.updateGachaInfo(userNo, event, paymentInfo.getPaymentMethod());
+            UserShopEventInfo shopEventinfo = ShopEventService.getInstance().updateShopEventInfo(userNo, event, rets.get(0));
+            if (shopEventinfo != null)
+                paymentInfo.setCoordeSetName(shopEventinfo.getCoordeSetName());
+            List<PresentItem> bonuses = gachaService.sendBonus(event.getManageNo(), parameter.getUserNo(), event.getName());
+            gachaService.dataStoreGacha(rets, bonuses, gachaInfo, shopEventinfo, parameter, wallet);
+>>>>>>> 94264d7691e80ac3a3d920ab7321a655f9ef8912
+
+            List<PresentItem> presents = set(paymentInfo, rets);
+            if (gachaInfo != null)
+                paymentInfo.setGachaInfoId(gachaInfo.getId());
+            GachaService.getInstance().notifyPresentNews(presents, bonuses);
+        } else if (3 == paymentInfo.getStatus().longValue()) {
+        } else {
+            throw new ApiException(Code.E500);
+        }
+        paymentInfo.save();
+    }
+    private List<PresentItem> set(PaymentInfo paymentInfo, List<GlobalTransactionModel> rets){
+        paymentInfo.setPresents(new ArrayList<Long>());
+        paymentInfo.setItems(new ArrayList<Long>());
+        paymentInfo.setCategorys(new ArrayList<Long>());
+        List<PresentItem> presents = new ArrayList<PresentItem>();
+        
+        for (GlobalTransactionModel model : rets) {
+            if (model instanceof PresentItem) {
+                paymentInfo.getPresents().add(model.getId());
+                presents.add((PresentItem)model);
+            } else if (model instanceof UserDress) { 
+                UserDress dress = (UserDress)model;
+                paymentInfo.getItems().add(dress.getId());
+                paymentInfo.getCategorys().add(dress.getCategory().longValue());
+            } else if (model instanceof UserBottle) { 
+                UserBottle bottle = (UserBottle)model;
+                paymentInfo.getItems().add(bottle.getId());
+                paymentInfo.getCategorys().add(ItemCategory.Menu.getId().longValue());
+            }
+        }
+        return presents;
+    }
+}

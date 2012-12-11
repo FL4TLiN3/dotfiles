@@ -1,0 +1,567 @@
+<?php
+/**
+ * This file is loaded automatically by the app/webroot/index.php file after core.php
+ *
+ * This file should load/create any application wide configuration settings, such as 
+ * Caching, Logging, loading additional configuration files.
+ *
+ * You should also use this file to include any files that provide global functions/constants
+ * that your application uses.
+ *
+ * PHP 5
+ *
+ * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
+ * Copyright 2005-2011, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ *
+ * Licensed under The MIT License
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright 2005-2011, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @link          http://cakephp.org CakePHP(tm) Project
+ * @package       app.Config
+ * @since         CakePHP(tm) v 0.10.8.2117
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ */
+
+// Setup a 'default' cache configuration for use in the application.
+//Cache::config('default', array('engine' => 'File'));
+
+/**
+ * The settings below can be used to set additional paths to models, views and controllers.
+ *
+ * App::build(array(
+ *     'Plugin' => array('/full/path/to/plugins/', '/next/full/path/to/plugins/'),
+ *     'Model' =>  array('/full/path/to/models/', '/next/full/path/to/models/'),
+ *     'View' => array('/full/path/to/views/', '/next/full/path/to/views/'),
+ *     'Controller' => array('/full/path/to/controllers/', '/next/full/path/to/controllers/'),
+ *     'Model/Datasource' => array('/full/path/to/datasources/', '/next/full/path/to/datasources/'),
+ *     'Model/Behavior' => array('/full/path/to/behaviors/', '/next/full/path/to/behaviors/'),
+ *     'Controller/Component' => array('/full/path/to/components/', '/next/full/path/to/components/'),
+ *     'View/Helper' => array('/full/path/to/helpers/', '/next/full/path/to/helpers/'),
+ *     'Vendor' => array('/full/path/to/vendors/', '/next/full/path/to/vendors/'),
+ *     'Console/Command' => array('/full/path/to/shells/', '/next/full/path/to/shells/'),
+ *     'locales' => array('/full/path/to/locale/', '/next/full/path/to/locale/')
+ * ));
+ *
+ */
+
+/**
+ * Custom Inflector rules, can be set to correctly pluralize or singularize table, model, controller names or whatever other
+ * string is passed to the inflection functions
+ *
+ * Inflector::rules('singular', array('rules' => array(), 'irregular' => array(), 'uninflected' => array()));
+ * Inflector::rules('plural', array('rules' => array(), 'irregular' => array(), 'uninflected' => array()));
+ *
+ */
+
+/**
+ * Plugins need to be loaded manually, you can either load them one by one or all of them in a single call
+ * Uncomment one of the lines below, as you need. make sure you read the documentation on CakePlugin to use more
+ * advanced ways of loading plugins
+ *
+ * CakePlugin::loadAll(); // Loads all plugins at once
+ * CakePlugin::load('DebugKit'); //Loads a single plugin named DebugKit
+ *
+ */
+
+/**
+ * CakePHP用携帯プラグイン「CakeKtaiLibrary」
+ * Copyright 2009-2012 ECWorks ( http://www.ecworks.jp/ )
+ * github [ https://github.com/MASA-P/cake_ktai_library ]
+ */ 
+// CakePlugin::load('CakeKtaiLibrary');
+
+/**
+ * 定数ファイル読み込み
+ */
+config('const');
+
+/**
+ * メンテモード
+ * 0:なし(通常) 1:告知 2:一部遮断 3:完全遮断
+ */
+define('MAINTENANCE_MDOE', 0);
+define('MAINTENANCE_NOTICE_MSG', '<a href="/member/info_detail/1">ﾒﾝﾃﾅﾝｽのおしらせ</a>');
+
+/**
+ * 環境情報
+ *  :サンプル
+ *   define('SNS_APP_ID',                       APP_ID_TEST);
+ *   define('TITLE',                            '鏡の国の魔法使い_ﾃｽﾄ');                        // ブラウザ表示用タイトル
+ *   define('SYSTEM_TITLE',                     '鏡の国の魔法使い_ﾃｽﾄ');                        // サイトタイトル
+ *   define('SITE_DOMAIN',                      'magic-test-mx.sync-loud.com');                 // サイトドメイン
+ *   define('SITE_APP_URL',                     'http://magic-test-mx.sync-loud.com');          // サイトURL
+ *   define('CONSUMER_KEY',                     '492c65c890205a010315');                        // コンシューマーキー
+ *   define('CONSUMER_SECRET_KEY',              '9893165c370dbbb4f8ab73a51966f2252c451440');    // コンシューマシークレットキー
+ *   define('OPEN_SOCIAL_API_ENDPOINT',         'http://api.mixi-platform.com/os/0.8/');        // APIエンドポイント
+ *   define('OPEN_SOCIAL_API_PAYMENT_ENDPOINT', 'http://api.mixi-platform.com/os/0.8/');        // 課金用APIエンドポイント
+ *   define('AP_SERVER_URL',                    'http://ma.test.mixi.net/'.SNS_APP_ID);              // SNS アプリケーションサーバー(ガジェットサーバー)URL
+ *   define('MEDIA_SERVER_URL',                 'http://mm.test.mixi.net/'.SNS_APP_ID);              // SNS メディアサーバーURL(ガジェットとおなじであれば同じ)
+ *   define('IMAGE_SERVER_URL',                '/www/magic_test/avatar/img/');                  // 画像URL
+ *   define('AVATAR_IMAGE_PATH',                '/www/magic_test/avatar/img/');                 // アバター画像保存パス
+ */
+if (ENV_TEST) {
+    define('SNS_APP_ID',                       20831);
+    define('TITLE',                            'ｷｽの続きはﾐｯｼｮﾝの後で_DEV');
+    define('SYSTEM_TITLE',                     'ｷｽの続きはﾐｯｼｮﾝの後で_DEV');
+    define('SITE_DOMAIN',                      'agent-test-ca.sync-loud.com');
+    define('SITE_APP_URL',                     'http://agent-test-ca.sync-loud.com');
+    define('CONSUMER_KEY',                     '75d80aab5be33c4a42195b01a8b751183d07efea0a33ce5ddf1e057f6f86dab2');
+    define('CONSUMER_SECRET_KEY',              '1c08b47fd82f9683f5bbf61a3e28565c4ee4c433e8388d1ec929667c814359e5');
+    define('OPEN_SOCIAL_API_ENDPOINT',         'https://api.sb-amebame.com/');
+    define('OPEN_SOCIAL_API_PAYMENT_ENDPOINT', 'https://api.sb-amebame.com/');
+    define('AP_SERVER_URL',                    'http://mgadget-sb.gree.jp/'.SNS_APP_ID);
+    define('AP_SERVER_S_URL',                  'http://mixi.jp/run_appli.pl?id='.SNS_APP_ID);
+    define('MEDIA_SERVER_URL',                 'http://mgadget-sb.gree.jp/'.SNS_APP_ID);
+    define('IMAGE_SERVER_URL',                 'http://agent-test-ca.sync-loud.com');
+    define('AVATAR_IMAGE_PATH',                '/var/avatar/agent/ca/');
+    define('AMEBA_AUTH_ENDPOINT',              'https://auth.sb-amebame.com/');
+    define('AMEBA_REGIST_URL',                 'http://s.sb-amebame.com/#register');
+    define('AMEBA_JS_URL',                     'http://stat.sb-amebame.com/pub/sdk/js');
+    define('AMEBA_INVITE_URL',                 'https://s.sb-amebame.com/#invitaion/');
+    define('AMEBA_AUTH_SCOPE',                 'profile,coin');
+} elseif (ENV_STAGING) {
+    define('SNS_APP_ID',                       3244);
+    define('TITLE',                            '鏡の国の魔法使い_ﾃｽﾄ');
+    define('SYSTEM_TITLE',                     '鏡の国の魔法使い_ﾃｽﾄ');
+    define('SITE_DOMAIN',                      'magic-test-mx.sync-loud.com');
+    define('SITE_APP_URL',                     'http://magic-test-mx.sync-loud.com');
+    define('CONSUMER_KEY',                     '492c65c890205a010315');
+    define('CONSUMER_SECRET_KEY',              '9893165c370dbbb4f8ab73a51966f2252c451440');
+    define('OPEN_SOCIAL_API_ENDPOINT',         'http://api.mixi-platform.com/os/0.8/');
+    define('OPEN_SOCIAL_API_PAYMENT_ENDPOINT', 'http://api.mixi-platform.com/os/0.8/');
+    define('AP_SERVER_URL',                    'http://ma.mixi.net/'.SNS_APP_ID);
+    define('AP_SERVER_S_URL',                  'http://mixi.jp/run_appli.pl?id='.SNS_APP_ID);
+    define('MEDIA_SERVER_URL',                 'http://mm.mixi.net/'.SNS_APP_ID);
+    define('IMAGE_SERVER_URL',                 'http://mc.mixi.net/35788_2/');
+    define('AVATAR_IMAGE_PATH',                '/www/magic_test/avatar/img/');
+}  elseif (ENV_PRODUCTION) {
+    define('SNS_APP_ID',                       3244);
+    define('TITLE',                            '鏡の国の魔法使い_ﾃｽﾄ');
+    define('SYSTEM_TITLE',                     '鏡の国の魔法使い_ﾃｽﾄ');
+    define('SITE_DOMAIN',                      'magic-test-mx.sync-loud.com');
+    define('SITE_APP_URL',                     'http://magic-test-mx.sync-loud.com');
+    define('CONSUMER_KEY',                     '492c65c890205a010315');
+    define('CONSUMER_SECRET_KEY',              '9893165c370dbbb4f8ab73a51966f2252c451440');
+    define('OPEN_SOCIAL_API_ENDPOINT',         'http://api.mixi-platform.com/os/0.8/');
+    define('OPEN_SOCIAL_API_PAYMENT_ENDPOINT', 'http://api.mixi-platform.com/os/0.8/');
+    define('AP_SERVER_URL',                    'http://ma.mixi.net/'.SNS_APP_ID);
+    define('AP_SERVER_S_URL',                  'http://mixi.jp/run_appli.pl?id='.SNS_APP_ID);
+    define('MEDIA_SERVER_URL',                 'http://mm.mixi.net/'.SNS_APP_ID);
+    define('IMAGE_SERVER_URL',                 'http://mc.mixi.net/35788_2/');
+    define('AVATAR_IMAGE_PATH',                '/www/magic_test/avatar/img/');
+}
+
+
+
+
+
+
+
+
+
+/**
+ * キャリア判定  変更
+ * 携帯用PHPライブラリ「Lib3gk」説明書
+ * Copyright 2009-2011 ECWorks ( http://www.ecworks.jp/ )
+ * [ https://github.com/MASA-P/cake_ktai_library/tree/master/vendors/lib3gk ]
+ */
+require_once(VENDORS . '/lib3gk/libs/lib3gk.php');
+$ktai = Lib3gk::get_instance();
+
+//ビュー側が未定
+//$ktai->_params = array(
+//    'use_img_emoji' => true, 					//画像絵文字を使用
+//    'input_encoding'  => KTAI_ENCODING_UTF8, 	//入力をUTF-8に変更
+//    'output_encoding' => KTAI_ENCODING_UTF8, 	//出力をUTF-8に変更
+//);
+
+//var_dump($ktai->get_version());
+//var_dump($ktai->is_imode());
+//var_dump($ktai->is_softbank());
+//var_dump($ktai->is_vodafone());
+//var_dump($ktai->is_jphone());
+//var_dump($ktai->is_ezweb());
+//var_dump($ktai->is_emobile());
+//var_dump($ktai->is_iphone());
+//var_dump($ktai->is_android());
+//var_dump($ktai->is_ktai());
+
+/**
+ * キャリア判定
+ */
+ require_once(VENDORS . '/mobile/common.php');
+
+define('UAGENT_IOS',     'iOS');
+define('UAGENT_ANDROID', 'Android');
+
+//if (preg_match('/^.*(iPhone|iPad).*$/', $_SERVER['HTTP_USER_AGENT'])) {
+if ($ktai->is_iphone()) {
+    define('UAGENT_KIND',      UAGENT_IOS);
+    define('IS_FIRTURE_PHONE', false);
+    define('IS_SMART_PHONE',   true);
+    define('IS_IOS',           true);
+    define('IS_ANDROID',       false);
+
+//} elseif (preg_match('/^.*(Android).*$/', $_SERVER['HTTP_USER_AGENT'])) {
+} else if ($ktai->is_android()) {
+    define('UAGENT_KIND',      UAGENT_ANDROID);
+    define('IS_FIRTURE_PHONE', false);
+    define('IS_SMART_PHONE',   true);
+    define('IS_IOS',           false);
+    define('IS_ANDROID',       true);
+
+} else if (_is_ipad()) {
+//利用できない画面を
+    echo "ipadです";
+    exit();
+} elseif (_is_ipod()) {
+    //いるかな？
+    echo "ipodです";
+    exit();
+} else {
+    //require_once(VENDORS . '/mobile/WebRequest.php');
+    //$g_request = new WebRequest();
+
+    //if ($g_request->isMobile()) {
+    if ($ktai->is_ktai()) {
+
+        //require_once(VENDORS . '/mobile/WebRequest.php');
+        //$g_request = new WebRequest();
+        
+        define('IS_FIRTURE_PHONE', true);
+        define('IS_SMART_PHONE',   false);
+        define('IS_IOS',           false);
+        define('IS_ANDROID',       false);
+
+        //既存の判定との置き換えに
+        $carrier = $ktai->get_carrier();
+        $carrier_arr = array('non','I','E','S');
+        $carrier_longname_arr = array('NON','DoCoMo','EZweb','SoftBank');
+        $machineinfo = $ktai->get_machineinfo();
+
+//var_dump($g_request->getMobile()->getCarrierShortName());
+//var_dump($ktai->get_carrier());
+//var_dump($g_request->getMobileUID());
+//var_dump($ktai->get_uid());
+//var_dump($g_request->getMobile()->getCarrierLongName());
+//var_dump($g_request->getMobile()->getCarrierShortName());
+//var_dump($g_request->getMobile()->getModel());
+//var_dump($ktai->get_machineinfo());
+//var_dump($machineinfo['machine_name']);        
+
+        //define('UAGENT_KIND', $g_request->getMobile()->getCarrierShortName() );
+        //define('MOBILE_UID', $g_request->getMobileUID() );
+        //define('CARRIER_LONG_NAME', $g_request->getMobile()->getCarrierLongName());
+        //define('CARRIER_SHORT_NAME', $g_request->getMobile()->getCarrierShortName());
+        //define('CARRIER_DEVICE', $g_request->getMobile()->getModel());
+
+        define('UAGENT_KIND', $carrier_arr[$carrier] );
+        define('MOBILE_UID', $ktai->get_carrier() );
+        define('CARRIER_LONG_NAME', $carrier_longname_arr[$carrier]);
+        define('CARRIER_SHORT_NAME', $carrier_arr[$carrier]);
+        define('CARRIER_DEVICE', $machineinfo['machine_name']);
+        
+        //-----------------------------------------------
+        //define('CARRIER_QUERY', $g_request->getQueryString());
+        //if($g_request->isMobile()){
+        //    if($g_request->getMobile()->isDoCoMo()){
+        //        // こうしないとドコモ端末から端末IDを送信したとき、セッションが継続されないようだ
+        //		//remarked by twong, this will decided at core.php later
+        //        //Configure::write('Session.checkAgent', false);// falseにしなければならない端末からの接続のときのみ、falseにしたほうがよい
+        //    }else{
+        //        // ドコモ以外は必要に応じて実装
+        //    }
+        //}
+    } else {
+        define('IS_SMART_PHONE',   false);
+        define('IS_FIRTURE_PHONE', false);
+    }
+}
+
+if (IS_SMART_PHONE) {
+    App::build(array(
+        'View' => array(APP.'ViewS/')
+    ));
+    // 画像サイズ
+    define('ABATAR_SIZE_THUMBNAIL_WIDTH',  120);
+    define('ABATAR_SIZE_THUMBNAIL_HEIGHT', 180);
+    define('ABATAR_SIZE_LIST_WIDTH',  80);
+    define('ABATAR_SIZE_LIST_HEIGHT', 120);
+    define('ABATAR_SIZE_ALL_WIDTH',  200);
+    define('ABATAR_SIZE_ALL_HEIGHT', 300);
+    define('ABATAR_SIZE_ITEM_LIST_WIDTH',  80);
+    define('ABATAR_SIZE_ITEM_LIST_HEIGHT', 120);
+    
+    define('ITEM_SIZE_LIST_WIDTH',  80);
+    define('ITEM_SIZE_LIST_HEIGHT', 80);
+    define('ITEM_SIZE_ALL_WIDTH',  160);
+    define('ITEM_SIZE_ALL_HEIGHT', 160);
+    define('CHARA_SIZE_ALL_WIDTH',  70);
+    define('CHARA_SIZE_ALL_HEIGHT', 81);
+    define('REWARD_SIZE_ALL_WIDTH',  50);
+    define('REWARD_SIZE_ALL_HEIGHT', 50);
+    define('BUTTON_SIZE_NORMAL_WIDTH',  140);
+    define('BUTTON_SIZE_NORMAL_HEIGHT', 43);
+
+} elseif (IS_FIRTURE_PHONE) {
+    App::build(array(
+        'View' => array(APP.'ViewF/')
+    ));
+    // 画像サイズ
+    define('ABATAR_SIZE_THUMBNAIL_WIDTH',  100);
+    define('ABATAR_SIZE_THUMBNAIL_HEIGHT', 150);
+    define('ABATAR_SIZE_LIST_WIDTH',  70);
+    define('ABATAR_SIZE_LIST_HEIGHT', 105);
+    define('ABATAR_SIZE_ALL_WIDTH',  200);
+    define('ABATAR_SIZE_ALL_HEIGHT', 300);
+    define('ABATAR_SIZE_ITEM_LIST_WIDTH',  80);
+    define('ABATAR_SIZE_ITEM_LIST_HEIGHT', 120);
+    
+    define('ITEM_SIZE_LIST_WIDTH',  80);
+    define('ITEM_SIZE_LIST_HEIGHT', 80);
+    define('ITEM_SIZE_ALL_WIDTH',  160);
+    define('ITEM_SIZE_ALL_HEIGHT', 160);
+    
+    define('CHARA_SIZE_ALL_WIDTH',  70);
+    define('CHARA_SIZE_ALL_HEIGHT', 81);
+    
+    define('REWARD_SIZE_ALL_WIDTH',  50);
+    define('REWARD_SIZE_ALL_HEIGHT', 50);
+    
+    define('BUTTON_SIZE_NORMAL_WIDTH',  140);
+    define('BUTTON_SIZE_NORMAL_HEIGHT', 43);
+
+}
+
+/**
+ *
+ * 共通関数定義
+ * 
+ * アプリ内で汎用的に使用する簡単な関数を定義
+ */
+
+/**
+ * 文字コード取得
+ */
+function syn_encoding($str)
+{
+    return mb_detect_encoding($str);
+}
+
+/**
+ * 文字コードチェック
+ * 入力された文字列がUTF-8であればtrueを返す
+ */
+function syn_chack_encoding($str)
+{
+    if (syn_encoding($str) == 'UTF-8') {
+        return true;
+    }
+    
+    return false;
+}
+
+/**
+ * 文字コード変換
+ */
+function syn_convert_encoding($data)
+{
+    if (!syn_chack_encoding($data)) {
+        mb_convert_variables('UTF-8', 'SJIS,EUC-JP,JIS', $data);
+    }
+    
+    return $data;
+}
+
+/**
+ * アプリ内日付取得
+ */
+function syn_app_date($over_date_time = 4)
+{
+    return date("Y-m-d", strtotime("-" . $over_date_time . "hour"));
+}
+
+/**
+ * アクション時刻表示
+ * 12時間以内だと「**時間前」と表示する
+ */
+function syn_action_taime($action_date, $display_remain_time = 12)
+{
+    $display_action_time = '';
+
+    $now_time = time();
+    $action_time = strtotime($action_date);
+    
+    $tmp_diff_time = $now_time - $action_time;
+    if ($tmp_diff_time > 0) {
+        $diff_hour = floor($tmp_diff_time/(60*60));
+        $diff_min  = floor(($tmp_diff_time%(60*60))/60);
+
+        if ($diff_hour > 0) {
+            if ($diff_hour > $display_remain_time) {
+                return $action_date;
+            }
+            $remain_time .= $diff_hour.'時間前';
+        } else {
+            if ($diff_min > 0) {
+                $remain_time .= $diff_min.'分前';
+            } else {
+                $remain_time .= '1分前';
+            }
+        }
+    }
+    
+    return $remain_time;
+}
+
+/**
+ * 日付確認
+ * 指定した日付がアプリ内日付変更線を超えているか確認
+ */
+function syn_is_over_date($date)
+{
+    if (strtotime(date("Y-m-d", strtotime($date))) < strtotime(syn_app_date())) {
+        return true;
+    }
+    return false;
+}
+
+/**
+ * 日付比較
+ * 現在の時刻から対象の時刻を引いた値を返す(秒)
+ */
+function syn_compare_date($target_datetime)
+{
+    $target_datetime  = strtotime($target_datetime);
+    $current_datetime = strtotime(date('Y-m-d H:i:s'));
+    
+    $diff=$current_datetime-$target_datetime;
+    
+    return $diff;
+}
+
+/**
+ * 残り時間表示用変換
+ * 残り時間がない場合は空文字を返す
+ */
+function syn_format_remain_time($end_time, $now_time = null, $display_remain_time = null)
+{
+    $remain_time = '';
+    
+    if (is_null($now_time)) {
+        $now_time = time();
+    }
+    
+    $tmp_diff_time = $end_time - $now_time;
+    if( $tmp_diff_time > 0 ){
+        $diff_hour = floor($tmp_diff_time/(60*60));
+        $diff_min  = floor(($tmp_diff_time%(60*60))/60);
+
+        if ($diff_hour > 0) {
+            if (!is_null($display_remain_time)) {
+                if ($diff_hour > $display_remain_time) {
+                    return '';
+                }
+            }
+            $remain_time .= $diff_hour.'時間' . $diff_min.'分';
+        } else {
+            if ($diff_min > 0) {
+                $remain_time .= $diff_min.'分';
+            } else {
+                $remain_time .= '1分未満';
+            }
+        }
+    }
+    
+    return $remain_time;
+}
+ 
+/**
+ * 統計用テーブルの日付情報を取得
+ */
+function syn_stats_date()
+{
+    $date = date('Ymd');
+    $hour = date('G');
+    
+    $ret['id'] = $date.$hour;
+    $ret['date'] = substr($date,0,4).'-'.substr($date,4,2).'-'.substr($date,6,2);
+    $ret['hour'] = $hour;
+    
+    return $ret;
+}
+
+/**
+ * 合成した時に追加分となる魔力を計算
+ */
+function syn_cal_composinion_magic($magic)
+{
+    return floor($magic * 0.3);
+}
+
+/**
+ * NGワードチェック
+ */
+function syn_ng_word($string)
+{
+    $ret = false;
+    
+    $f = fopen(VENDORS.'/ngword/ngword.txt', 'r');
+    while ($ng = fgets($f)) {
+         $ng = rtrim ($ng);
+         if (preg_match('/('.$ng.')/', $string)) {
+            $ret = true;
+            break;
+        }
+    }
+    fclose($f);
+    $f = null;
+    
+    if (!$ret) {
+        $f = fopen(VENDORS.'/ngword/ngformat.txt', 'r');
+        while ($ng = fgets($f)) {
+            $ng = rtrim ($ng);
+            if (preg_match('/'.$ng.'/', $string)) {
+                $ret = true;
+                break;
+            }
+        }
+        fclose($f);
+        $f = null;
+    }
+    
+    return $ret;
+}
+
+/**
+ * iPad チェック
+ */
+function _is_ipad(){
+    $_ret = false;
+    if ( preg_match( '/iPad/i', $_SERVER['HTTP_USER_AGENT'] ) ) {
+        $_ret = true;
+    }
+    return $_ret;
+}
+
+/**
+ * iPod チェック
+ */
+function _is_ipod(){
+    $_ret = false;
+    if ( preg_match( '/iPod/i', $_SERVER['HTTP_USER_AGENT'] ) ) {
+        $_ret = true;
+    }
+    return $_ret;
+}
+
+
+
+
+
+
+
+
+
+

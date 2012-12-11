@@ -1,0 +1,7 @@
+watch(/(src|spec)\/.*\.js/) { |md|
+    system("echo")
+    system("date")
+    system("jake concat")
+    system("sleep 1")
+    system("cp build/Tenjoh.js ../moshikyaba/war/js/Tenjoh.js")
+}

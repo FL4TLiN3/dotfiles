@@ -8,18 +8,23 @@ filetype off
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
+" 必須bundle
 Bundle 'gmarik/vundle'
 
+" 重要bundle
+Bundle 'railscasts'
 Bundle 'fugitive.vim'
 Bundle 'surround.vim'
 Bundle 'mru.vim'
 let MRU_Auto_Close=0
 let MRU_Max_Entries=100000
 let MRU_Exclude_Files="^/tmp/.*\|^/var/tmp/.*"
-Bundle 'The-NERD-tree'
+Bundle 'The-NERD-Tree'
+Bundle 'jistr/vim-nerdtree-tabs'
+map <F1> <plug>NERDTreeTabsToggle<CR>
 Bundle 'The-NERD-Commenter'
-nmap <Leader>/ <Plug>NERDCommenterToggle
-vmap <Leader>/ <Plug>NERDCommenterToggle
+nmap <leader>/ <Plug>NERDCommenterToggle
+nmap <leader>/ <Plug>NERDCommenterToggle
 let NERDShutUp = 1
 Bundle 'EasyMotion'
 Bundle 'L9'
@@ -28,19 +33,17 @@ let g:fuf_keyOpen = '<Tab>'
 let g:fuf_keyOpenTabpage = '<CR>'
 nnoremap bf :<C-u>FufFile **/<CR>
 nnoremap br :<C-u>FufMruFile<CR>
+Bundle 'AutoClose'
 
-" Javascript
-Bundle 'jelera/vim-javascript-syntax'
-
-" Colorscheme
-Bundle 'xoria256.vim'
+" javascrit bundle
+Bundle 'JavaScript-syntax'
+Bundle 'pangloss/vim-javascript'
 
 "------------------------------------------------------------
 " General options
 "
 filetype indent plugin on
 syntax on
-colorscheme xoria256
 set number
 set title
 set showmode
@@ -68,7 +71,6 @@ set mouse=a
 set notimeout ttimeout ttimeoutlen=200
 set pastetoggle=<F11>
 set autoindent
-set tabstop<
 set shiftwidth=4
 set softtabstop=4
 set expandtab
@@ -95,3 +97,9 @@ augroup BufferAu
     autocmd!
     autocmd BufNewFile,BufRead,BufEnter * if isdirectory(expand("%:p:h")) && bufname("%") !~ "NERD_tree" | cd %:p:h | endif
 augroup END
+
+" settings for tab
+set showtabline=2
+nnoremap <F2> <plug>tabrewind<CR>
+nnoremap <F3> <plug>tablast<CR>
+nnoremap <F3> <plug>tabclose<CR>

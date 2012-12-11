@@ -1,0 +1,18 @@
+[user]
+	name = HiranoMasaaki
+	email = hirano_masaaki@quunapp.com
+[color]
+	ui = auto
+[alias]
+	co = checkout
+	c = commit
+	s = status
+	br = branch -a
+        hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+	ci = commit
+	st = status
+[core]
+	excludesfile = /Users/hirano_masaaki_gn/.gitignore
+	editor = /usr/bin/vim
+	excludesfile = /Users/hirano_masaaki_gn/.gitignore
+	excludesfile = ~/.gitignore

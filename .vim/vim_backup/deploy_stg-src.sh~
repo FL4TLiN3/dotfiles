@@ -1,0 +1,144 @@
+#!/bin/bash
+
+################################################################################
+#
+# ソースの STG デプロイシェル。
+#
+# 使い方: 
+#       0)  事前に各サーバに apache （fm01 のみ www-data）ユーザで 
+#           SSH ログインできるか確認する。
+#
+#       1)  SRC にコピー元のパスをセットする。
+#           ex.) SRC=/home/foo/svn/ameba_bar/branches/aws_release
+#
+#       2)  KEY に秘密鍵のパスをセットする。
+#       2)  このシェルを実行する。
+#
+################################################################################
+
+################################################################################
+# 設定。正しく行わないとエラーになります。
+################################################################################
+
+SRC=/root/svn/ameba_bar/branches/aws_release
+KEY=/root/.ssh/id_rsa.deploy
+
+
+########################################
+# web-fp a
+#175.41.253.144
+#54.248.88.28
+#54.248.88.134
+#54.248.88.136
+
+# web-fp b
+#54.248.88.29
+#54.248.88.31
+#54.248.88.135
+#54.248.88.137
+
+# STG は全部。
+#fm03.minnanobar.quunapp.com
+#54.248.88.28
+#54.248.88.29
+#175.41.253.144
+#54.248.88.31
+#54.248.88.134
+#54.248.88.135
+#54.248.88.136
+#54.248.88.137
+
+FP_HOST=(
+fm03.minnanobar.quunapp.com
+175.41.253.144
+54.248.88.28
+54.248.88.29
+54.248.88.31
+54.248.88.126
+54.248.88.129
+54.248.88.136
+54.248.88.135
+54.248.88.134
+54.248.88.137
+)
+
+########################################
+
+SP_HOST=(
+54.248.88.25
+54.248.88.34
+54.248.88.36
+54.248.88.37
+54.248.88.131
+54.248.88.133
+)
+
+
+######################################################################
+# ここから下はいじらないでください。
+######################################################################
+# アプリのコードをアップするための rsync 。
+export RSYNC_RSH="/usr/bin/ssh -i $KEY"
+RSYNC="rsync -aC --exclude gadget.xml  --exclude 'app/webroot/data/users/*' --include app/webroot/data/users/0/"
+
+# Ubuntu
+USER_U=www-data
+# Amazon Linux
+USER_A=apache
+
+# アップ先。
+FP_DST="/var/www/minnanobar_stg"
+SP_DST="/var/www/sp_minnanobar_stg"
+
+########################################
+# Check source directory.
+#SRC="$1"
+if [ ! -e "$SRC" ]; then
+    echo "'$SRC' は存在しないようです。"
+    exit 1;
+fi
+
+# 現状はディレクトリのみ許可。
+if [ ! -d "$SRC" ]; then
+    echo "ディレクトリ以外は指定できません。すみません。ごめんなさい。反省してます。"
+    exit 1
+fi
+
+# copy css-orignal/* to css
+css_flg=0
+if [ -e "$SRC/app/webroot/css" ]; then
+    css_flg=1
+    pushd "$SRC/app/webroot" > /dev/null
+    rsync -aC css_original/ css 
+    popd > /dev/null
+fi
+
+########################################
+# FM01
+h=fm01.minnanobar.quunapp.com
+echo $h
+$RSYNC "$SRC/" $USER_U@"$h:$FP_DST" || { echo "rsync error. $h:$FP_DST"; exit 3; }
+$RSYNC "$SRC/" $USER_U@"$h:$SP_DST" || { echo "rsync error. $h:$SP_DST"; exit 3; }
+
+########################################
+# FP
+for h in ${FP_HOST[@]}; do
+    echo FP: $h
+    $RSYNC "$SRC/" $USER_A@"$h:$FP_DST"
+    # エラーで停止版
+    #$RSYNC "$SRC/" $USER_A@"$h:$FP_DST" || { echo "rsync error. $h:$FP_DST"; exit 3; }
+done
+
+########################################
+# SP
+for h in ${SP_HOST[@]}; do
+    echo SP: $h
+    $RSYNC "$SRC/" $USER_A"@$h:$SP_DST"
+    # エラーで停止版
+    #$RSYNC "$SRC/" $USER_A"@$h:$SP_DST" || { echo "rsync error. $h:$SP_DST"; exit 3; }
+done
+
+# delete css/*
+if [ $css_flg -ne 0 ]; then
+    rm -rf "$SRC"/app/webroot/css/*
+fi

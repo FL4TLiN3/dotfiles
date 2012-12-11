@@ -1,0 +1,137 @@
+<header id="header" class="link01" data-partial="/admin/_common/header.html" data-name="Header"></header>
+<div id="mainContents">
+    <h1>ユーザー数：{{userCount|comma|$span}}&nbsp;({{tutorialCount|comma|$span}})</h1>
+    <h1>DailyActiveUsers</h1>
+    <ul data-widget="Repeat" data-from="dauList" data-item="dau">
+        <li>{{dau.year}}/{{dau.month | zero}}/{{dau.day | zero}}：{{dau.count | comma}}</li>
+    </ul>
+<<<<<<< HEAD
+    <h1>BillingUniqueUser</h1>
+    <ul data-widget="Repeat" data-from="bllingList" data-item="blling">
+        <li>{{blling.year}}/{{blling.month | zero}}/{{blling.day | zero}}：{{blling.unique | comma}}：￥{{blling.billing | comma}}</li>
+    </ul>
+    <div id="chart_div" style="width: 900px; height: 500px;"></div>
+=======
+    <br/>
+    <h1>Billing</h1>
+    <table>
+    <thead>
+    <tr>
+        <th width="150px"></th>
+        <th width="100px">課金UU</th>
+        <th width="100px">課金率</th>
+        <th width="100px">ARPU</th>
+        <th width="100px">ARPPU</th>
+        <th width="100px">件数</th>
+        <th width="100px">250円</th>
+        <th width="100px">500円</th>
+        <th width="100px">1,000円</th>
+        <th width="100px">2,000円</th>
+        <th width="100px">3,000円</th>
+        <th width="100px">5,200円</th>
+        <th width="100px">8,500円</th>
+        <th width="100px">売上</th>
+    </tr>
+    </thead>
+    <tbody data-widget="Repeat" data-from="billingList" data-item="billingItem">
+    <tr style="text-align: center">
+        <td style="text-align: left">{{billingItem.year}}/{{billingItem.month | zero}}/{{billingItem.day | zero}}&nbsp;({{billingItem.week | week}})</td>
+        <td>{{billingItem.unique | comma}}</td>
+        <td>{{billingItem.unique | percent player:userCount | comma}}</td>
+        <td>{{billingItem.billing | arpu players:dauList index:$index | comma}}</td>
+        <td>{{billingItem.billing | arppu player:billingItem.unique | comma}}</td>
+        <td>{{billingItem.count | comma}}</td>
+        <td>{{billingItem.tier1 | comma}}</td>
+        <td>{{billingItem.tier2 | comma}}</td>
+        <td>{{billingItem.tier3 | comma}}</td>
+        <td>{{billingItem.tier4 | comma}}</td>
+        <td>{{billingItem.tier5 | comma}}</td>
+        <td>{{billingItem.tier6 | comma}}</td>
+        <td>{{billingItem.tier7 | comma}}</td>
+        <td>{{billingItem.billing | comma}}円</td>
+    </tr>
+    </tbody>
+    </table>
+>>>>>>> 94264d7691e80ac3a3d920ab7321a655f9ef8912
+</div>
+<script type="text/javascript">
+$controller = function() {
+    var self = this,
+        PAGE_SIZE = 7;
+    self.dauList = [];
+<<<<<<< HEAD
+    self.bllingList = [];
+=======
+    self.billingList = [];
+>>>>>>> 94264d7691e80ac3a3d920ab7321a655f9ef8912
+    self.page = 1;
+    var floor = function(value, place) {
+        var digit = Math.pow(10, place), i = value * digit;
+        i = Math.floor(i);
+        return i / digit;
+    };
+    var loadDAU = function() {
+        var today = new Date(),
+            url = $tenjoh.Util.getQueryUrl('/admin/dau/list', self.page, PAGE_SIZE, {});
+        $tenjoh.XHR.get({
+            url: url,
+            cashe: false,
+            success: function(responseText) {
+                var dauInfo = JSON.parse(responseText);
+                self.dauList = dauInfo.list;
+                self.getWatcher().sync('dauList');
+            }
+        });
+    };
+    var loadBillingData = function() {
+        $tenjoh.XHR.get({
+            url: '/admin/billing/billingData?pageSize=7',
+            cashe: false,
+            success: function(responseText) {
+                var billingInfo = JSON.parse(responseText);
+                self.billingList = billingInfo.billingList;
+                self.getWatcher().sync('billingList');
+            }
+        });
+    };
+    var loadUserCount = function() {
+        $tenjoh.XHR.get({
+            url: '/user/count',
+            cashe: false,
+            success: function(responseText) {
+                var userInfo = JSON.parse(responseText);
+                self.userCount = userInfo.count;
+                self.getWatcher().sync('userCount');
+                self.tutorialCount = userInfo.tutorialCount;
+                self.getWatcher().sync('tutorialCount');
+            }
+        });
+    };
+    self.load = function() {
+        loadDAU();
+        loadBillingData();
+        loadUserCount();
+    };
+    $tenjoh.UI.Fillter.addFilter('zero', function(value, controller, options) {
+        return zeroPadding('' + value, 2);
+    });
+    $tenjoh.UI.Fillter.addFilter('percent', function(value, controller, options) {
+        return floor(value / options.player * 100, 3);
+    });
+    $tenjoh.UI.Fillter.addFilter('arpu', function(value, controller, options) {
+        return floor(value / options.players[options.index].count, 3);
+    });
+    $tenjoh.UI.Fillter.addFilter('arppu', function(value, controller, options) {
+        return floor(value / options.player, 3);
+    });
+    $tenjoh.UI.Fillter.addFilter('week', function(value, controller, options) {
+        var elem = document.createElement('span');
+        elem.innerText = value;
+        if (value === '土')
+            elem.style.color = 'blue';
+        else if (value === '日')
+            elem.style.color = 'red';
+        return elem;
+    });
+};
+</script>

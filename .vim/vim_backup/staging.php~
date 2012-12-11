@@ -1,0 +1,149 @@
+<?php
+//ステージングサーバの設定
+define('ACCESS_DB_MASTER',                'stage_master');
+define('ACCESS_DB_SLAVE',                 'stage_slave');
+define('ACCESS_DB_SLAVE_FEED',            'stage_feed');
+define('ACCESS_DB_SLAVE_OUTSIDE_SERVICE', 'stage_slave_outside_service');
+define('ACCESS_LOG_DB_MASTER',            'stage_log_master');
+define('ACCESS_ORDER_DB_MASTER',          'stage_order_master');
+define('ACCESS_HEAVY_DB_MASTER',          'stage_heavy_master');
+define('ACCESS_HEAVY_DB_SLAVE',           'stage_heavy_slave');
+
+define( 'WEBROOT_ADDRESS',         'http://stg.minnanobar.cyberx.co.jp'                               );
+define( 'URL_BASE_IMG',				'http://img.common.minnanobar.quunapp.com/minnanobar_stg'						);
+//define( 'URL_BASE_IMG',				'http://bartown.ameba-mb.jp'						);
+define( 'FLASH_STDOUT_EXEC_URL',   'http://localhost/flashmixer/stdout.php'   );	// FLASHの画面出力用URL
+define( 'FLASH_FILEOUT_EXEC_URL',  'http://localhost/flashmixer/fileout.php'  );	// FLASHのファイル出力用URL
+define( 'FLASH_CACHEOUT_EXEC_URL', 'http://localhost/flashmixer/cacheout.php' );	// FLASHのキャッシュ出力用URL
+define( 'FLASHMIXER_SERVER_URL',   'http://localhost'                         );	// flashmixer用フルパス
+
+define('ALMEIDA_SWF_PATH'             , dirname(__FILE__) . '/../../webroot/test');
+define('SWF_PATH'                     , dirname(__FILE__) . '/../../webroot/data/master');
+
+define('ALMEIDA_PIGG_URL'			  , 'http://stg.fm03.minnanobar.quunapp.com/almeida/avator.php');
+define('ALMEIDA_STDOUT_EXEC_URL'      , FlashServerBalancer::getAlmeidaStdoutExecUrl($muid));
+
+define( 'MIXI_MOBILE_URL_MA',		'http://mgadget-sb.gree.jp' );
+define( 'MIXI_APP_ID',				3);
+
+// TODO shino Cache と Session のバランサーって STG 専用の値が返るようになってたか確認すること。このファイル全箇所で調査。
+define( 'MEMCACHE_COMMON_HOST',		CacheBalancer::getHost( $muid ));
+define( 'MEMCACHE_COMMON_PORT',		CacheBalancer::getPort( $muid ));
+define( 'MEMCACHE_MAIN_HOST',		CacheBalancer::getHostStatic(0));
+define( 'MEMCACHE_MAIN_PORT',		CacheBalancer::getPortStatic(0));
+
+define( 'AMEBA_GAME_ID',			3);										// ゲームID(gid)
+define( 'AMEBA_APP_BASE_URL' ,		'http://stg.mplatform.ameba.jp/api');		// AMEBA 基盤 API バージョン2のホスト
+define( 'AMEBA_MYGAME_BASE_URL',	'http://stg-api.game.ameba.jp');		// MYGAME APIのホスト
+define('AMEBA_MYGAME_STAMP_URL',	'http://stg.game.ameba.jp');					// ｽﾀﾝﾌﾟﾗﾘーのホスト
+define( 'AMEBA_MYGAME_PPK',			'asdfklja2slkdfjaipubmqwlijtgatrt');	// MYGAME APIの秘密鍵
+global $AMEBA_MYGAME_CALLER;
+$AMEBA_MYGAME_CALLER = array(
+    '180.233.142.81',
+    '180.233.142.86',
+    '180.233.142.158',
+    '180.233.142.215',
+    '180.233.143.85',
+    '127.0.0.1',
+);
+
+// define( 'FLASH_TYRANT_HOST', '192.168.101.34' );
+define( 'FLASH_TYRANT_HOST', 'stg.cache.minnanobar.quunapp.com' );
+define( 'FLASH_TYRANT_PORT', '11313'         );
+
+// define( 'TOKYO_TYRANT_HOST', '192.168.101.34' );
+define( 'TOKYO_TYRANT_HOST', 'stg.cache.minnanobar.quunapp.com' );
+define( 'TOKYO_TYRANT_PORT', '11313'         );
+// define( 'CAPTURE_DATA_HOST', '192.168.101.34' );
+define( 'CAPTURE_DATA_HOST', 'stg.cache.minnanobar.quunapp.com' );
+define( 'CAPTURE_DATA_PORT', '11313'         );
+
+ini_set('session.save_handler', 'memcache');
+ini_set('session.save_path', SessionBalancer::getConnect( $muid ) );
+ini_set('default_socket_timeout', '3');
+Cache::config(
+    'default',	array(
+                    'engine'      => 'Memcache',
+                    'duration'    => 3600*6,
+                    'probability' => 100,
+                    'prefix'      => 'STAGE' . '_',
+                    'servers'     => 'localhost',
+                    'compress'    => false,
+                )
+);
+Cache::config(
+    'flash',	array(
+                    'engine'      => 'Memcache',
+                    'duration'    => 3600*24,
+                    'probability' => 100,
+                    'prefix'      => 'STAGE' . '_',
+                    'servers'     => array( CacheBalancer::getConnect( $muid ) ),
+                    'compress'    => false,
+                )
+);
+Cache::config(
+    'tokyo',	array(
+                    'engine'      => 'Memcache',
+                    'duration'    => 3600*24,
+                    'probability' => 100,
+                    'prefix'      => 'STAGE_TOKYO' . '_',
+                    'servers'     => array( CacheBalancer::getConnect( $muid ) ),
+                    'compress'    => false,
+                )
+);
+Cache::config(
+    'oneday',	array(
+                    'engine'      => 'Memcache',
+                    'duration'    => 3600*24,
+                    'probability' => 100,
+                    'prefix'      => 'STAGE_TOKYO' . '_',
+                    'servers'     => array( CacheBalancer::getConnect( $muid ) ),
+                    'compress'    => false,
+                )
+);
+Cache::config(
+    'capture',	array(
+                    'engine'      => 'Memcache',
+                    'duration'    => 3600*12,
+                    'probability' => 100,
+                    'prefix'      => 'STAGE' . '_',
+                    'servers'     => array( CacheBalancer::getConnect( $muid ) ),
+                    'compress'    => false,
+                )
+);
+Cache::config(
+    'tt_feed',	array(
+                    'engine'      => 'Memcache',
+                    'duration'    => 3600*72,
+                    'probability' => 100,
+                    'prefix'      => 'STAGE_TT_FEED' . '_',
+                    'servers'     => array( CacheBalancer::getConnect( $muid ) ),
+                    'compress'    => false,
+                )
+);
+TT::config(
+    array(
+        // 'host' => '192.168.101.34',
+        // 'ip'   => 11313,
+        'host' => TOKYO_TYRANT_HOST,
+        'ip'   => TOKYO_TYRANT_PORT,
+    )
+);
+
+define('CACHE_CONTROL__FLASH', true);
+define('CACHE_CONTROL__PIGG', true);
+define('PIGG_CACHE_TIME', 3);
+
+$GLOBALS['KARIBLO_PIGG_SPOOFING'] = array(
+    'kariblo-06821' => 'thailandmethod',
+    'kariblo-06811' => 'samurai-soul-1983',
+    'kariblo-06810' => 'yosshy-0411',
+    'kariblo-06803' => 'msm-kanako',
+    'kariblo-16822' => 'wasabi-ben',
+    'kariblo-16844' => 'wasabi-ben',
+    'kariblo-06838' => 'na2s',
+    'kariblo-06839' => 'misa2n-n',
+    'kariblo-06842' => 'kanyabunbun',
+);
+
+define('SP_URL', 'http://stg.sp.minnanobar.cyberx.co.jp');

@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ja" manifest="cache.manifest">
+<head>
+<meta name="viewport" content="user-scalable=no,width=640">
+<meta charset="utf-8">
+<title>もしキャバ ～Cinderella Story～</title>
+<link rel="shortcut icon" href="http://dclc7hs367lvk.cloudfront.net/img/favicon_64.png" type="image/png" />
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://dclc7hs367lvk.cloudfront.net/img/apple-touch-icon-114x114.png" />
+<link href="http://dclc7hs367lvk.cloudfront.net/css/style.min.1351858791289.css" rel="stylesheet" type="text/css" media="all">
+<style>#amb_footer { zoom: 2; } .amb { -webkit-text-size-adjust: auto; }</style>
+</head>
+<body>
+<section id="TenjohRoot"></section>
+
+<script>
+(function(global) {
+    global.version = '1.0';
+    global.baseURL = 'http://dclc7hs367lvk.cloudfront.net';
+
+    var portraitWidth, landscapeWidth, appCache = window.applicationCache;
+    var resize = function() {
+        if (Math.abs(window.orientation) === 0) {
+            if (/Android/.test(window.navigator.userAgent)) {
+                if (!portraitWidth) portraitWidth = window.innerWidth;
+                $("html").css("zoom" , portraitWidth / 640 );
+            }
+        } else {
+            if (/Android/.test(window.navigator.userAgent)) {
+                if (!landscapeWidth) landscapeWidth = window.innerWidth;
+                $("html").css("zoom" , landscapeWidth / 640 );
+            }
+        }
+    };
+    appCache.addEventListener("updateready", function() {
+        appCache.swapCache();
+        location.reload();
+    });
+//    window.addEventListener('load', resize);
+//    window.addEventListener('resize', resize);
+//    window.addEventListener('orientationchange', resize);
+//    resize();
+    setTimeout(function() {
+        amebaScript = document.createElement('script');
+        amebaScript.setAttribute('src', 'http://stat.amebame.com/pub/sdk/js/all.js');
+        document.body.appendChild(amebaScript);
+    }, 1000);
+})(this);
+</script>
+<script src='http://dclc7hs367lvk.cloudfront.net/js/Tenjoh.min.1351858791289.js' type='text/javascript' async></script>
+
+</body>
+</html>
+

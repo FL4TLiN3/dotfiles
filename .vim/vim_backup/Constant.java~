@@ -1,0 +1,23 @@
+package jp.co.talentmedia.kyabatuku.util;
+
+public interface Constant {
+    public static final String SESSION_USER_KEY = "user";
+    public static final String COOKIE_USER_NO_KEY = "userNo";
+
+    public static final String TOP_URL = "http://stg-moshikyaba.appspot.com/";
+    public static final String API_BASE_URL = "https://api.sb-amebame.com";
+    public static final String AUTH_BASE_URL = "https://auth.sb-amebame.com";
+    public static final String REGISTER_URL = "http://s.sb-amebame.com/#register?callback=";
+    public static final String PURCHASE_URL = "https://s.sb-amebame.com/#payment?id=";
+    public static final String CLIENT_ID = "6f3eb344d57bdd30d060be28455bf8ddb141a2ec6326593c405939b60d4f1d26";
+    public static final String CLIENT_SECRET = "37cac89adc29abb06dcba634aeda46f04b3668cd9489cedb4d7cf56f60bf094b";
+
+    public static final String AVATAR_SERVER = "http://localhost:8000";
+
+<<<<<<< HEAD
+    public static final Boolean USE_PROXY = Boolean.TRUE;
+=======
+    public static final Boolean USE_PROXY = Boolean.FALSE;
+>>>>>>> origin/Issue2083
+    public static final String PROXY_HOST = "http://183.181.54.207/";
+}

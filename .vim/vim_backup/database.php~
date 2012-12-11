@@ -1,0 +1,40 @@
+<?php
+/**
+ *  database
+ *  データベースの設定
+ */
+
+
+class DATABASE_CONFIG {
+
+    var $test = array(
+        'datasource' => 'Database/Mysql',
+        'persistent' => false,
+        'host'       => 'localhost',
+        'login'      => 'agent_ca',
+        'password'   => 'syncloud_agent',
+        'database'   => 'agent_ca',
+        'prefix'     => '',
+        'encoding'   => 'utf8',
+    );
+    var $test_write = array(
+        'datasource' => 'Database/Mysql',
+        'persistent' => false,
+        'host'       => 'localhost',
+        'login'      => 'agent_ca',
+        'password'   => 'syncloud_agent',
+        'database'   => 'agent_ca',
+        'prefix'     => '',
+        'encoding'   => 'utf8',
+    );
+    var $develop = array(
+        'datasource' => 'Database/Mysql',
+        'persistent' => false,
+        'host'       => 'localhost',
+        'login'      => 'agent_ca',
+        'password'   => 'syncloud_agent',
+        'database'   => 'agent_dev',
+        'prefix'     => '',
+        'encoding'   => 'utf8',
+    );
+}

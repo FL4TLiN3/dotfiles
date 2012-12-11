@@ -1,0 +1,39 @@
+#!/bin/bash
+# vim: ts=4 sts=4 sw=4 et si ai
+
+source /home/minbar/src/ameba_bar/aws_release/tools/ec2-host-all
+
+SSH="ssh -o ConnectTimeout=1 -i ~/.ssh/id_rsa.deploy"
+
+echo HOSTS_WEB_FP:
+for h in ${HOSTS_WEB_FP[@]}; do
+echo -n "$h: "
+$SSH apache@$h 'echo OK.' || echo 'Faild!!!'
+done
+echo
+
+echo HOSTS_WEB_SP:
+for h in ${HOSTS_WEB_SP[@]}; do
+echo -n "$h: "
+$SSH apache@$h 'echo OK.' || echo 'Faild!!!'
+done
+echo
+
+echo HOSTS_IMG:
+for h in ${HOSTS_IMG[@]}; do
+echo -n "$h: "
+$SSH apache@$h 'echo OK.' || echo 'Faild!!!'
+done
+echo
+
+echo HOST_FM01
+h=$HOST_FM01
+echo -n "$h: "
+$SSH www-data@$h 'echo OK.' || echo 'Faild!!!'
+echo
+
+echo HOST_FM03
+h=$HOST_FM03
+echo -n "$h: "
+$SSH apache@$h 'echo OK.' || echo 'Faild!!!'
+echo

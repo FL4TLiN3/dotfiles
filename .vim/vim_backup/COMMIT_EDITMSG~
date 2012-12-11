@@ -1,0 +1,351 @@
+Merge branch 'STAGING' of github.quunapp.local:QuunApp/moshikyaba into Issue2199
+
+Conflicts:
+	war/component/util.js
+#
+# It looks like you may be committing a merge.
+# If this is not correct, please remove the file
+#	.git/MERGE_HEAD
+# and try again.
+
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch Issue2199
+# Changes to be committed:
+#
+#	modified:   build.xml
+#	modified:   conf/Constant.local.java
+#	modified:   conf/Constant.release.java
+#	modified:   conf/Constant.stg.java
+#	modified:   conf/appengine-web.stg.xml
+#	modified:   doc/csv/avatar.csv
+#	modified:   doc/csv/food-bottle.csv
+#	modified:   doc/csv/gacha_event.csv
+#	new file:   doc/csv/gacha_prize_new.csv
+#	modified:   doc/csv/gacha_weight.csv
+#	new file:   html/animation/img/common/white.png
+#	new file:   html/animation/img/login/00_chara.png
+#	new file:   html/animation/img/login/05_haikei.png
+#	new file:   html/animation/index.html
+#	new file:   html/animation/login.html
+#	modified:   html/css/style.css
+#	modified:   html/img/bn_gacha_24@cache.jpg
+#	modified:   html/img/bn_gacha_25@cache.jpg
+#	modified:   html/img/bn_gacha_26@cache.jpg
+#	modified:   html/img/bn_gacha_27@cache.jpg
+#	new file:   html/js/Tenjoh.js
+#	modified:   html/second/0019-006/index.html
+#	modified:   html/second/0019-007/index.html
+#	modified:   src/jp/co/talentmedia/kyabatuku/controller/payment/CompleteBuyItemController.java
+#	renamed:    src/jp/co/talentmedia/kyabatuku/controller/payment/CompleteBuyItemController.java -> src/jp/co/talentmedia/kyabatuku/controller/payment/ConfirmBuyItemController.java
+#	modified:   src/jp/co/talentmedia/kyabatuku/controller/payment/DistributeItemController.java
+#	modified:   src/jp/co/talentmedia/kyabatuku/model/UserGachaInfo.java
+#	modified:   src/jp/co/talentmedia/kyabatuku/service/common/ameba/HttpRequestService.java
+#	modified:   src/jp/co/talentmedia/kyabatuku/service/gacha/GachaService.java
+#	modified:   src/jp/co/talentmedia/kyabatuku/service/item/ItemService.java
+#	modified:   src/jp/co/talentmedia/kyabatuku/util/Constant.java
+#	modified:   src/jp/co/talentmedia/kyabatuku/util/ServerUtil.java
+#	modified:   war/component/util.js
+#	modified:   war/css/mini.css
+#	modified:   war/img/bn_gacha_24@cache.jpg
+#	modified:   war/img/bn_gacha_25@cache.jpg
+#	modified:   war/img/bn_gacha_26@cache.jpg
+#	modified:   war/img/bn_gacha_27@cache.jpg
+#	new file:   war/img/bn_gacha_28.jpg
+#	new file:   war/img/bn_gacha_29.jpg
+#	modified:   war/material-org/bottle_gacha_068_c.png
+#	new file:   war/material-org/dress_0116_00_a_00_f_c.png
+#	new file:   war/material-org/dress_0116_00_a_00_f_w.png
+#	new file:   war/material-org/dress_0116_00_a_01_f_c.png
+#	new file:   war/material-org/dress_0116_00_a_01_f_w.png
+#	new file:   war/material-org/dress_0116_00_a_02_f_c.png
+#	new file:   war/material-org/dress_0116_00_a_02_f_w.png
+#	new file:   war/material-org/dress_0116_00_a_03_f_c.png
+#	new file:   war/material-org/dress_0116_00_a_03_f_w.png
+#	new file:   war/material-org/dress_0116_00_a_04_f_c.png
+#	new file:   war/material-org/dress_0116_00_a_04_f_w.png
+#	new file:   war/material-org/dress_0116_00_a_05_f_c.png
+#	new file:   war/material-org/dress_0116_00_a_05_f_w.png
+#	new file:   war/material-org/dress_0117_00_a_00_b_w.png
+#	new file:   war/material-org/dress_0117_00_a_00_f_c.png
+#	new file:   war/material-org/dress_0117_00_a_00_f_w.png
+#	new file:   war/material-org/dress_0117_00_a_01_b_w.png
+#	new file:   war/material-org/dress_0117_00_a_01_f_c.png
+#	new file:   war/material-org/dress_0117_00_a_01_f_w.png
+#	new file:   war/material-org/dress_0117_00_a_02_b_w.png
+#	new file:   war/material-org/dress_0117_00_a_02_f_c.png
+#	new file:   war/material-org/dress_0117_00_a_02_f_w.png
+#	new file:   war/material-org/dress_0117_00_a_03_b_w.png
+#	new file:   war/material-org/dress_0117_00_a_03_f_c.png
+#	new file:   war/material-org/dress_0117_00_a_03_f_w.png
+#	new file:   war/material-org/dress_0117_00_a_04_b_w.png
+#	new file:   war/material-org/dress_0117_00_a_04_f_c.png
+#	new file:   war/material-org/dress_0117_00_a_04_f_w.png
+#	new file:   war/material-org/dress_0117_00_a_05_b_w.png
+#	new file:   war/material-org/dress_0117_00_a_05_f_c.png
+#	new file:   war/material-org/dress_0117_00_a_05_f_w.png
+#	new file:   war/material-org/dress_0118_00_a_00_b_w.png
+#	new file:   war/material-org/dress_0118_00_a_00_f_c.png
+#	new file:   war/material-org/dress_0118_00_a_00_f_w.png
+#	new file:   war/material-org/dress_0118_00_a_01_b_w.png
+#	new file:   war/material-org/dress_0118_00_a_01_f_c.png
+#	new file:   war/material-org/dress_0118_00_a_01_f_w.png
+#	new file:   war/material-org/dress_0118_00_a_02_b_w.png
+#	new file:   war/material-org/dress_0118_00_a_02_f_c.png
+#	new file:   war/material-org/dress_0118_00_a_02_f_w.png
+#	new file:   war/material-org/dress_0118_00_a_03_b_w.png
+#	new file:   war/material-org/dress_0118_00_a_03_f_c.png
+#	new file:   war/material-org/dress_0118_00_a_03_f_w.png
+#	new file:   war/material-org/dress_0118_00_a_04_b_w.png
+#	new file:   war/material-org/dress_0118_00_a_04_f_c.png
+#	new file:   war/material-org/dress_0118_00_a_04_f_w.png
+#	new file:   war/material-org/dress_0118_00_a_05_b_w.png
+#	new file:   war/material-org/dress_0118_00_a_05_f_c.png
+#	new file:   war/material-org/dress_0118_00_a_05_f_w.png
+#	modified:   war/material/bottle_beaujolais_001_c.640x800.png
+#	modified:   war/material/bottle_beaujolais_001_t.130x163.png
+#	modified:   war/material/bottle_beaujolais_002_c.640x800.png
+#	modified:   war/material/bottle_beaujolais_002_t.130x163.png
+#	modified:   war/material/bottle_beaujolais_003_c.640x800.png
+#	modified:   war/material/bottle_beaujolais_003_t.130x163.png
+#	modified:   war/material/bottle_beaujolais_004_c.640x800.png
+#	modified:   war/material/bottle_beaujolais_004_t.130x163.png
+#	modified:   war/material/bottle_beaujolais_005_c.640x800.png
+#	modified:   war/material/bottle_beaujolais_005_t.130x163.png
+#	modified:   war/material/bottle_beaujolais_006_c.640x800.png
+#	modified:   war/material/bottle_beaujolais_006_t.130x163.png
+#	modified:   war/material/bottle_gacha_068_c.640x800.jpg
+#	modified:   war/material/bottle_gacha_068_c.640x800.png
+#	modified:   war/material/bottle_gacha_068_t.130x163.png
+#	new file:   war/material/dress_0116_00_a_00_f_c.640x800.jpg
+#	new file:   war/material/dress_0116_00_a_00_f_c.640x800.png
+#	new file:   war/material/dress_0116_00_a_00_f_t.130x163.png
+#	new file:   war/material/dress_0116_00_a_00_f_t.270x338.png
+#	new file:   war/material/dress_0116_00_a_00_f_t.95x119.png
+#	new file:   war/material/dress_0116_00_a_00_f_w.320x640.png
+#	new file:   war/material/dress_0116_00_a_01_f_c.640x800.jpg
+#	new file:   war/material/dress_0116_00_a_01_f_c.640x800.png
+#	new file:   war/material/dress_0116_00_a_01_f_t.130x163.png
+#	new file:   war/material/dress_0116_00_a_01_f_t.270x338.png
+#	new file:   war/material/dress_0116_00_a_01_f_t.95x119.png
+#	new file:   war/material/dress_0116_00_a_01_f_w.320x640.png
+#	new file:   war/material/dress_0116_00_a_02_f_c.640x800.jpg
+#	new file:   war/material/dress_0116_00_a_02_f_c.640x800.png
+#	new file:   war/material/dress_0116_00_a_02_f_t.130x163.png
+#	new file:   war/material/dress_0116_00_a_02_f_t.270x338.png
+#	new file:   war/material/dress_0116_00_a_02_f_t.95x119.png
+#	new file:   war/material/dress_0116_00_a_02_f_w.320x640.png
+#	new file:   war/material/dress_0116_00_a_03_f_c.640x800.jpg
+#	new file:   war/material/dress_0116_00_a_03_f_c.640x800.png
+#	new file:   war/material/dress_0116_00_a_03_f_t.130x163.png
+#	new file:   war/material/dress_0116_00_a_03_f_t.270x338.png
+#	new file:   war/material/dress_0116_00_a_03_f_t.95x119.png
+#	new file:   war/material/dress_0116_00_a_03_f_w.320x640.png
+#	new file:   war/material/dress_0116_00_a_04_f_c.640x800.jpg
+#	new file:   war/material/dress_0116_00_a_04_f_c.640x800.png
+#	new file:   war/material/dress_0116_00_a_04_f_t.130x163.png
+#	new file:   war/material/dress_0116_00_a_04_f_t.270x338.png
+#	new file:   war/material/dress_0116_00_a_04_f_t.95x119.png
+#	new file:   war/material/dress_0116_00_a_04_f_w.320x640.png
+#	new file:   war/material/dress_0116_00_a_05_f_c.640x800.jpg
+#	new file:   war/material/dress_0116_00_a_05_f_c.640x800.png
+#	new file:   war/material/dress_0116_00_a_05_f_t.130x163.png
+#	new file:   war/material/dress_0116_00_a_05_f_t.270x338.png
+#	new file:   war/material/dress_0116_00_a_05_f_t.95x119.png
+#	new file:   war/material/dress_0116_00_a_05_f_w.320x640.png
+#	new file:   war/material/dress_0117_00_a_00_b_w.320x640.png
+#	new file:   war/material/dress_0117_00_a_00_f_c.640x800.jpg
+#	new file:   war/material/dress_0117_00_a_00_f_c.640x800.png
+#	new file:   war/material/dress_0117_00_a_00_f_t.130x163.png
+#	new file:   war/material/dress_0117_00_a_00_f_t.270x338.png
+#	new file:   war/material/dress_0117_00_a_00_f_t.95x119.png
+#	new file:   war/material/dress_0117_00_a_00_f_w.320x640.png
+#	new file:   war/material/dress_0117_00_a_01_b_w.320x640.png
+#	new file:   war/material/dress_0117_00_a_01_f_c.640x800.jpg
+#	new file:   war/material/dress_0117_00_a_01_f_c.640x800.png
+#	new file:   war/material/dress_0117_00_a_01_f_t.130x163.png
+#	new file:   war/material/dress_0117_00_a_01_f_t.270x338.png
+#	new file:   war/material/dress_0117_00_a_01_f_t.95x119.png
+#	new file:   war/material/dress_0117_00_a_01_f_w.320x640.png
+#	new file:   war/material/dress_0117_00_a_02_b_w.320x640.png
+#	new file:   war/material/dress_0117_00_a_02_f_c.640x800.jpg
+#	new file:   war/material/dress_0117_00_a_02_f_c.640x800.png
+#	new file:   war/material/dress_0117_00_a_02_f_t.130x163.png
+#	new file:   war/material/dress_0117_00_a_02_f_t.270x338.png
+#	new file:   war/material/dress_0117_00_a_02_f_t.95x119.png
+#	new file:   war/material/dress_0117_00_a_02_f_w.320x640.png
+#	new file:   war/material/dress_0117_00_a_03_b_w.320x640.png
+#	new file:   war/material/dress_0117_00_a_03_f_c.640x800.jpg
+#	new file:   war/material/dress_0117_00_a_03_f_c.640x800.png
+#	new file:   war/material/dress_0117_00_a_03_f_t.130x163.png
+#	new file:   war/material/dress_0117_00_a_03_f_t.270x338.png
+#	new file:   war/material/dress_0117_00_a_03_f_t.95x119.png
+#	new file:   war/material/dress_0117_00_a_03_f_w.320x640.png
+#	new file:   war/material/dress_0117_00_a_04_b_w.320x640.png
+#	new file:   war/material/dress_0117_00_a_04_f_c.640x800.jpg
+#	new file:   war/material/dress_0117_00_a_04_f_c.640x800.png
+#	new file:   war/material/dress_0117_00_a_04_f_t.130x163.png
+#	new file:   war/material/dress_0117_00_a_04_f_t.270x338.png
+#	new file:   war/material/dress_0117_00_a_04_f_t.95x119.png
+#	new file:   war/material/dress_0117_00_a_04_f_w.320x640.png
+#	new file:   war/material/dress_0117_00_a_05_b_w.320x640.png
+#	new file:   war/material/dress_0117_00_a_05_f_c.640x800.jpg
+#	new file:   war/material/dress_0117_00_a_05_f_c.640x800.png
+#	new file:   war/material/dress_0117_00_a_05_f_t.130x163.png
+#	new file:   war/material/dress_0117_00_a_05_f_t.270x338.png
+#	new file:   war/material/dress_0117_00_a_05_f_t.95x119.png
+#	new file:   war/material/dress_0117_00_a_05_f_w.320x640.png
+#	new file:   war/material/dress_0118_00_a_00_b_w.320x640.png
+#	new file:   war/material/dress_0118_00_a_00_f_c.640x800.jpg
+#	new file:   war/material/dress_0118_00_a_00_f_c.640x800.png
+#	new file:   war/material/dress_0118_00_a_00_f_t.130x163.png
+#	new file:   war/material/dress_0118_00_a_00_f_t.270x338.png
+#	new file:   war/material/dress_0118_00_a_00_f_t.95x119.png
+#	new file:   war/material/dress_0118_00_a_00_f_w.320x640.png
+#	new file:   war/material/dress_0118_00_a_01_b_w.320x640.png
+#	new file:   war/material/dress_0118_00_a_01_f_c.640x800.jpg
+#	new file:   war/material/dress_0118_00_a_01_f_c.640x800.png
+#	new file:   war/material/dress_0118_00_a_01_f_t.130x163.png
+#	new file:   war/material/dress_0118_00_a_01_f_t.270x338.png
+#	new file:   war/material/dress_0118_00_a_01_f_t.95x119.png
+#	new file:   war/material/dress_0118_00_a_01_f_w.320x640.png
+#	new file:   war/material/dress_0118_00_a_02_b_w.320x640.png
+#	new file:   war/material/dress_0118_00_a_02_f_c.640x800.jpg
+#	new file:   war/material/dress_0118_00_a_02_f_c.640x800.png
+#	new file:   war/material/dress_0118_00_a_02_f_t.130x163.png
+#	new file:   war/material/dress_0118_00_a_02_f_t.270x338.png
+#	new file:   war/material/dress_0118_00_a_02_f_t.95x119.png
+#	new file:   war/material/dress_0118_00_a_02_f_w.320x640.png
+#	new file:   war/material/dress_0118_00_a_03_b_w.320x640.png
+#	new file:   war/material/dress_0118_00_a_03_f_c.640x800.jpg
+#	new file:   war/material/dress_0118_00_a_03_f_c.640x800.png
+#	new file:   war/material/dress_0118_00_a_03_f_t.130x163.png
+#	new file:   war/material/dress_0118_00_a_03_f_t.270x338.png
+#	new file:   war/material/dress_0118_00_a_03_f_t.95x119.png
+#	new file:   war/material/dress_0118_00_a_03_f_w.320x640.png
+#	new file:   war/material/dress_0118_00_a_04_b_w.320x640.png
+#	new file:   war/material/dress_0118_00_a_04_f_c.640x800.jpg
+#	new file:   war/material/dress_0118_00_a_04_f_c.640x800.png
+#	new file:   war/material/dress_0118_00_a_04_f_t.130x163.png
+#	new file:   war/material/dress_0118_00_a_04_f_t.270x338.png
+#	new file:   war/material/dress_0118_00_a_04_f_t.95x119.png
+#	new file:   war/material/dress_0118_00_a_04_f_w.320x640.png
+#	new file:   war/material/dress_0118_00_a_05_b_w.320x640.png
+#	new file:   war/material/dress_0118_00_a_05_f_c.640x800.jpg
+#	new file:   war/material/dress_0118_00_a_05_f_c.640x800.png
+#	new file:   war/material/dress_0118_00_a_05_f_t.130x163.png
+#	new file:   war/material/dress_0118_00_a_05_f_t.270x338.png
+#	new file:   war/material/dress_0118_00_a_05_f_t.95x119.png
+#	new file:   war/material/dress_0118_00_a_05_f_w.320x640.png
+#	modified:   war/material/dress_0132_00_a_00_f_c.640x800.png
+#	modified:   war/material/dress_0132_00_a_00_f_t.130x163.png
+#	modified:   war/material/dress_0132_00_a_00_f_t.270x338.png
+#	modified:   war/material/dress_0132_00_a_00_f_t.95x119.png
+#	modified:   war/material/dress_0132_00_a_00_f_w.320x640.png
+#	modified:   war/material/dress_0133_00_a_00_f_c.640x800.png
+#	modified:   war/material/dress_0133_00_a_00_f_t.130x163.png
+#	modified:   war/material/dress_0133_00_a_00_f_t.270x338.png
+#	modified:   war/material/dress_0133_00_a_00_f_t.95x119.png
+#	modified:   war/material/dress_0133_00_a_00_f_w.320x640.png
+#	modified:   war/material/dress_0134_00_a_00_f_c.640x800.png
+#	modified:   war/material/dress_0134_00_a_00_f_t.130x163.png
+#	modified:   war/material/dress_0134_00_a_00_f_t.270x338.png
+#	modified:   war/material/dress_0134_00_a_00_f_t.95x119.png
+#	modified:   war/material/dress_0134_00_a_00_f_w.320x640.png
+#	modified:   war/material/dress_0135_00_a_00_f_c.640x800.png
+#	modified:   war/material/dress_0135_00_a_00_f_t.130x163.png
+#	modified:   war/material/dress_0135_00_a_00_f_t.270x338.png
+#	modified:   war/material/dress_0135_00_a_00_f_t.95x119.png
+#	modified:   war/material/dress_0135_00_a_00_f_w.320x640.png
+#	modified:   war/material/dress_0136_00_a_00_f_c.640x800.png
+#	modified:   war/material/dress_0136_00_a_00_f_t.130x163.png
+#	modified:   war/material/dress_0136_00_a_00_f_t.270x338.png
+#	modified:   war/material/dress_0136_00_a_00_f_t.95x119.png
+#	modified:   war/material/dress_0136_00_a_00_f_w.320x640.png
+#	modified:   war/material/dress_0136_00_a_01_f_c.640x800.png
+#	modified:   war/material/dress_0136_00_a_01_f_t.130x163.png
+#	modified:   war/material/dress_0136_00_a_01_f_t.270x338.png
+#	modified:   war/material/dress_0136_00_a_01_f_t.95x119.png
+#	modified:   war/material/dress_0136_00_a_01_f_w.320x640.png
+#	modified:   war/material/dress_0136_00_a_02_f_c.640x800.png
+#	modified:   war/material/dress_0136_00_a_02_f_t.130x163.png
+#	modified:   war/material/dress_0136_00_a_02_f_t.270x338.png
+#	modified:   war/material/dress_0136_00_a_02_f_t.95x119.png
+#	modified:   war/material/dress_0136_00_a_02_f_w.320x640.png
+#	modified:   war/material/dress_0136_00_a_03_f_c.640x800.png
+#	modified:   war/material/dress_0136_00_a_03_f_t.130x163.png
+#	modified:   war/material/dress_0136_00_a_03_f_t.270x338.png
+#	modified:   war/material/dress_0136_00_a_03_f_t.95x119.png
+#	modified:   war/material/dress_0136_00_a_03_f_w.320x640.png
+#	modified:   war/material/dress_0136_00_a_04_f_c.640x800.png
+#	modified:   war/material/dress_0136_00_a_04_f_t.130x163.png
+#	modified:   war/material/dress_0136_00_a_04_f_t.270x338.png
+#	modified:   war/material/dress_0136_00_a_04_f_t.95x119.png
+#	modified:   war/material/dress_0136_00_a_04_f_w.320x640.png
+#	modified:   war/material/dress_0137_00_a_00_f_c.640x800.png
+#	modified:   war/material/dress_0137_00_a_00_f_t.130x163.png
+#	modified:   war/material/dress_0137_00_a_00_f_t.270x338.png
+#	modified:   war/material/dress_0137_00_a_00_f_t.95x119.png
+#	modified:   war/material/dress_0137_00_a_00_f_w.320x640.png
+#	modified:   war/material/dress_0137_00_a_01_f_c.640x800.png
+#	modified:   war/material/dress_0137_00_a_01_f_t.130x163.png
+#	modified:   war/material/dress_0137_00_a_01_f_t.270x338.png
+#	modified:   war/material/dress_0137_00_a_01_f_t.95x119.png
+#	modified:   war/material/dress_0137_00_a_01_f_w.320x640.png
+#	modified:   war/material/dress_0137_00_a_02_f_c.640x800.png
+#	modified:   war/material/dress_0137_00_a_02_f_t.130x163.png
+#	modified:   war/material/dress_0137_00_a_02_f_t.270x338.png
+#	modified:   war/material/dress_0137_00_a_02_f_t.95x119.png
+#	modified:   war/material/dress_0137_00_a_02_f_w.320x640.png
+#	modified:   war/material/dress_0137_00_a_03_f_c.640x800.png
+#	modified:   war/material/dress_0137_00_a_03_f_t.130x163.png
+#	modified:   war/material/dress_0137_00_a_03_f_t.270x338.png
+#	modified:   war/material/dress_0137_00_a_03_f_t.95x119.png
+#	modified:   war/material/dress_0137_00_a_03_f_w.320x640.png
+#	modified:   war/material/dress_0137_00_a_04_f_c.640x800.png
+#	modified:   war/material/dress_0137_00_a_04_f_t.130x163.png
+#	modified:   war/material/dress_0137_00_a_04_f_t.270x338.png
+#	modified:   war/material/dress_0137_00_a_04_f_t.95x119.png
+#	modified:   war/material/dress_0137_00_a_04_f_w.320x640.png
+#	modified:   war/material/dress_0138_00_a_00_f_c.640x800.png
+#	modified:   war/material/dress_0138_00_a_00_f_t.130x163.png
+#	modified:   war/material/dress_0138_00_a_00_f_t.270x338.png
+#	modified:   war/material/dress_0138_00_a_00_f_t.95x119.png
+#	modified:   war/material/dress_0138_00_a_00_f_w.320x640.png
+#	modified:   war/material/dress_0138_00_a_01_f_c.640x800.png
+#	modified:   war/material/dress_0138_00_a_01_f_t.130x163.png
+#	modified:   war/material/dress_0138_00_a_01_f_t.270x338.png
+#	modified:   war/material/dress_0138_00_a_01_f_t.95x119.png
+#	modified:   war/material/dress_0138_00_a_01_f_w.320x640.png
+#	modified:   war/material/dress_0138_00_a_02_f_c.640x800.png
+#	modified:   war/material/dress_0138_00_a_02_f_t.130x163.png
+#	modified:   war/material/dress_0138_00_a_02_f_t.270x338.png
+#	modified:   war/material/dress_0138_00_a_02_f_t.95x119.png
+#	modified:   war/material/dress_0138_00_a_02_f_w.320x640.png
+#	modified:   war/material/dress_0138_00_a_03_f_c.640x800.png
+#	modified:   war/material/dress_0138_00_a_03_f_t.130x163.png
+#	modified:   war/material/dress_0138_00_a_03_f_t.270x338.png
+#	modified:   war/material/dress_0138_00_a_03_f_t.95x119.png
+#	modified:   war/material/dress_0138_00_a_03_f_w.320x640.png
+#	modified:   war/material/dress_0138_00_a_04_f_c.640x800.png
+#	modified:   war/material/dress_0138_00_a_04_f_t.130x163.png
+#	modified:   war/material/dress_0138_00_a_04_f_t.270x338.png
+#	modified:   war/material/dress_0138_00_a_04_f_t.95x119.png
+#	modified:   war/material/dress_0138_00_a_04_f_w.320x640.png
+#	modified:   war/partial/club/manage/_dialog/retire.html
+#	modified:   war/partial/club/serve/battle/result.html
+#	modified:   war/partial/club/serve/history/tab/history.html
+#	modified:   war/partial/club/serve/list.html
+#	modified:   war/partial/club/serve/serve.html
+#	modified:   war/partial/gacha/_animation/gacha_free.html
+#	modified:   war/partial/gacha/_animation/gacha_pay.html
+#	modified:   war/partial/gacha/index.html
+#	new file:   war/partial/gacha/limit/new.html
+#	modified:   war/partial/gacha/limit/season.html
+#	modified:   war/partial/gacha/seasonResult.html
+#	modified:   war/partial/profile/detail/scout.html
+#	modified:   war/partial/profile/index.html
+#	modified:   war/partial/profile/other/index.html
+#	modified:   war/partial/shop/buy/complete.html
+#
