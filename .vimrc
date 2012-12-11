@@ -12,20 +12,22 @@ Bundle 'gmarik/vundle'
 Bundle 'fugitive.vim'
 Bundle 'surround.vim'
 Bundle 'mru.vim'
-let MRU_Auto_Close=0
-let MRU_Max_Entries=100000
-let MRU_Exclude_Files="^/tmp/.*\|^/var/tmp/.*"
+let g:MRU_File=$HOME."/.vim/vim_mru_files"
+let g:MRU_Auto_Close=0
+let g:MRU_Max_Entries=100000
+let g:MRU_Exclude_Files="^/tmp/.*\|^/var/tmp/.*"
 Bundle 'The-NERD-tree'
 nmap <F2> :NERDTreeToggle<CR>
 Bundle 'The-NERD-Commenter'
 nmap <Leader>/ <Plug>NERDCommenterToggle
 vmap <Leader>/ <Plug>NERDCommenterToggle
-let NERDShutUp = 1
+let g:NERDShutUp = 1
 Bundle 'EasyMotion'
 Bundle 'L9'
 Bundle 'FuzzyFinder'
-let g:fuf_keyOpen = '<Tab>'
+let g:fuf_dataDir=$HOME."/.vim/vim-fuf-data"
 let g:fuf_keyOpenTabpage = '<CR>'
+let g:fuf_keyOpen = '<Tab>'
 nnoremap bf :<C-u>FufFile **/<CR>
 nnoremap br :<C-u>FufMruFile<CR>
 
@@ -41,6 +43,7 @@ Bundle 'xoria256.vim'
 filetype indent plugin on
 syntax on
 colorscheme xoria256
+set shortmess+=I
 set number
 set title
 set showmode
@@ -95,7 +98,7 @@ nnoremap <C-i> :nohl<CR><C-i>
 " tab controll remap
 nmap <C-n> :tabn<CR>
 nmap <C-p> :tabr<CR>
-nmap <C-k> :tabc<CR>
+nmap <C-x> :tabc<CR>
 
 " motion controll remap
 nmap <C-h> ^
