@@ -1,0 +1,14 @@
+# OS X specified
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.Spotlight-V100
+.Trashes
+.project
+
+# project specified
+war/WEB-INF/web.xml
+ios/moshikyaba/Classes/ViewController.m
+.metadata/
