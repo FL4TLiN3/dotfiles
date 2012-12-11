@@ -8,7 +8,7 @@
 [core]
     excludesfile = ~/.gitignore
     pager = less -r
-    editor = vi
+    editor = vim
 [push]
     default = tracking
 [branch]
