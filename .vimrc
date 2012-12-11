@@ -9,7 +9,6 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 Bundle 'gmarik/vundle'
-
 Bundle 'fugitive.vim'
 Bundle 'surround.vim'
 Bundle 'mru.vim'
@@ -17,6 +16,7 @@ let MRU_Auto_Close=0
 let MRU_Max_Entries=100000
 let MRU_Exclude_Files="^/tmp/.*\|^/var/tmp/.*"
 Bundle 'The-NERD-tree'
+nmap <F2> :NERDTreeToggle<CR>
 Bundle 'The-NERD-Commenter'
 nmap <Leader>/ <Plug>NERDCommenterToggle
 vmap <Leader>/ <Plug>NERDCommenterToggle
@@ -77,13 +77,12 @@ set autoread
 nnoremap j gj
 nnoremap k gk
 set whichwrap=b,s,h,l,<,>,[,]
-imap <c-o> <END>
-imap <c-a> <HOME>
-imap <c-h> <LEFT>
-imap <c-j> <DOWN>
-imap <c-k> <UP>
-imap <c-l> <Right>
-nnoremap <C-L> :nohl<CR><C-L>
+imap <C-o> <END>
+imap <C-a> <HOME>
+imap <C-h> <LEFT>
+imap <C-j> <DOWN>
+imap <C-k> <UP>
+imap <C-l> <Right>
 
 set backup
 set backupdir=~/.vim/vim_backup
@@ -91,7 +90,15 @@ set backupskip=/tmp/*,/private/tmp/*
 set swapfile
 set directory=~/.vim/vim_swap
 
-augroup BufferAu
-    autocmd!
-    autocmd BufNewFile,BufRead,BufEnter * if isdirectory(expand("%:p:h")) && bufname("%") !~ "NERD_tree" | cd %:p:h | endif
-augroup END
+nnoremap <C-i> :nohl<CR><C-i>
+
+" tab controll remap
+nmap <C-n> :tabn<CR>
+nmap <C-p> :tabr<CR>
+nmap <C-k> :tabc<CR>
+
+" motion controll remap
+nmap <C-h> ^
+nmap <C-l> $
+nmap <C-j> <C-d>
+nmap <C-k> <C-u>

@@ -6,14 +6,9 @@ Icon
 ._*
 .Spotlight-V100
 .Trashes
-
-# vim specified
-.vim/bundle/*
-.vim/vim_swap/*
-.vim/vim_backup/*
+.project
 
 # project specified
-.project
 war/WEB-INF/web.xml
 ios/moshikyaba/Classes/ViewController.m
 .metadata/

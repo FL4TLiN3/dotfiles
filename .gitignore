@@ -1,13 +1,5 @@
-# OS X specified
-.DS_Store
-.AppleDouble
-.LSOverride
-Icon
-._*
-.Spotlight-V100
-.Trashes
-
 # vim specified
 .vim/bundle/*
 .vim/vim_swap/*
 .vim/vim_backup/*
+
