@@ -1,58 +1,62 @@
-# Path to your oh-my-zsh configuration.
-ZSH=$HOME/.oh-my-zsh
-
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
-ZSH_THEME="agnoster"
-
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-
-# Set to this to use case-sensitive completion
-# CASE_SENSITIVE="true"
-
-# Comment this out to disable bi-weekly auto-update checks
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment to change how many often would you like to wait before auto-updates occur? (in days)
-# export UPDATE_ZSH_DAYS=13
-
-# Uncomment following line if you want to disable colors in ls
-# DISABLE_LS_COLORS="true"
-
-# Uncomment following line if you want to disable autosetting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment following line if you want red dots to be displayed while waiting for completion
-# COMPLETION_WAITING_DOTS="true"
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git)
-
-source $ZSH/oh-my-zsh.sh
-
 # global paths
-export PATH=/usr/local/bin:$PATH                  # brew
-export PATH=/opt/local/bin:/opt/local/sbin/:$PATH # mac ports
-export PATH=/usr/bin:$PATH
-export PATH=/usr/local/share/npm/bin:$PATH        # npm
+export PATH=/usr/local/bin:$PATH
+export PATH=/opt/local/bin:/opt/local/sbin:$PATH
+export PATH=/opt/local/apache2/bin:$PATH
 export MANPATH=$MANPATH:/opt/local/man
-export SVN_EDITOR=vi
 export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
+export SVN_EDITOR=vi
 
-## Environment variable configuration
-#
-# LANG
-#
+# lang
 export LANG=ja_JP.UTF-8
 case ${UID} in
 0)
     LANG=C
+    ;;
+esac
+
+# prompt
+autoload colors
+colors
+case ${UID} in
+0)
+    PROMPT="%{${fg[cyan]}%}$(echo ${HOST%%.*} | tr '[a-z]' '[A-Z]') %B%{${fg[red]}%}%/#%{${reset_color}%}%b "
+    PROMPT2="%B%{${fg[red]}%}%_#%{${reset_color}%}%b "
+    SPROMPT="%B%{${fg[red]}%}%r is correct? [n,y,a,e]:%{${reset_color}%}%b "
+    ;;
+*)
+    autoload -Uz add-zsh-hook
+    autoload -Uz colors
+    colors
+    autoload -Uz vcs_info
+
+    zstyle ':vcs_info:*' enable git svn hg bzr
+    zstyle ':vcs_info:*' formats '(%s)-[%b]'
+    zstyle ':vcs_info:*' actionformats '(%s)-[%b|%a]'
+    zstyle ':vcs_info:(svn|bzr):*' branchformat '%b:r%r'
+    zstyle ':vcs_info:bzr:*' use-simple true
+
+    autoload -Uz is-at-least
+    if is-at-least 4.3.10; then
+        zstyle ':vcs_info:git:*' check-for-changes true
+        zstyle ':vcs_info:git:*' stagedstr "+"
+        zstyle ':vcs_info:git:*' unstagedstr "-"
+        zstyle ':vcs_info:git:*' formats '(%s)-[%b] %c%u'
+        zstyle ':vcs_info:git:*' actionformats '(%s)-[%b|%a] %c%u'
+    fi
+
+    function _update_vcs_info_msg() {
+        psvar=()
+        LANG=en_US.UTF-8 vcs_info
+        [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
+    }
+    add-zsh-hook precmd _update_vcs_info_msg
+    RPROMPT="%1(v|%F{green}%1v%f|)"
+    PROMPT="%{${fg[red]}%}%/%%%{${reset_color}%} "
+    PROMPT2="%{${fg[red]}%}%_%%%{${reset_color}%} "
+    SPROMPT="%{${fg[red]}%}%r is correct? [n,y,a,e]:%{${reset_color}%} "
+    #RPROMPT="%1(v|%F{green}%1v%f|)"
+    [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] && 
+        PROMPT="%{${fg[cyan]}%}$(echo ${HOST%%.*} | tr '[a-z]' '[A-Z]') ${PROMPT}"
     ;;
 esac
 
@@ -74,8 +78,7 @@ setopt noautoremoveslash
 # no beep sound when complete list displayed
 setopt nolistbeep
 
-
-## Keybind configuration
+# Keybind configuration
 bindkey -e
 bindkey "^[[1~" beginning-of-line # Home gets to line head
 bindkey "^[[4~" end-of-line # End gets to line end
@@ -97,22 +100,17 @@ bindkey "\e[Z" reverse-menu-complete
 HISTFILE=${HOME}/.zsh_history
 HISTSIZE=500000000
 SAVEHIST=500000000
-setopt hist_ignore_dups     # ignore duplication command history list
-setopt share_history        # share command history data
+setopt hist_ignore_dups
+setopt share_history
 
 # Completion configuration
 fpath=(${HOME}/.zsh/functions/Completion ${fpath})
-autoload -U compinit
-compinit
+autoload -U compinit && compinit
 
-## zsh editor
+# zsh editor
 autoload zed
 
-## Prediction configuration
-#autoload predict-on
-#predict-off
-
-## Alias configuration
+# Alias configuration
 setopt complete_aliases     # aliased ls needs if file/dir completions work
 
 alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
@@ -140,6 +138,52 @@ alias df="df -h"
 
 alias su="su -l"
 
+alias st="git status"
+
+# terminal configuration
+case "${TERM}" in
+screen)
+    TERM=xterm
+    ;;
+esac
+
+case "${TERM}" in
+xterm|xterm-color)
+    export LSCOLORS=exfxcxdxbxegedabagacad
+    export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
+    zstyle ':completion:*' list-colors 'di=34' 'ln=35' 'so=32' 'ex=31' 'bd=46;34' 'cd=43;34'
+    ;;
+kterm-color)
+    stty erase '^H'
+    export LSCOLORS=exfxcxdxbxegedabagacad
+    export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
+    zstyle ':completion:*' list-colors 'di=34' 'ln=35' 'so=32' 'ex=31' 'bd=46;34' 'cd=43;34'
+    ;;
+kterm)
+    stty erase '^H'
+    ;;
+cons25)
+    unset LANG
+    export LSCOLORS=ExFxCxdxBxegedabagacad
+    export LS_COLORS='di=01;34:ln=01;35:so=01;32:ex=01;31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
+    zstyle ':completion:*' list-colors 'di=;34;1' 'ln=;35;1' 'so=;32;1' 'ex=31;1' 'bd=46;34' 'cd=43;34'
+    ;;
+jfbterm-color)
+    export LSCOLORS=gxFxCxdxBxegedabagacad
+    export LS_COLORS='di=01;36:ln=01;35:so=01;32:ex=01;31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
+    zstyle ':completion:*' list-colors 'di=;36;1' 'ln=;35;1' 'so=;32;1' 'ex=31;1' 'bd=46;34' 'cd=43;34'
+    ;;
+esac
+
+# set terminal title including current directory
+case "${TERM}" in
+xterm|xterm-color|kterm|kterm-color)
+    precmd() {
+        echo -ne "\033]0;${USER}@${HOST%%.*}:${PWD}\007"
+    }
+    ;;
+esac
+
 # Attache tmux
 if ( ! test $TMUX ) && ( ! expr $TERM : "^screen" > /dev/null ) && which tmux > /dev/null; then
     if ( tmux has-session ); then
@@ -157,9 +201,8 @@ if ( ! test $TMUX ) && ( ! expr $TERM : "^screen" > /dev/null ) && which tmux > 
     fi
 fi
 
-## load user .zshrc configuration file
+# load user .zshrc configuration file
 [ -f ${HOME}/.zshrc.mine ] && source ${HOME}/.zshrc.mine
 
-## load git completion
+# load git completion
 source ~/.git-completion.bash
-
