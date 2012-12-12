@@ -37,6 +37,10 @@ Bundle 'jelera/vim-javascript-syntax'
 " Colorscheme
 Bundle 'xoria256.vim'
 
+" Vim Powerline
+Bundle 'Lokaltog/vim-powerline'
+let g:Powerline_symbols = 'fancy'
+
 "------------------------------------------------------------
 " General options
 "
@@ -105,3 +109,64 @@ nmap <C-h> ^
 nmap <C-l> $
 nmap <C-j> <C-d>
 nmap <C-k> <C-u>
+
+set tabline=%!MyTabLine()
+
+function! MyTabLine()
+  let s = ''
+  for i in range(tabpagenr('$'))
+    " select the highlighting
+    if i + 1 == tabpagenr()
+      let s .= '%#TabLineSel#'
+    else
+      let s .= '%#TabLine#'
+    endif
+
+    " set the tab page number (for mouse clicks)
+    let s .= '%' . (i + 1) . 'T'
+
+    " the label is made by MyTabLabel()
+    let s .= ' %{MyTabLabel(' . (i + 1) . ')} '
+  endfor
+
+  " after the last tab fill with TabLineFill and reset tab page nr
+  let s .= '%#TabLineFill#%T'
+
+  " right-align the label to close the current tab page
+  if tabpagenr('$') > 1
+    let s .= '%=%#TabLine#%999XClose'
+  endif
+
+  return s
+endfunction
+
+let g:use_Powerline_dividers = 1
+
+function! MyTabLabel(n)
+    let buflist = tabpagebuflist(a:n)
+    let winnr = tabpagewinnr(a:n)
+    let altbuf = bufname(buflist[winnr - 1])
+
+    " $HOME を消す
+    let altbuf = substitute(altbuf, expand('$HOME/'), '', '')
+
+    " カレントタブ以外はパスを短くする
+    if tabpagenr() != a:n
+        let altbuf = substitute(altbuf, '^.*/', '', '')
+        let altbuf = substitute(altbuf, '^.\zs.*\ze\.[^.]\+$', '', '')
+    endif
+
+    " vim-powerline のグリフを使う
+    if g:use_Powerline_dividers
+        let dividers = g:Pl#Parser#Symbols[g:Powerline_symbols].dividers
+        let right_div = nr2char(get(dividers[1], 0, 124))
+        let altbuf = altbuf.' '.right_div
+    else
+        let altbuf = '|' . altbuf . '|'
+    endif
+
+    " タブ番号を付加
+    let altbuf = a:n . ':' . altbuf
+
+    return altbuf
+endfunction
