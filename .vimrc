@@ -7,22 +7,39 @@ filetype off
 
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
-
 Bundle 'gmarik/vundle'
+
+" Colorscheme
+Bundle 'xoria256.vim'
+colorscheme xoria256
+
+" Vim Powerline
+Bundle 'Lokaltog/vim-powerline'
+let g:Powerline_symbols = 'fancy'
+
 Bundle 'fugitive.vim'
 Bundle 'surround.vim'
+
+" mru.vim
 Bundle 'mru.vim'
 let g:MRU_File=$HOME."/.vim/vim_mru_files"
 let g:MRU_Auto_Close=0
 let g:MRU_Max_Entries=100000
 let g:MRU_Exclude_Files="^/tmp/.*\|^/var/tmp/.*"
+
+" The NERD Tree
 Bundle 'The-NERD-tree'
 nmap <F2> :NERDTreeToggle<CR>
+
+" The NERD Commenter
 Bundle 'The-NERD-Commenter'
 nmap <Leader>/ <Plug>NERDCommenterToggle
 vmap <Leader>/ <Plug>NERDCommenterToggle
 let g:NERDShutUp = 1
+
 Bundle 'EasyMotion'
+
+" FuzzyFinder
 Bundle 'L9'
 Bundle 'FuzzyFinder'
 let g:fuf_dataDir=$HOME."/.vim/vim-fuf-data"
@@ -34,19 +51,15 @@ nnoremap br :<C-u>FufMruFile<CR>
 " Javascript
 Bundle 'jelera/vim-javascript-syntax'
 
-" Colorscheme
-Bundle 'xoria256.vim'
-
-" Vim Powerline
-Bundle 'Lokaltog/vim-powerline'
-let g:Powerline_symbols = 'fancy'
+" markdown
+Bundle 'quickrun.vim'
+Bundle 'Markdown'
 
 "------------------------------------------------------------
 " General options
 "
 filetype indent plugin on
 syntax on
-colorscheme xoria256
 set shortmess+=I
 set number
 set title
@@ -67,6 +80,7 @@ highlight link ZenkakuSpace Error
 match ZenkakuSpace /　/
 set laststatus=2
 set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
+set tabline=%!TabLine()
 set cmdheight=2
 set confirm
 set visualbell
@@ -97,22 +111,22 @@ set backupskip=/tmp/*,/private/tmp/*
 set swapfile
 set directory=~/.vim/vim_swap
 
+" turn off highlight
 nnoremap <C-i> :nohl<CR><C-i>
 
 " tab controll remap
-nmap <C-n> :tabn<CR>
-nmap <C-p> :tabr<CR>
-nmap <C-x> :tabc<CR>
+nnoremap <C-n> :tabn<CR>
+nnoremap <C-p> :tabr<CR>
+nnoremap <C-x> :tabc<CR>
 
 " motion controll remap
-nmap <C-h> ^
-nmap <C-l> $
-nmap <C-j> <C-d>
-nmap <C-k> <C-u>
+noremap <C-h> ^
+noremap <C-l> $
+noremap <C-j> <C-d>
+noremap <C-k> <C-u>
 
-set tabline=%!MyTabLine()
 
-function! MyTabLine()
+function! TabLine()
   let s = ''
   for i in range(tabpagenr('$'))
     " select the highlighting
@@ -126,7 +140,7 @@ function! MyTabLine()
     let s .= '%' . (i + 1) . 'T'
 
     " the label is made by MyTabLabel()
-    let s .= ' %{MyTabLabel(' . (i + 1) . ')} '
+    let s .= ' %{TabLabel(' . (i + 1) . ')} '
   endfor
 
   " after the last tab fill with TabLineFill and reset tab page nr
@@ -142,7 +156,7 @@ endfunction
 
 let g:use_Powerline_dividers = 1
 
-function! MyTabLabel(n)
+function! TabLabel(n)
     let buflist = tabpagebuflist(a:n)
     let winnr = tabpagewinnr(a:n)
     let altbuf = bufname(buflist[winnr - 1])
