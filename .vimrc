@@ -27,14 +27,14 @@ let g:MRU_Auto_Close=0
 let g:MRU_Max_Entries=100000
 let g:MRU_Exclude_Files="^/tmp/.*\|^/var/tmp/.*"
 
-" The NERD Tree
+"The NERD Tree
 Bundle 'The-NERD-tree'
 nmap <F2> :NERDTreeToggle<CR>
 
 " The NERD Commenter
 Bundle 'The-NERD-Commenter'
-nmap <Leader>/ <Plug>NERDCommenterToggle
-vmap <Leader>/ <Plug>NERDCommenterToggle
+nmap <leader>/ <Plug>NERDCommenterToggle
+vmap <leader>/ <Plug>NERDCommenterToggle
 let g:NERDShutUp = 1
 
 Bundle 'EasyMotion'
@@ -87,7 +87,7 @@ set visualbell
 set t_vb=
 set mouse=a
 set notimeout ttimeout ttimeoutlen=200
-set pastetoggle=<F11>
+set pastetoggle=<leader>t
 set autoindent
 set tabstop<
 set shiftwidth=4
@@ -115,9 +115,11 @@ set directory=~/.vim/vim_swap
 nnoremap <C-i> :nohl<CR><C-i>
 
 " tab controll remap
+nnoremap <C-e> :tabe 
 nnoremap <C-n> :tabn<CR>
-nnoremap <C-p> :tabr<CR>
+nnoremap <C-p> :tabp<CR>
 nnoremap <C-x> :tabc<CR>
+nnoremap <C-a> :tabs<CR>
 
 " motion controll remap
 noremap <C-h> ^
@@ -125,6 +127,8 @@ noremap <C-l> $
 noremap <C-j> <C-d>
 noremap <C-k> <C-u>
 
+" shell
+nnoremap <leader>s :shell<CR>
 
 function! TabLine()
   let s = ''
