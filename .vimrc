@@ -60,6 +60,8 @@ Bundle 'Markdown'
 "
 filetype indent plugin on
 syntax on
+set history=10000
+set cwh=100
 set shortmess+=I
 set number
 set title
@@ -111,6 +113,10 @@ set backupskip=/tmp/*,/private/tmp/*
 set swapfile
 set directory=~/.vim/vim_swap
 
+" edit and apply .vimrc
+nnoremap <leader>ve :tabe ~/.vimrc<CR>
+nnoremap <leader>va :source ~/.vimrc<CR>
+
 " turn off highlight
 nnoremap <C-i> :nohl<CR><C-i>
 
@@ -143,7 +149,7 @@ function! TabLine()
     " set the tab page number (for mouse clicks)
     let s .= '%' . (i + 1) . 'T'
 
-    " the label is made by MyTabLabel()
+    " the label is made by TabLabel()
     let s .= ' %{TabLabel(' . (i + 1) . ')} '
   endfor
 
@@ -169,10 +175,10 @@ function! TabLabel(n)
     let altbuf = substitute(altbuf, expand('$HOME/'), '', '')
 
     " カレントタブ以外はパスを短くする
-    if tabpagenr() != a:n
-        let altbuf = substitute(altbuf, '^.*/', '', '')
-        let altbuf = substitute(altbuf, '^.\zs.*\ze\.[^.]\+$', '', '')
-    endif
+    "if tabpagenr() != a:n
+        "let altbuf = substitute(altbuf, '^.*/', '', '')
+        "let altbuf = substitute(altbuf, '^.\zs.*\ze\.[^.]\+$', '', '')
+    "endif
 
     " vim-powerline のグリフを使う
     if g:use_Powerline_dividers
@@ -188,3 +194,4 @@ function! TabLabel(n)
 
     return altbuf
 endfunction
+
