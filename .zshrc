@@ -1,6 +1,7 @@
 # global paths
 export PATH=/usr/local/bin:$PATH # brew
 export PATH=/opt/local/bin:/opt/local/sbin:$PATH # Mac Ports
+export PATH=/usr/local/share/npm/bin:$PATH # npm
 export PATH=/opt/local/apache2/bin:$PATH
 export MANPATH=$MANPATH:/opt/local/man
 export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
