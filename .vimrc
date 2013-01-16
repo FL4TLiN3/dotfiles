@@ -13,43 +13,50 @@ Bundle 'gmarik/vundle'
 Bundle 'xoria256.vim'
 colorscheme xoria256
 
+" unite.vim
+Bundle 'unite.vim'
+let g:unite_enable_start_insert=1
+let g:unite_source_file_mru_time_format=''
+let g:unite_source_file_mru_limit=50
+nnoremap <silent> <F1> :<C-u>Unite buffer <CR>
+nnoremap <silent> <F2> :<C-u>Unite file<CR>
+nnoremap <silent> <F3> :<C-u>Unite file_mru<CR>
+nnoremap <silent> <F4> :<C-u>Unite bookmark<CR>
+nnoremap <silent> <F11> :<C-u>Unite -buffer-name=register register<CR>
+nnoremap <silent> <Leader>a :<C-u>UniteBookmarkAdd<CR>
+nnoremap <silent> <Leader>u :<C-u>Unite buffer file_mru bookmark file<CR>
+autocmd FileType unite call s:unite_my_settings()
+function! s:unite_my_settings()
+  imap <buffer> <ESC> <ESC>:q<CR>
+  imap <buffer> <C-o> <Plug>(unite_insert_leave):<C-u>call unite#mappings#do_action('above')<CR>
+endfunction
+
 " Vim Powerline
 Bundle 'Lokaltog/vim-powerline'
-let g:Powerline_symbols = 'fancy'
+let g:Powerline_symbols='fancy'
 
+" fugitive.vim
 Bundle 'fugitive.vim'
+
+" surround.vim
 Bundle 'surround.vim'
-
-" mru.vim
-Bundle 'mru.vim'
-let g:MRU_File=$HOME."/.vim/vim_mru_files"
-let g:MRU_Auto_Close=0
-let g:MRU_Max_Entries=100000
-let g:MRU_Exclude_Files="^/tmp/.*\|^/var/tmp/.*"
-
-"The NERD Tree
-Bundle 'The-NERD-tree'
-nmap <F2> :NERDTreeToggle<CR>
 
 " The NERD Commenter
 Bundle 'The-NERD-Commenter'
+let g:NERDCreateDefaultMappings=0
+let g:NERDShutUp=1
+let NERDSpaceDelims=1
 nmap <leader>/ <Plug>NERDCommenterToggle
 vmap <leader>/ <Plug>NERDCommenterToggle
-let g:NERDShutUp = 1
 
+" EasyMotion
 Bundle 'EasyMotion'
-
-" FuzzyFinder
-Bundle 'L9'
-Bundle 'FuzzyFinder'
-let g:fuf_dataDir=$HOME."/.vim/vim-fuf-data"
-let g:fuf_keyOpenTabpage = '<CR>'
-let g:fuf_keyOpen = '<Tab>'
-nnoremap bf :<C-u>FufFile **/<CR>
-nnoremap br :<C-u>FufMruFile<CR>
 
 " Javascript
 Bundle 'jelera/vim-javascript-syntax'
+
+" jade
+Bundle 'digitaltoad/vim-jade'
 
 " markdown
 Bundle 'quickrun.vim'
@@ -82,7 +89,6 @@ highlight link ZenkakuSpace Error
 match ZenkakuSpace /　/
 set laststatus=2
 set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
-set tabline=%!TabLine()
 set cmdheight=2
 set confirm
 set visualbell
@@ -114,18 +120,15 @@ set swapfile
 set directory=~/.vim/vim_swap
 
 " edit and apply .vimrc
-nnoremap <leader>ve :tabe ~/.vimrc<CR>
+nnoremap <leader>ve :e ~/.vimrc<CR>
 nnoremap <leader>va :source ~/.vimrc<CR>
 
 " turn off highlight
 nnoremap <C-i> :nohl<CR><C-i>
 
-" tab controll remap
-nnoremap <C-e> :tabe 
-nnoremap <C-n> :tabn<CR>
-nnoremap <C-p> :tabp<CR>
-nnoremap <C-x> :tabc<CR>
-nnoremap <C-a> :tabs<CR>
+" buffer motion
+nnoremap <silent> <C-n> :bn<CR>
+nnoremap <silent> <C-p> :bp<CR>
 
 " motion controll remap
 noremap <C-h> ^
@@ -135,63 +138,4 @@ noremap <C-k> <C-u>
 
 " shell
 nnoremap <leader>s :shell<CR>
-
-function! TabLine()
-  let s = ''
-  for i in range(tabpagenr('$'))
-    " select the highlighting
-    if i + 1 == tabpagenr()
-      let s .= '%#TabLineSel#'
-    else
-      let s .= '%#TabLine#'
-    endif
-
-    " set the tab page number (for mouse clicks)
-    let s .= '%' . (i + 1) . 'T'
-
-    " the label is made by TabLabel()
-    let s .= ' %{TabLabel(' . (i + 1) . ')} '
-  endfor
-
-  " after the last tab fill with TabLineFill and reset tab page nr
-  let s .= '%#TabLineFill#%T'
-
-  " right-align the label to close the current tab page
-  if tabpagenr('$') > 1
-    let s .= '%=%#TabLine#%999XClose'
-  endif
-
-  return s
-endfunction
-
-let g:use_Powerline_dividers = 1
-
-function! TabLabel(n)
-    let buflist = tabpagebuflist(a:n)
-    let winnr = tabpagewinnr(a:n)
-    let altbuf = bufname(buflist[winnr - 1])
-
-    " $HOME を消す
-    let altbuf = substitute(altbuf, expand('$HOME/'), '', '')
-
-    " カレントタブ以外はパスを短くする
-    "if tabpagenr() != a:n
-        "let altbuf = substitute(altbuf, '^.*/', '', '')
-        "let altbuf = substitute(altbuf, '^.\zs.*\ze\.[^.]\+$', '', '')
-    "endif
-
-    " vim-powerline のグリフを使う
-    if g:use_Powerline_dividers
-        let dividers = g:Pl#Parser#Symbols[g:Powerline_symbols].dividers
-        let right_div = nr2char(get(dividers[1], 0, 124))
-        let altbuf = altbuf.' '.right_div
-    else
-        let altbuf = '|' . altbuf . '|'
-    endif
-
-    " タブ番号を付加
-    let altbuf = a:n . ':' . altbuf
-
-    return altbuf
-endfunction
 
