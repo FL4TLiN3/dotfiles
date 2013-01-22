@@ -1,14 +1,14 @@
 # global paths
 case "${OSTYPE}" in
-freebsd*|darwin*)
+darwin*)
     export PATH=/usr/local/bin:$PATH # brew
     export PATH=/opt/local/bin:/opt/local/sbin:$PATH # Mac Ports
     export PATH=/usr/local/share/npm/bin:$PATH # npm
     export PATH=/opt/local/apache2/bin:$PATH
-    export MANPATH=$MANPATH:/opt/local/man
-    export SVN_EDITOR=vi
+    export NODE_PATH=~/workspace/xmatome/lib
+    export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
     ;;
-linux*)
+freebsd*|linux*)
     export PATH=/usr/bin/X11:$PATHexport PATH=/usr/sbin:$PATH
     export PATH=/sbin:$PATH
     export PATH=/var/qmail/bin:$PATH
@@ -17,8 +17,11 @@ linux*)
     export PATH=$HOME/script/tool:$PATH
     export PATH=$HOME/script/daemon:$PATH
     export PATH=.:$PATH
+    export EDITOR=vi
     ;;
 esac
+
+export SVN_EDITOR=${EDITOR}
 
 # lang
 export LANG=ja_JP.UTF-8
@@ -118,7 +121,7 @@ setopt hist_ignore_dups
 setopt share_history
 
 # Completion configuration
-fpath=(${HOME}/.zsh/functions/Completion ${fpath})
+fpath=(${HOME}.zsh/completion $fpath)
 autoload -U compinit && compinit
 
 # zsh editor
@@ -134,19 +137,17 @@ alias du="du -h"
 alias df="df -h"
 alias su="su -l"
 alias st="git status"
-alias jake="noglob jake"
 alias where="command -v"
 alias j="jobs -l"
 
 # OS dependancy
 case "${OSTYPE}" in
-freebsd*|darwin*)
-    export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
+darwin*)
     alias ls="ls -G -w"
     alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
     alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
     ;;
-linux*)
+freebsd*|linux*)
     alias ls="ls --color"
     ;;
 esac
@@ -216,7 +217,3 @@ fi
 # load user .zshrc configuration file
 [ -f ${HOME}/.zshrc.mine ] && source ${HOME}/.zshrc.mine
 
-# load git completion
-if ( ! test ~/.git-completion.bash ) then
-    source ~/.git-completion.bash
-fi
