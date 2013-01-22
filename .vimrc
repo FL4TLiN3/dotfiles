@@ -22,7 +22,7 @@ nnoremap <silent> <F1> :<C-u>Unite buffer <CR>
 nnoremap <silent> <F2> :<C-u>Unite file<CR>
 nnoremap <silent> <F3> :<C-u>Unite file_mru<CR>
 nnoremap <silent> <F4> :<C-u>Unite bookmark<CR>
-nnoremap <silent> <F11> :<C-u>Unite -buffer-name=register register<CR>
+nnoremap <silent> <Leader>y :<C-u>Unite -buffer-name=register register<CR>
 nnoremap <silent> <Leader>a :<C-u>UniteBookmarkAdd<CR>
 nnoremap <silent> <Leader>u :<C-u>Unite buffer file_mru bookmark file<CR>
 autocmd FileType unite call s:unite_my_settings()
@@ -41,13 +41,19 @@ Bundle 'fugitive.vim'
 " surround.vim
 Bundle 'surround.vim'
 
+"The NERD Tree
+Bundle 'The-NERD-tree'
+Bundle 'jistr/vim-nerdtree-tabs'
+let g:nerdtree_tabs_open_on_console_startup=1
+nnoremap <silent> <F11> :NERDTreeTabsToggle<CR>:vertical resize 50<CR>
+
 " The NERD Commenter
 Bundle 'The-NERD-Commenter'
 let g:NERDCreateDefaultMappings=0
 let g:NERDShutUp=1
 let NERDSpaceDelims=1
-nmap <leader>/ <Plug>NERDCommenterToggle
-vmap <leader>/ <Plug>NERDCommenterToggle
+nmap <silent> <leader>/ <Plug>NERDCommenterToggle
+vmap <silent> <leader>/ <Plug>NERDCommenterToggle
 
 " EasyMotion
 Bundle 'EasyMotion'
@@ -103,15 +109,10 @@ set softtabstop=4
 set expandtab
 set clipboard=unnamed
 set autoread
+set nofoldenable
 nnoremap j gj
 nnoremap k gk
 set whichwrap=b,s,h,l,<,>,[,]
-imap <C-o> <END>
-imap <C-a> <HOME>
-imap <C-h> <LEFT>
-imap <C-j> <DOWN>
-imap <C-k> <UP>
-imap <C-l> <Right>
 
 set backup
 set backupdir=~/.vim/vim_backup
@@ -120,22 +121,30 @@ set swapfile
 set directory=~/.vim/vim_swap
 
 " edit and apply .vimrc
-nnoremap <leader>ve :e ~/.vimrc<CR>
-nnoremap <leader>va :source ~/.vimrc<CR>
+nnoremap <silent> <leader>ve :e ~/.vimrc<CR>
+nnoremap <silent> <leader>va :source ~/.vimrc<CR>
 
 " turn off highlight
-nnoremap <C-i> :nohl<CR><C-i>
+nnoremap <silent> <C-i> :nohl<CR><C-i>
 
 " buffer motion
+nnoremap <silent> <C-e> :e 
 nnoremap <silent> <C-n> :bn<CR>
 nnoremap <silent> <C-p> :bp<CR>
+nnoremap <silent> <C-x> :bdelete<CR>
 
 " motion controll remap
-noremap <C-h> ^
-noremap <C-l> $
-noremap <C-j> <C-d>
-noremap <C-k> <C-u>
+inoremap <silent> <C-o> <END>
+inoremap <silent> <C-a> <HOME>
+nnoremap <silent> <C-h> ^
+inoremap <silent> <C-h> <LEFT>
+nnoremap <silent> <C-j> <C-d>
+inoremap <silent> <C-j> <DOWN>
+nnoremap <silent> <C-k> <C-u>
+inoremap <silent> <C-k> <UP>
+nnoremap <silent> <C-l> $
+inoremap <silent> <C-l> <Right>
 
 " shell
-nnoremap <leader>s :shell<CR>
+nnoremap <silent> <leader>s :shell<CR>
 

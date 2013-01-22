@@ -1,11 +1,24 @@
 # global paths
-export PATH=/usr/local/bin:$PATH # brew
-export PATH=/opt/local/bin:/opt/local/sbin:$PATH # Mac Ports
-export PATH=/usr/local/share/npm/bin:$PATH # npm
-export PATH=/opt/local/apache2/bin:$PATH
-export MANPATH=$MANPATH:/opt/local/man
-export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
-export SVN_EDITOR=vi
+case "${OSTYPE}" in
+freebsd*|darwin*)
+    export PATH=/usr/local/bin:$PATH # brew
+    export PATH=/opt/local/bin:/opt/local/sbin:$PATH # Mac Ports
+    export PATH=/usr/local/share/npm/bin:$PATH # npm
+    export PATH=/opt/local/apache2/bin:$PATH
+    export MANPATH=$MANPATH:/opt/local/man
+    export SVN_EDITOR=vi
+    ;;
+linux*)
+    export PATH=/usr/bin/X11:$PATHexport PATH=/usr/sbin:$PATH
+    export PATH=/sbin:$PATH
+    export PATH=/var/qmail/bin:$PATH
+    export PATH=/usr/local/apache/bin:$PATH
+    export PATH=$HOME/bin:$PATH
+    export PATH=$HOME/script/tool:$PATH
+    export PATH=$HOME/script/daemon:$PATH
+    export PATH=.:$PATH
+    ;;
+esac
 
 # lang
 export LANG=ja_JP.UTF-8
@@ -114,32 +127,30 @@ autoload zed
 # Alias configuration
 setopt complete_aliases     # aliased ls needs if file/dir completions work
 
-alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
-alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
-
+alias la="ls -la"
+alias lf="ls -F"
+alias ll="ls -lh"
+alias du="du -h"
+alias df="df -h"
+alias su="su -l"
+alias st="git status"
 alias jake="noglob jake"
 alias where="command -v"
 alias j="jobs -l"
 
+# OS dependancy
 case "${OSTYPE}" in
 freebsd*|darwin*)
+    export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
     alias ls="ls -G -w"
+    alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
+    alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
     ;;
 linux*)
     alias ls="ls --color"
     ;;
 esac
 
-alias la="ls -la"
-alias lf="ls -F"
-alias ll="ls -lh"
-
-alias du="du -h"
-alias df="df -h"
-
-alias su="su -l"
-
-alias st="git status"
 
 # terminal configuration
 case "${TERM}" in
@@ -206,4 +217,6 @@ fi
 [ -f ${HOME}/.zshrc.mine ] && source ${HOME}/.zshrc.mine
 
 # load git completion
-source ~/.git-completion.bash
+if ( ! test ~/.git-completion.bash ) then
+    source ~/.git-completion.bash
+fi
