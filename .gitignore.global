@@ -1,4 +1,4 @@
-# OS X specified
+.gitconfig.local
 .DS_Store
 .AppleDouble
 .LSOverride
@@ -7,8 +7,5 @@ Icon
 .Spotlight-V100
 .Trashes
 .project
-
-# project specified
-war/WEB-INF/web.xml
-ios/moshikyaba/Classes/ViewController.m
 .metadata/
+

@@ -1,10 +1,12 @@
 # global paths
 case "${OSTYPE}" in
 darwin*)
-    export PATH=/usr/local/bin:$PATH # brew
+    export PATH=/usr/local/bin:/usr/local/sbin:$PATH # brew
     export PATH=/opt/local/bin:/opt/local/sbin:$PATH # Mac Ports
+    export PATH=$HOME/.nodebrew/current/bin:$PATH # nodebrew
     export PATH=/usr/local/share/npm/bin:$PATH # npm
     export PATH=/opt/local/apache2/bin:$PATH
+    export PATH=$HOME/android-sdk-macosx/platform-tools:$PATH
     export NODE_PATH=~/workspace/xmatome/lib
     export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
     ;;
@@ -72,7 +74,7 @@ case ${UID} in
     PROMPT2="%{${fg[red]}%}%_%%%{${reset_color}%} "
     SPROMPT="%{${fg[red]}%}%r is correct? [n,y,a,e]:%{${reset_color}%} "
     #RPROMPT="%1(v|%F{green}%1v%f|)"
-    [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] && 
+    [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] &&
         PROMPT="%{${fg[cyan]}%}$(echo ${HOST%%.*} | tr '[a-z]' '[A-Z]') ${PROMPT}"
     ;;
 esac

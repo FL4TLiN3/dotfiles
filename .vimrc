@@ -135,9 +135,12 @@ set mouse=a
 set notimeout ttimeout ttimeoutlen=200
 set pastetoggle=<leader>t
 set autoindent
-set tabstop<
 set shiftwidth=4
+set tabstop=4
 set softtabstop=4
+augroup vimrc
+    autocmd! FileType jade setlocal shiftwidth=2 tabstop=2 softtabstop=2
+augroup END
 set expandtab
 set clipboard=unnamed
 set autoread
@@ -146,11 +149,8 @@ nnoremap j gj
 nnoremap k gk
 set whichwrap=b,s,h,l,<,>,[,]
 
-set backup
-set backupdir=~/.vim/vim_backup
-set backupskip=/tmp/*,/private/tmp/*
-set swapfile
-set directory=~/.vim/vim_swap
+set nobackup
+set noswapfile
 
 " edit and apply .vimrc
 nnoremap <silent> <leader>ve :e ~/.vimrc<CR>

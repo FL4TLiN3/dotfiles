@@ -1,6 +1,6 @@
 [user]
     name = HiranoMasaaki
-    email = hirano_masaaki@quunapp.com
+    email = hirano.masaaki@dena.jp
 [color]
     ui = auto
 [include]
@@ -19,11 +19,11 @@
     rebase = true
 [alias]
     alias = !git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\\t => \\2/' | sort
-    b = branch -a
-    br = browse-remote
-    ci = commit
+    bra = branch -a
+    bre = browse-remote
+    com = commit
     co = checkout
-    d = diff
+    df = diff
     dc = diff --cached
     di = diff
     dic = diff --cached
