@@ -56,7 +56,12 @@ case ${UID} in
 
     autoload -Uz is-at-least
     if is-at-least 4.3.10; then
-        zstyle ':vcs_info:git:*' check-for-changes true
+        if [ -n "${REMOTEHOST}${SSH_CONNECTION}" ]; then
+            zstyle ':vcs_info:git:*' check-for-changes false
+        else
+            zstyle ':vcs_info:git:*' check-for-changes true
+        fi
+        zstyle ':vcs_info:git:*' check-for-changes false
         zstyle ':vcs_info:git:*' stagedstr "+"
         zstyle ':vcs_info:git:*' unstagedstr "-"
         zstyle ':vcs_info:git:*' formats '(%s)-[%b] %c%u'
@@ -73,7 +78,6 @@ case ${UID} in
     PROMPT="%{${fg[red]}%}%/%%%{${reset_color}%} "
     PROMPT2="%{${fg[red]}%}%_%%%{${reset_color}%} "
     SPROMPT="%{${fg[red]}%}%r is correct? [n,y,a,e]:%{${reset_color}%} "
-    #RPROMPT="%1(v|%F{green}%1v%f|)"
     [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] &&
         PROMPT="%{${fg[cyan]}%}$(echo ${HOST%%.*} | tr '[a-z]' '[A-Z]') ${PROMPT}"
     ;;
