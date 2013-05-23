@@ -24,10 +24,6 @@ Bundle 'unite.vim'
 let g:unite_enable_start_insert=1
 let g:unite_source_file_mru_time_format=''
 let g:unite_source_file_mru_limit=50
-nnoremap <silent> <F1> :<C-u>Unite buffer <CR>
-nnoremap <silent> <F2> :<C-u>Unite file<CR>
-nnoremap <silent> <F3> :<C-u>Unite file_mru<CR>
-nnoremap <silent> <F4> :<C-u>Unite bookmark<CR>
 nnoremap <silent> <Leader>y :<C-u>Unite -buffer-name=register register<CR>
 nnoremap <silent> <Leader>a :<C-u>UniteBookmarkAdd<CR>
 nnoremap <silent> <Leader>u :<C-u>Unite buffer file_mru bookmark file<CR>
@@ -164,26 +160,13 @@ nnoremap <silent> <leader>va :source ~/.vimrc<CR>
 " turn off highlight
 nnoremap <silent> <C-i> :nohl<CR><C-i>
 
-" buffer motion
-nnoremap <silent> <C-e> :e
-nnoremap <silent> <C-n> :bn<CR>
-nnoremap <silent> <C-p> :bp<CR>
-nnoremap <silent> <C-x> :bdelete<CR>
-
-" motion controll remap
-inoremap <silent> <C-o> <END>
-inoremap <silent> <C-a> <HOME>
-nnoremap <silent> <C-h> ^
-inoremap <silent> <C-h> <LEFT>
-nnoremap <silent> <C-j> <C-d>
-inoremap <silent> <C-j> <DOWN>
-nnoremap <silent> <C-k> <C-u>
-inoremap <silent> <C-k> <UP>
-nnoremap <silent> <C-l> $
-inoremap <silent> <C-l> <Right>
-
 " shell
 nnoremap <silent> <leader>s :shell<CR>
+
+"------------------------------------------------------------
+" imports
+"
+source ~/.dotfiles/.vimrc.motion
 
 "------------------------------------------------------------
 " autocmd settingsc
