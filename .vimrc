@@ -17,19 +17,24 @@ colorscheme xoria256
 Bundle 'Lokaltog/vim-powerline'
 let g:Powerline_symbols='fancy'
 
-Bundle 'minibufexpl.vim'
+" Bundle 'minibufexpl.vim'
 
 " unite.vim
 Bundle 'unite.vim'
 let g:unite_enable_start_insert=1
 let g:unite_source_file_mru_time_format=''
 let g:unite_source_file_mru_limit=50
+nnoremap <silent> <Leader>b :<C-u>Unite buffer <CR>
+nnoremap <silent> <Leader>f :<C-u>Unite file<CR>
+nnoremap <silent> <Leader>m :<C-u>Unite file_mru<CR>
+nnoremap <silent> <Leader>B :<C-u>Unite bookmark<CR>
 nnoremap <silent> <Leader>y :<C-u>Unite -buffer-name=register register<CR>
 nnoremap <silent> <Leader>a :<C-u>UniteBookmarkAdd<CR>
 nnoremap <silent> <Leader>u :<C-u>Unite buffer file_mru bookmark file<CR>
 autocmd FileType unite call s:unite_my_settings()
 function! s:unite_my_settings()
-    imap <buffer> <ESC> <ESC>:q<CR>
+    map <buffer> <ESC> <ESC>:q<CR>
+    nmap <buffer> <C-c> :q<CR>
     imap <buffer> <C-o> <Plug>(unite_insert_leave):<C-u>call unite#mappings#do_action('above')<CR>
 endfunction
 
@@ -57,6 +62,7 @@ let g:syntastic_error_symbol='✗'
 let g:syntastic_warning_symbol='⚠'
 
 " fugitive.vim
+Bundle 'gregsexton/gitv'
 Bundle 'fugitive.vim'
 
 " surround.vim
@@ -66,10 +72,10 @@ Bundle 'surround.vim'
 Bundle 'quickrun.vim'
 
 "The NERD Tree
-Bundle 'The-NERD-tree'
-Bundle 'jistr/vim-nerdtree-tabs'
-let g:nerdtree_tabs_open_on_console_startup=1
-nnoremap <silent> <F11> :NERDTreeTabsToggle<CR>:vertical resize 50<CR>
+" Bundle 'The-NERD-tree'
+" Bundle 'jistr/vim-nerdtree-tabs'
+" let g:nerdtree_tabs_open_on_console_startup=1
+" nnoremap <silent> <F11> :NERDTreeTabsToggle<CR>:vertical resize 50<CR>
 
 " The NERD Commenter
 Bundle 'The-NERD-Commenter'
