@@ -151,6 +151,11 @@ set whichwrap=b,s,h,l,<,>,[,]
 
 set nobackup
 set noswapfile
+" set backup
+" set backupdir=~/.vim/vim_backup
+" set backupskip=/tmp/*,/private/tmp/*
+" set swapfile
+" set directory=~/.vim/vim_swap
 
 " edit and apply .vimrc
 nnoremap <silent> <leader>ve :e ~/.vimrc<CR>
