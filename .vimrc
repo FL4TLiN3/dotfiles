@@ -24,14 +24,16 @@ Bundle 'unite.vim'
 let g:unite_enable_start_insert=1
 let g:unite_source_file_mru_time_format=''
 let g:unite_source_file_mru_limit=50
-nnoremap <silent> <Leader>b :<C-u>Unite buffer <CR>
-nnoremap <silent> <Leader>f :<C-u>Unite file<CR>
-nnoremap <silent> <Leader>m :<C-u>Unite file_mru<CR>
+nnoremap <silent> <Leader>b :<C-u>Unite -input=**/ buffer <CR>
+nnoremap <silent> <Leader>f :<C-u>Unite -input=**/ file<CR>
+nnoremap <silent> <Leader>m :<C-u>Unite -input=**/ file_mru<CR>
 nnoremap <silent> <Leader>B :<C-u>Unite bookmark<CR>
 nnoremap <silent> <Leader>y :<C-u>Unite -buffer-name=register register<CR>
 nnoremap <silent> <Leader>a :<C-u>UniteBookmarkAdd<CR>
 nnoremap <silent> <Leader>u :<C-u>Unite buffer file_mru bookmark file<CR>
 autocmd FileType unite call s:unite_my_settings()
+let s:file_rec_ignore_pattern = (unite#sources#file_rec#define()[0]['ignore_pattern']) . '\|node_modules'
+call unite#custom_source('file', 'ignore_pattern', s:file_rec_ignore_pattern)
 function! s:unite_my_settings()
     map <buffer> <ESC> <ESC>:q<CR>
     nmap <buffer> <C-c> :q<CR>
@@ -64,6 +66,29 @@ let g:syntastic_warning_symbol='⚠'
 " fugitive.vim
 Bundle 'gregsexton/gitv'
 Bundle 'fugitive.vim'
+nnoremap <silent> <Leader>g :<C-u>Gitv <CR>
+nnoremap <silent> <Leader>G :<C-u>Gitv! <CR>
+autocmd FileType gitv call s:my_gitv_settings()
+function! s:my_gitv_settings()
+    setlocal iskeyword+=/,-,.
+    nnoremap <silent><buffer> C :<C-u>Git checkout <C-r><C-w><CR>
+    nnoremap <buffer> <Space>rb :<C-u>Git rebase <C-r>=GitvGetCurrentHash()<CR><Space>
+    nnoremap <buffer> <Space>R :<C-u>Git revert <C-r>=GitvGetCurrentHash()<CR><CR>
+    nnoremap <buffer> <Space>h :<C-u>Git cherry-pick <C-r>=GitvGetCurrentHash()<CR><CR>
+    nnoremap <buffer> <Space>rh :<C-u>Git reset --hard <C-r>=GitvGetCurrentHash()<CR>
+    nnoremap <silent><buffer> t :<C-u>windo call <SID>toggle_git_folding()<CR>1<C-w>w
+endfunction
+
+function! s:gitv_get_current_hash()
+    return matchstr(getline('.'), '\[\zs.\{7\}\ze\]$')
+endfunction
+
+autocmd FileType git setlocal nofoldenable foldlevel=0
+function! s:toggle_git_folding()
+    if &filetype ==# 'git'
+        setlocal foldenable!
+    endif
+endfunction
 
 " surround.vim
 Bundle 'surround.vim'
