@@ -61,7 +61,6 @@ case ${UID} in
         else
             zstyle ':vcs_info:git:*' check-for-changes true
         fi
-        zstyle ':vcs_info:git:*' check-for-changes false
         zstyle ':vcs_info:git:*' stagedstr "+"
         zstyle ':vcs_info:git:*' unstagedstr "-"
         zstyle ':vcs_info:git:*' formats '(%s)-[%b] %c%u'
