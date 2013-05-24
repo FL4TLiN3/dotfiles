@@ -1,0 +1,10 @@
+#!/bin/sh
+
+cd $HOME
+ln -s .dotfiles/.gitconfig
+ln -s .dotfiles/.gitignore.global .gitignore
+ln -s .dotfiles/.tmux.conf
+ln -s .dotfiles/.vimrc
+ln -s .dotfiles/.zsh
+ln -s .dotfiles/.zshrc
+
