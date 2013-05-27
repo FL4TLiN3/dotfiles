@@ -147,6 +147,7 @@ set ignorecase
 set smartcase
 set nostartofline
 set backspace=indent,eol,start
+set fileencodings=ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932,utf-8
 set ruler
 set list
 set listchars=tab:>-,trail:-,extends:>,precedes:<
