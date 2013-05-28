@@ -24,7 +24,7 @@ Bundle 'unite.vim'
 let g:unite_enable_start_insert=1
 let g:unite_source_file_mru_time_format=''
 let g:unite_source_file_mru_limit=50
-nnoremap <silent> <Leader>f :<C-u>Unite -input=**/ file<CR>
+nnoremap <silent> <Leader>f :<C-u>Unite file<CR>
 nnoremap <silent> <Leader>b :<C-u>Unite buffer <CR>
 nnoremap <silent> <Leader>m :<C-u>Unite file_mru<CR>
 nnoremap <silent> <Leader>B :<C-u>Unite bookmark<CR>
