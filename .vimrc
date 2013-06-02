@@ -64,7 +64,6 @@ let g:syntastic_loc_list_height=6
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
-let g:syntastic_javascript_checker='jshint'
 let g:syntastic_mode_map = {
   \ 'mode': 'active',
   \ 'active_filetypes': ['ruby', 'javascript'],
@@ -115,8 +114,9 @@ NeoBundle 'quickrun.vim'
 
 " vimfiler.vim
 NeoBundle 'Shougo/vimfiler.vim'
-:let g:vimfiler_as_default_explorer = 1
-nnoremap <silent> <F11> :VimFiler -buffer-name=explorer -split -winwidth=45 -toggle -no-quit<CR>
+:let g:vimfiler_as_default_explorer=1
+:let g:vimfiler_safe_mode_by_default=0
+nnoremap <silent> <F11> :VimFiler -buffer-name=explorer -split -winwidth=90 -toggle -no-quit<CR>
 autocmd! FileType vimfiler call g:my_vimfiler_settings()
 function! g:my_vimfiler_settings()
     nmap     <buffer><expr><CR> vimfiler#smart_cursor_map("\<Plug>(vimfiler_expand_tree)", "\<Plug>(vimfiler_edit_file)")
