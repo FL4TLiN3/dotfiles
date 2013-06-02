@@ -3,24 +3,36 @@ set nocompatible
 "------------------------------------------------------------
 " Vundle
 "
-filetype off
+if has('vim_starting')
+    set runtimepath+=~/.vim/bundle/neobundle.vim/
+endif
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-Bundle 'gmarik/vundle'
+call neobundle#rc(expand('~/.vim/bundle/'))
+NeoBundleFetch 'Shougo/neobundle.vim'
 
 " Colorscheme
-Bundle 'xoria256.vim'
+NeoBundle 'xoria256.vim'
 colorscheme xoria256
 
+" vimproc
+NeoBundle 'Shougo/vimproc', {
+      \ 'build' : {
+      \     'windows' : 'make -f make_mingw32.mak',
+      \     'cygwin' : 'make -f make_cygwin.mak',
+      \     'mac' : 'make -f make_mac.mak',
+      \     'unix' : 'make -f make_unix.mak',
+      \    },
+      \ }
+
 " Vim Powerline
-Bundle 'Lokaltog/vim-powerline'
+NeoBundle 'Lokaltog/vim-powerline'
 let g:Powerline_symbols='fancy'
 
-" Bundle 'minibufexpl.vim'
+" minibufexpl.vim
+" " Bundle 'minibufexpl.vim'
 
 " unite.vim
-Bundle 'unite.vim'
+NeoBundle 'unite.vim'
 let g:unite_enable_start_insert=1
 let g:unite_source_file_mru_time_format=''
 let g:unite_source_file_mru_limit=50
@@ -36,16 +48,15 @@ let s:file_rec_ignore_pattern = (unite#sources#file_rec#define()[0]['ignore_patt
 call unite#custom_source('file', 'ignore_pattern', s:file_rec_ignore_pattern)
 function! s:unite_my_settings()
     map <buffer> <ESC> <ESC>:q<CR>
-    nmap <buffer> <C-c> :q<CR>
     imap <buffer> <C-o> <Plug>(unite_insert_leave):<C-u>call unite#mappings#do_action('above')<CR>
 endfunction
 
 " neocomplcache & neosnippet (detail setting describe later)
-Bundle 'Shougo/neocomplcache'
-Bundle 'Shougo/neosnippet'
+NeoBundle 'Shougo/neocomplcache'
+NeoBundle 'Shougo/neosnippet'
 
 " syntastic
-Bundle 'scrooloose/syntastic'
+NeoBundle 'scrooloose/syntastic'
 let g:syntastic_check_on_open=1
 let g:syntastic_check_on_save=1
 let g:syntastic_auto_loc_list=1
@@ -55,17 +66,17 @@ set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 let g:syntastic_javascript_checker='jshint'
 let g:syntastic_mode_map = {
-    \ 'mode': 'active',
-    \ 'active_filetypes': ['ruby', 'javascript'],
-    \ 'passive_filetypes': []
-    \ }
+  \ 'mode': 'active',
+  \ 'active_filetypes': ['ruby', 'javascript'],
+  \ 'passive_filetypes': []
+  \ }
 let g:syntastic_enable_signs=1
 let g:syntastic_error_symbol='✗'
 let g:syntastic_warning_symbol='⚠'
 
-" fugitive.vim
-Bundle 'gregsexton/gitv'
-Bundle 'fugitive.vim'
+" gitv & fugitive.vim
+NeoBundle 'gregsexton/gitv'
+NeoBundle 'fugitive.vim'
 nnoremap <silent> <Leader>g :<C-u>Gitv <CR>
 nnoremap <silent> <Leader>G :<C-u>Gitv! <CR>
 autocmd FileType gitv call s:my_gitv_settings()
@@ -91,19 +102,44 @@ function! s:toggle_git_folding()
 endfunction
 
 " surround.vim
-Bundle 'surround.vim'
+NeoBundle 'surround.vim'
 
 " quickrun.vim
-Bundle 'quickrun.vim'
+NeoBundle 'quickrun.vim'
 
-"The NERD Tree
+" The NERD Tree
 " Bundle 'The-NERD-tree'
 " Bundle 'jistr/vim-nerdtree-tabs'
 " let g:nerdtree_tabs_open_on_console_startup=1
 " nnoremap <silent> <F11> :NERDTreeTabsToggle<CR>:vertical resize 50<CR>
 
+" vimfiler.vim
+NeoBundle 'Shougo/vimfiler.vim'
+:let g:vimfiler_as_default_explorer = 1
+nnoremap <silent> <F11> :VimFiler -buffer-name=explorer -split -winwidth=45 -toggle -no-quit<CR>
+autocmd! FileType vimfiler call g:my_vimfiler_settings()
+function! g:my_vimfiler_settings()
+    nmap     <buffer><expr><CR> vimfiler#smart_cursor_map("\<Plug>(vimfiler_expand_tree)", "\<Plug>(vimfiler_edit_file)")
+    nnoremap <buffer>s          :call vimfiler#mappings#do_action('my_split')<Cr>
+    nnoremap <buffer>v          :call vimfiler#mappings#do_action('my_vsplit')<Cr>
+endfunction
+
+let s:my_action = { 'is_selectable' : 1 }
+function! s:my_action.func(candidates)
+    wincmd p
+    exec 'split '. a:candidates[0].action__path
+endfunction
+call unite#custom_action('file', 'my_split', s:my_action)
+
+let s:my_action = { 'is_selectable' : 1 }
+function! s:my_action.func(candidates)
+    wincmd p
+    exec 'vsplit '. a:candidates[0].action__path
+endfunction
+call unite#custom_action('file', 'my_vsplit', s:my_action)
+
 " The NERD Commenter
-Bundle 'The-NERD-Commenter'
+NeoBundle 'The-NERD-Commenter'
 let g:NERDCreateDefaultMappings=0
 let g:NERDShutUp=1
 let NERDSpaceDelims=1
@@ -111,26 +147,28 @@ nmap <silent> <leader>/ <Plug>NERDCommenterToggle
 vmap <silent> <leader>/ <Plug>NERDCommenterToggle
 
 " EasyMotion
-Bundle 'EasyMotion'
+NeoBundle 'EasyMotion'
 
 " JavaScript
-Bundle 'jelera/vim-javascript-syntax'
-Bundle 'jiangmiao/simple-javascript-indenter'
+NeoBundle 'jelera/vim-javascript-syntax'
+NeoBundle 'jiangmiao/simple-javascript-indenter'
 let g:SimpleJsIndenter_BriefMode=1
 let g:SimpleJsIndenter_CaseIndentLevel=-1
-Bundle 'teramako/jscomplete-vim'
+NeoBundle 'teramako/jscomplete-vim'
 :let g:jscomplete_use=['dom', 'es6th']
 
 " jade
-Bundle 'digitaltoad/vim-jade'
+NeoBundle 'digitaltoad/vim-jade'
 
 " markdown
-Bundle 'Markdown'
+NeoBundle 'Markdown'
+
+filetype indent plugin on
+NeoBundleCheck
 
 "------------------------------------------------------------
 " General options
 "
-filetype indent plugin on
 syntax on
 set history=10000
 set cwh=100
@@ -170,6 +208,7 @@ augroup vimrc
     autocmd! FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
     autocmd! FileType jade setlocal shiftwidth=2 tabstop=2 softtabstop=2
 augroup END
+autocmd BufNewFile,BufRead *.part set filetype=html
 set expandtab
 set clipboard=unnamed
 set autoread
