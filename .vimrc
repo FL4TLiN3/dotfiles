@@ -66,8 +66,8 @@ set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 let g:syntastic_mode_map = {
   \ 'mode': 'active',
-  \ 'active_filetypes': ['ruby', 'javascript'],
-  \ 'passive_filetypes': []
+  \ 'active_filetypes': ['javascript'],
+  \ 'passive_filetypes': ['html']
   \ }
 let g:syntastic_enable_signs=1
 let g:syntastic_error_symbol='✗'
