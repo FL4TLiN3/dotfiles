@@ -151,6 +151,8 @@ darwin*)
     alias ls="ls -G -w"
     alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
     alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
+    alias ssh='ssh -o StrictHostKeyChecking=no'
+    alias dev='ssh dev'
     ;;
 freebsd*|linux*)
     alias ls="ls --color"
