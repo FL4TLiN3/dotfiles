@@ -84,6 +84,21 @@ NeoBundle 'surround.vim'
 
 " quickrun.vim
 NeoBundle 'quickrun.vim'
+nnoremap <silent> <Leader>q :<C-u>QuickRun<CR>
+nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
+if !exists("g:quickrun_config")
+    let g:quickrun_config={}
+endif
+let g:quickrun_config["_"] = {
+    \ "runner/vimproc/updatetime" : 80,
+    \ "outputter/buffer/close_on_empty": 1,
+    \ "outputter/buffer/split": ":rightbelow 8sp",
+    \ "outputter/error/error": "quickfix",
+    \ "outputter/error/success": "buffer",
+    \ "outputter": "error",
+    \ "hool/time/enable": 1,
+    \ "runner": "vimproc",
+\ }
 
 " The NERD Tree
 " Bundle 'The-NERD-tree'
