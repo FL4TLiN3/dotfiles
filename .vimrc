@@ -84,8 +84,6 @@ NeoBundle 'surround.vim'
 
 " quickrun.vim
 NeoBundle 'quickrun.vim'
-nnoremap <silent> <Leader>q :<C-u>QuickRun<CR>
-nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
 if !exists("g:quickrun_config")
     let g:quickrun_config={}
 endif
@@ -96,7 +94,7 @@ let g:quickrun_config["_"] = {
     \ "outputter/error/error": "quickfix",
     \ "outputter/error/success": "buffer",
     \ "outputter": "error",
-    \ "hool/time/enable": 1,
+    \ "hook/time/enable": 1,
     \ "runner": "vimproc",
 \ }
 
