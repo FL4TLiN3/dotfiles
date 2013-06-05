@@ -7,10 +7,13 @@ darwin*)
     export PATH=/usr/local/share/npm/bin:$PATH # npm
     export PATH=/opt/local/apache2/bin:$PATH
     export PATH=$HOME/android-sdk-macosx/platform-tools:$PATH
-    export NODE_PATH=~/workspace/xmatome/lib
+    export PATH=$RBENV_ROOT/bin:$PATH # rbenv
+    export RBENV_ROOT=/usr/local/rbenv
     export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
     ;;
 freebsd*|linux*)
+    export RBENV_ROOT=/usr/local/rbenv
+    export PATH=/usr/local/bin:/usr/local/sbin:$PATH
     export PATH=/usr/bin/X11:$PATHexport PATH=/usr/sbin:$PATH
     export PATH=/sbin:$PATH
     export PATH=/var/qmail/bin:$PATH
@@ -18,6 +21,8 @@ freebsd*|linux*)
     export PATH=$HOME/bin:$PATH
     export PATH=$HOME/script/tool:$PATH
     export PATH=$HOME/script/daemon:$PATH
+    export PATH=$RBENV_ROOT/bin:$PATH # rbenv
+    export PATH=$RBENV_ROOT/versions/1.9.3-p429/bin:$PATH # rbenv
     export PATH=.:$PATH
     export EDITOR=vi
     ;;
