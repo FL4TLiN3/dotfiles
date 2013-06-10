@@ -229,5 +229,8 @@ fi
 # load user .zshrc configuration file
 [ -f ${HOME}/.zshrc.mine ] && source ${HOME}/.zshrc.mine
 
-# load perlbrew setting
+# load rbenv
+eval "$(rbenv init -)"
+
+# load perlbrew
 source ~/perl5/perlbrew/etc/bashrc
