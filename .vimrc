@@ -196,11 +196,6 @@ set autoindent
 set shiftwidth=4
 set tabstop=4
 set softtabstop=4
-augroup vimrc
-    autocmd! FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
-    autocmd! FileType jade setlocal shiftwidth=2 tabstop=2 softtabstop=2
-augroup END
-autocmd BufNewFile,BufRead *.part set filetype=html
 set expandtab
 set clipboard=unnamed
 set autoread
@@ -231,6 +226,17 @@ nnoremap <silent> <leader>s :shell<CR>
 " imports
 "
 source ~/.dotfiles/.vimrc.motion
+
+autocmd! BufNewFile,BufRead *.part set filetype=html
+autocmd! BufNewFile,BufRead *.ejs  set filetype=html
+
+autocmd! FileType html setlocal shiftwidth=2
+autocmd! FileType html setlocal softtabstop=2
+autocmd! FileType html setlocal tabstop=2
+autocmd! FileType jade setlocal shiftwidth=2
+autocmd! FileType jade setlocal softtabstop=2
+autocmd! FileType jade setlocal tabstop=2
+autocmd! FileType perl setlocal noexpandtab
 
 "------------------------------------------------------------
 " autocmd settingsc
