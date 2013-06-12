@@ -28,6 +28,7 @@ freebsd*|linux*)
     ;;
 esac
 
+export SHELL=/bin/zsh
 export SVN_EDITOR=${EDITOR}
 
 # lang
