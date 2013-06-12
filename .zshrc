@@ -218,19 +218,15 @@ xterm|xterm-color|kterm|kterm-color)
 esac
 
 # Attache tmux
-if ( ! test $TMUX ) && ( ! expr $TERM : "^screen" > /dev/null ) && which tmux > /dev/null; then
-    if ( tmux has-session ); then
-        session=`tmux list-sessions | grep -e '^[0-9].*]$' | head -n 1 | sed -e 's/^\([0-9]\+\).*$/\1/'`
-        if [ -n "$session" ]; then
-            echo "Attache tmux session $session."
-            tmux attach-session -t $session
+if [ -z "$TMUX" -a -z "$STY" ]; then
+    if type tmuxx >/dev/null 2>&1; then
+        tmuxx
+    elif type tmux >/dev/null 2>&1; then
+        if tmux has-session && tmux list-sessions | /usr/bin/grep -qE '.*]$'; then
+            tmux attach && echo "tmux attached session "
         else
-            echo "Session has been already attached."
-            tmux list-sessions
+            tmux new-session && echo "tmux created new session"
         fi
-    else
-        echo "Create new tmux session."
-        tmux
     fi
 fi
 
@@ -238,7 +234,7 @@ fi
 [ -f ${HOME}/.zshrc.mine ] && source ${HOME}/.zshrc.mine
 
 # load rbenv
-eval "$(rbenv init - zsh)"
+which rbenv > /dev/null 2>&1 && eval "$(rbenv init - zsh)"
 
 # load perlbrew
-source ~/perl5/perlbrew/etc/bashrc
+[ -f ~/perl5/perlbrew/etc/bashrc ] && source ~/perl5/perlbrew/etc/bashrc
