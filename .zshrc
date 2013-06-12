@@ -149,6 +149,8 @@ alias su="su -l"
 alias st="git status"
 alias where="command -v"
 alias j="jobs -l"
+alias cl="clear"
+alias op="open ."
 
 # OS dependancy
 case "${OSTYPE}" in
@@ -156,6 +158,12 @@ darwin*)
     alias ls="ls -G -w"
     alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
     alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
+    alias edit="vim --split=tabedit $$args"
+    alias e="edit"
+
+    alias quicklook="qlmanage -p $$args"
+    alias l=quicklook
+
     alias ssh='ssh -o StrictHostKeyChecking=no'
     alias dev='ssh dev'
     ;;

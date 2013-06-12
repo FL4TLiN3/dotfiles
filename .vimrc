@@ -25,6 +25,9 @@ NeoBundle 'Shougo/vimproc', {
       \    },
       \ }
 
+" vimshell
+NeoBundle 'Shougo/vimshell'
+
 " Vim Powerline
 NeoBundle 'Lokaltog/vim-powerline'
 let g:Powerline_symbols='fancy'
@@ -77,7 +80,6 @@ let g:syntastic_warning_symbol='⚠'
 " gitv & fugitive.vim
 NeoBundle 'gregsexton/gitv'
 NeoBundle 'fugitive.vim'
-source ~/.dotfiles/.vimrc.git
 
 " surround.vim
 NeoBundle 'surround.vim'
@@ -226,6 +228,9 @@ nnoremap <silent> <leader>s :shell<CR>
 " imports
 "
 source ~/.dotfiles/.vimrc.motion
+source ~/.dotfiles/.vimrc.git
+source ~/.dotfiles/.vimrc.vimshell
+source ~/.dotfiles/.vimrc.perl
 
 autocmd! BufNewFile,BufRead *.part set filetype=html
 autocmd! BufNewFile,BufRead *.ejs  set filetype=html
@@ -236,7 +241,6 @@ autocmd! FileType html setlocal tabstop=2
 autocmd! FileType jade setlocal shiftwidth=2
 autocmd! FileType jade setlocal softtabstop=2
 autocmd! FileType jade setlocal tabstop=2
-autocmd! FileType perl setlocal noexpandtab
 
 "------------------------------------------------------------
 " autocmd settingsc

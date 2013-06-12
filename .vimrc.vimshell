@@ -1,0 +1,5 @@
+nnoremap <silent> <Leader>vsh :<C-u>VimShell<CR>
+nnoremap <silent> <Leader>vpl :<C-u>VimShellInteractive perl<CR>
+nnoremap <silent> <Leader>vnd :<C-u>VimShellInteractive node<CR>
+vmap     <silent> <Leader>vss :<C-u>VimShellSendString<CR>
+nnoremap <silent> <Leader>vss <S-v>:<C-u>VimShellSendString<CR>
