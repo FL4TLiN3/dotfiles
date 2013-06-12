@@ -238,7 +238,7 @@ fi
 [ -f ${HOME}/.zshrc.mine ] && source ${HOME}/.zshrc.mine
 
 # load rbenv
-eval "$(rbenv init -)"
+eval "$(rbenv init - zsh)"
 
 # load perlbrew
 source ~/perl5/perlbrew/etc/bashrc

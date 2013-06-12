@@ -1,0 +1,24 @@
+alias :q="exit"
+
+alias cl = clear
+alias reload = 'vimsh ~/.vimshrc'
+alias rl = reload
+
+alias la="ls -la"
+alias lf="ls -F"
+alias ll="ls -lh"
+
+alias du="du -h"
+alias df="df -h"
+
+alias su="su -l"
+alias st="git status"
+alias where="command -v"
+alias j="jobs -l"
+
+alias op = 'open .'
+alias edit = 'vim --split=tabedit $$args'
+alias e = edit
+
+alias quicklook = 'qlmanage -p $$args'
+alias l = quicklook
