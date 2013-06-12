@@ -8,6 +8,7 @@ ln -s .dotfiles/.vimrc
 ln -s .dotfiles/.vimshrc
 ln -s .dotfiles/.zsh
 ln -s .dotfiles/.zshrc
+ln -s .dotfiles/.tmux-powerlinerc
 ln -s $HOME/.dotfiles/bin/tmuxx /usr/local/bin/tmuxx
 
 if [ ! -d $HOME/.tmux ]; then
