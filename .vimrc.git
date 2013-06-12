@@ -1,3 +1,7 @@
+" vim: set ft=vim:
+"-------------------------------------------------------------------------------
+" Using Git by vim
+"-------------------------------------------------------------------------------
 
 nnoremap <silent> <Leader>gs :<C-u>Gstatus <CR>
 nnoremap <silent> <Leader>ga :<C-u>Gwrite <CR>

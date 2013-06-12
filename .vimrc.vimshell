@@ -1,3 +1,8 @@
+" vim: set ft=vim:
+"------------------------------------------------------------
+" Vimshell Settings
+"------------------------------------------------------------
+
 nnoremap <silent> <Leader>vsh :<C-u>VimShell<CR>
 nnoremap <silent> <Leader>vpl :<C-u>VimShellInteractive perl<CR>
 nnoremap <silent> <Leader>vnd :<C-u>VimShellInteractive node<CR>

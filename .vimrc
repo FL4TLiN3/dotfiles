@@ -230,17 +230,9 @@ nnoremap <silent> <leader>s :shell<CR>
 source ~/.dotfiles/.vimrc.motion
 source ~/.dotfiles/.vimrc.git
 source ~/.dotfiles/.vimrc.vimshell
-source ~/.dotfiles/.vimrc.perl
-
-autocmd! BufNewFile,BufRead *.part set filetype=html
-autocmd! BufNewFile,BufRead *.ejs  set filetype=html
-
-autocmd! FileType html setlocal shiftwidth=2
-autocmd! FileType html setlocal softtabstop=2
-autocmd! FileType html setlocal tabstop=2
-autocmd! FileType jade setlocal shiftwidth=2
-autocmd! FileType jade setlocal softtabstop=2
-autocmd! FileType jade setlocal tabstop=2
+source ~/.dotfiles/.vimrc.lang.perl
+source ~/.dotfiles/.vimrc.lang.html
+source ~/.dotfiles/.vimrc.lang.javascript
 
 "------------------------------------------------------------
 " autocmd settingsc
