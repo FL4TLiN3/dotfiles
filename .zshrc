@@ -132,7 +132,7 @@ setopt hist_ignore_dups
 setopt share_history
 
 # Completion configuration
-fpath=(${HOME}.zsh/completion $fpath)
+fpath=(${HOME}/.zsh/completion/src $fpath)
 autoload -U compinit && compinit
 
 # zsh editor
