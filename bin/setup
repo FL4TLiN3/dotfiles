@@ -14,7 +14,6 @@ ln -s $HOME/.dotfiles/bin/tmuxx /usr/local/bin/tmuxx
 if [ ! -d $HOME/.tmux ]; then
     if which git > /dev/null 2>&1; then
         mkdir .tmux
-        git clone https://github.com/erikw/tmux-powerline.git ~/.tmux/tmux-powerline
         # install GNU grep
         brew install grep
     else

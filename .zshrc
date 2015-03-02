@@ -8,6 +8,7 @@ darwin*)
     export PATH=/opt/local/apache2/bin:$PATH
     export PATH=$HOME/android-sdk-macosx/platform-tools:$PATH
     export PATH=$RBENV_ROOT/bin:$PATH # rbenv
+    export PATH=$HOME/Library/Python/2.7/bin:$PATH # pip
     export RBENV_ROOT=/usr/local/rbenv
     export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
     ;;
@@ -239,3 +240,4 @@ which rbenv > /dev/null 2>&1 && eval "$(rbenv init - zsh)"
 
 # load perlbrew
 [ -f ~/perl5/perlbrew/etc/bashrc ] && source ~/perl5/perlbrew/etc/bashrc
+

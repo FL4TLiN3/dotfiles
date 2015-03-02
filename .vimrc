@@ -1,39 +1,38 @@
-set nocompatible
-
 "------------------------------------------------------------
-" Vundle
+" NeoBundle
 "
+
+" Note: Skip initialization for vim-tiny or vim-small.
+if !1 | finish | endif
+
 if has('vim_starting')
-    set runtimepath+=~/.vim/bundle/neobundle.vim/
+  if &compatible
+    set nocompatible " Be iMproved
+  endif
+
+  " Required:
+  set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
-call neobundle#rc(expand('~/.vim/bundle/'))
+" Required:
+call neobundle#begin(expand('~/.vim/bundle/'))
+
+" Let NeoBundle manage NeoBundle
+" Required:
 NeoBundleFetch 'Shougo/neobundle.vim'
+
 :let g:neobundle#types#git#default_protocol='https'
 
 " Colorscheme
 NeoBundle 'xoria256.vim'
-colorscheme xoria256
 
-" vimproc
-NeoBundle 'Shougo/vimproc', {
-      \ 'build' : {
-      \     'windows' : 'make -f make_mingw32.mak',
-      \     'cygwin' : 'make -f make_cygwin.mak',
-      \     'mac' : 'make -f make_mac.mak',
-      \     'unix' : 'make -f make_unix.mak',
-      \    },
-      \ }
-
-" vimshell
-NeoBundle 'Shougo/vimshell'
-
-" Vim Powerline
-NeoBundle 'Lokaltog/vim-powerline'
-let g:Powerline_symbols='fancy'
-
-" minibufexpl.vim
-" " Bundle 'minibufexpl.vim'
+" powerline
+NeoBundle 'alpaca-tc/alpaca_powertabline'
+NeoBundle 'https://github.com/Lokaltog/powerline.git'
+set laststatus=2
+set rtp+=~/Library/Python/2.7/lib/python/site-packages/powerline/bindings/vim/
+let g:Powerline_symbols = 'fancy'
+set noshowmode
 
 " unite.vim
 NeoBundle 'unite.vim'
@@ -48,16 +47,12 @@ nnoremap <silent> <Leader>y :<C-u>Unite -buffer-name=register register<CR>
 nnoremap <silent> <Leader>a :<C-u>UniteBookmarkAdd<CR>
 nnoremap <silent> <Leader>u :<C-u>Unite buffer file_mru bookmark file<CR>
 autocmd FileType unite call s:unite_my_settings()
-let s:file_rec_ignore_pattern = (unite#sources#file_rec#define()[0]['ignore_pattern']) . '\|node_modules'
-call unite#custom_source('file', 'ignore_pattern', s:file_rec_ignore_pattern)
+" let s:file_rec_ignore_pattern = (unite#sources#file_rec#define()[0]['ignore_pattern']) . '\|node_modules'
+" call unite#custom_source('file', 'ignore_pattern', s:file_rec_ignore_pattern)
 function! s:unite_my_settings()
     map <buffer> <ESC> <ESC>:q<CR>
     imap <buffer> <C-o> <Plug>(unite_insert_leave):<C-u>call unite#mappings#do_action('above')<CR>
 endfunction
-
-" neocomplcache & neosnippet (detail setting describe later)
-NeoBundle 'Shougo/neocomplcache'
-NeoBundle 'Shougo/neosnippet'
 
 " syntastic
 NeoBundle 'scrooloose/syntastic'
@@ -77,34 +72,12 @@ let g:syntastic_enable_signs=1
 let g:syntastic_error_symbol='✗'
 let g:syntastic_warning_symbol='⚠'
 
-" gitv & fugitive.vim
-NeoBundle 'gregsexton/gitv'
-NeoBundle 'fugitive.vim'
-
-" surround.vim
-NeoBundle 'surround.vim'
-
-" quickrun.vim
-NeoBundle 'quickrun.vim'
-if !exists("g:quickrun_config")
-    let g:quickrun_config={}
-endif
-let g:quickrun_config["_"] = {
-    \ "runner/vimproc/updatetime" : 80,
-    \ "outputter/buffer/close_on_empty": 1,
-    \ "outputter/buffer/split": ":rightbelow 8sp",
-    \ "outputter/error/error": "quickfix",
-    \ "outputter/error/success": "buffer",
-    \ "outputter": "error",
-    \ "hook/time/enable": 1,
-    \ "runner": "vimproc",
-\ }
 
 " The NERD Tree
-" Bundle 'The-NERD-tree'
-" Bundle 'jistr/vim-nerdtree-tabs'
-" let g:nerdtree_tabs_open_on_console_startup=1
-" nnoremap <silent> <F11> :NERDTreeTabsToggle<CR>:vertical resize 50<CR>
+NeoBundle 'The-NERD-tree'
+NeoBundle 'jistr/vim-nerdtree-tabs'
+let g:nerdtree_tabs_open_on_console_startup=1
+nnoremap <silent> <F11> :NERDTreeTabsToggle<CR>:vertical resize 50<CR>
 
 " vimfiler.vim
 NeoBundle 'Shougo/vimfiler.vim'
@@ -123,14 +96,14 @@ function! s:my_action.func(candidates)
     wincmd p
     exec 'split '. a:candidates[0].action__path
 endfunction
-call unite#custom_action('file', 'my_split', s:my_action)
+" call unite#custom_action('file', 'my_split', s:my_action)
 
 let s:my_action = { 'is_selectable' : 1 }
 function! s:my_action.func(candidates)
     wincmd p
     exec 'vsplit '. a:candidates[0].action__path
 endfunction
-call unite#custom_action('file', 'my_vsplit', s:my_action)
+" call unite#custom_action('file', 'my_vsplit', s:my_action)
 
 " The NERD Commenter
 NeoBundle 'The-NERD-Commenter'
@@ -144,12 +117,9 @@ vmap <silent> <leader>/ <Plug>NERDCommenterToggle
 NeoBundle 'EasyMotion'
 
 " JavaScript
-NeoBundle 'jelera/vim-javascript-syntax'
 NeoBundle 'jiangmiao/simple-javascript-indenter'
 let g:SimpleJsIndenter_BriefMode=1
 let g:SimpleJsIndenter_CaseIndentLevel=-1
-NeoBundle 'teramako/jscomplete-vim'
-:let g:jscomplete_use=['dom', 'es6th']
 
 " jade
 NeoBundle 'digitaltoad/vim-jade'
@@ -157,8 +127,15 @@ NeoBundle 'digitaltoad/vim-jade'
 " markdown
 NeoBundle 'Markdown'
 
-filetype indent plugin on
+call neobundle#end()
+
+" Required:
+filetype plugin indent on
+
+" If there are uninstalled bundles found on startup,
+" this will conveniently prompt you to install them.
 NeoBundleCheck
+
 
 "------------------------------------------------------------
 " General options
@@ -223,6 +200,9 @@ nnoremap <silent> <C-i> :nohl<CR><C-i>
 
 " shell
 nnoremap <silent> <leader>s :shell<CR>
+
+" Colorscheme
+colorscheme xoria256
 
 "------------------------------------------------------------
 " imports
