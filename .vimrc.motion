@@ -102,5 +102,3 @@ function! s:do_git_diff_aware_gf(command)
   endif
 endfunction
 
-" insert mode でjjでesc
-inoremap jj <Esc>

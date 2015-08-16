@@ -241,3 +241,6 @@ which rbenv > /dev/null 2>&1 && eval "$(rbenv init - zsh)"
 # load perlbrew
 [ -f ~/perl5/perlbrew/etc/bashrc ] && source ~/perl5/perlbrew/etc/bashrc
 
+
+PERL_MB_OPT="--install_base \"/Users/hirano/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/Users/hirano/perl5"; export PERL_MM_OPT;

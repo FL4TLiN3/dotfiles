@@ -85,7 +85,7 @@ NeoBundle 'Shougo/vimfiler.vim'
 :let g:vimfiler_safe_mode_by_default=0
 nnoremap <silent> <F11> :VimFiler -buffer-name=explorer -split -winwidth=90 -toggle -no-quit<CR>
 autocmd! FileType vimfiler call g:my_vimfiler_settings()
-function! g:my_vimfiler_settings()
+function! s:my_vimfiler_settings()
     nmap     <buffer><expr><CR> vimfiler#smart_cursor_map("\<Plug>(vimfiler_expand_tree)", "\<Plug>(vimfiler_edit_file)")
     nnoremap <buffer>s          :call vimfiler#mappings#do_action('my_split')<Cr>
     nnoremap <buffer>v          :call vimfiler#mappings#do_action('my_vsplit')<Cr>
@@ -190,6 +190,7 @@ set noswapfile
 " set backupskip=/tmp/*,/private/tmp/*
 " set swapfile
 " set directory=~/.vim/vim_swap
+set undodir=~/.vim/undo
 
 " edit and apply .vimrc
 nnoremap <silent> <leader>ve :e ~/.vimrc<CR>
