@@ -26,33 +26,9 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 " Colorscheme
 NeoBundle 'xoria256.vim'
 
-" powerline
-NeoBundle 'alpaca-tc/alpaca_powertabline'
-NeoBundle 'https://github.com/Lokaltog/powerline.git'
-set laststatus=2
-set rtp+=~/Library/Python/2.7/lib/python/site-packages/powerline/bindings/vim/
-let g:Powerline_symbols = 'fancy'
-set noshowmode
-
-" unite.vim
+" Unite
 NeoBundle 'unite.vim'
-let g:unite_enable_start_insert=1
-let g:unite_source_file_mru_time_format=''
-let g:unite_source_file_mru_limit=50
-nnoremap <silent> <Leader>f :<C-u>Unite file<CR>
-nnoremap <silent> <Leader>b :<C-u>Unite buffer <CR>
-nnoremap <silent> <Leader>m :<C-u>Unite file_mru<CR>
-nnoremap <silent> <Leader>B :<C-u>Unite bookmark<CR>
-nnoremap <silent> <Leader>y :<C-u>Unite -buffer-name=register register<CR>
-nnoremap <silent> <Leader>a :<C-u>UniteBookmarkAdd<CR>
-nnoremap <silent> <Leader>u :<C-u>Unite buffer file_mru bookmark file<CR>
-autocmd FileType unite call s:unite_my_settings()
-" let s:file_rec_ignore_pattern = (unite#sources#file_rec#define()[0]['ignore_pattern']) . '\|node_modules'
-" call unite#custom_source('file', 'ignore_pattern', s:file_rec_ignore_pattern)
-function! s:unite_my_settings()
-    map <buffer> <ESC> <ESC>:q<CR>
-    imap <buffer> <C-o> <Plug>(unite_insert_leave):<C-u>call unite#mappings#do_action('above')<CR>
-endfunction
+NeoBundle 'git://github.com/Shougo/vimproc'
 
 " syntastic
 NeoBundle 'scrooloose/syntastic'
@@ -72,39 +48,6 @@ let g:syntastic_enable_signs=1
 let g:syntastic_error_symbol='✗'
 let g:syntastic_warning_symbol='⚠'
 
-
-" The NERD Tree
-NeoBundle 'The-NERD-tree'
-NeoBundle 'jistr/vim-nerdtree-tabs'
-let g:nerdtree_tabs_open_on_console_startup=1
-nnoremap <silent> <F11> :NERDTreeTabsToggle<CR>:vertical resize 50<CR>
-
-" vimfiler.vim
-NeoBundle 'Shougo/vimfiler.vim'
-:let g:vimfiler_as_default_explorer=1
-:let g:vimfiler_safe_mode_by_default=0
-nnoremap <silent> <F11> :VimFiler -buffer-name=explorer -split -winwidth=90 -toggle -no-quit<CR>
-autocmd! FileType vimfiler call g:my_vimfiler_settings()
-function! s:my_vimfiler_settings()
-    nmap     <buffer><expr><CR> vimfiler#smart_cursor_map("\<Plug>(vimfiler_expand_tree)", "\<Plug>(vimfiler_edit_file)")
-    nnoremap <buffer>s          :call vimfiler#mappings#do_action('my_split')<Cr>
-    nnoremap <buffer>v          :call vimfiler#mappings#do_action('my_vsplit')<Cr>
-endfunction
-
-let s:my_action = { 'is_selectable' : 1 }
-function! s:my_action.func(candidates)
-    wincmd p
-    exec 'split '. a:candidates[0].action__path
-endfunction
-" call unite#custom_action('file', 'my_split', s:my_action)
-
-let s:my_action = { 'is_selectable' : 1 }
-function! s:my_action.func(candidates)
-    wincmd p
-    exec 'vsplit '. a:candidates[0].action__path
-endfunction
-" call unite#custom_action('file', 'my_vsplit', s:my_action)
-
 " The NERD Commenter
 NeoBundle 'The-NERD-Commenter'
 let g:NERDCreateDefaultMappings=0
@@ -113,18 +56,11 @@ let NERDSpaceDelims=1
 nmap <silent> <leader>/ <Plug>NERDCommenterToggle
 vmap <silent> <leader>/ <Plug>NERDCommenterToggle
 
-" EasyMotion
-NeoBundle 'EasyMotion'
-
 " JavaScript
-NeoBundle 'jiangmiao/simple-javascript-indenter'
-let g:SimpleJsIndenter_BriefMode=1
-let g:SimpleJsIndenter_CaseIndentLevel=-1
+NeoBundle 'pangloss/vim-javascript'
+NeoBundle 'mxw/vim-jsx'
 
-" jade
-NeoBundle 'digitaltoad/vim-jade'
-
-" markdown
+" Markdown
 NeoBundle 'Markdown'
 
 call neobundle#end()
@@ -152,11 +88,15 @@ set wildmenu
 set showcmd
 set incsearch
 set hlsearch
+set virtualedit=block
 set ignorecase
 set smartcase
 set nostartofline
 set backspace=indent,eol,start
-set fileencodings=ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932,utf-8
+set encoding=utf-8
+set fileencodings=utf-8
+" set fileencodings=ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932,utf-8
+set fileformats=unix,dos,mac
 set ruler
 set list
 set listchars=tab:>-,trail:-,extends:>,precedes:<
@@ -216,7 +156,30 @@ source ~/.dotfiles/.vimrc.lang.html
 source ~/.dotfiles/.vimrc.lang.javascript
 
 "------------------------------------------------------------
-" autocmd settingsc
+" Unite Settings
 "
-" autocmd BufWritePre * :%s/\s\+$//ge
-" autocmd BufWritePre * :%s//  /ge
+
+let g:unite_enable_start_insert=1
+let g:unite_enable_ignore_case = 1
+let g:unite_enable_smart_case = 1
+
+" unite grep uses The Silver Searcher
+if executable('ag')
+  let g:unite_source_grep_command = 'ag'
+  let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
+  let g:unite_source_grep_recursive_opt = ''
+endif
+
+nnoremap [unite] <Nop>
+nmap <Space> [unite]
+
+" unite.vim keymap
+nnoremap [unite]u  :<C-u>Unite -no-split<Space>
+nnoremap <silent> [unite]f :<C-u>Unite buffer<CR>
+nnoremap <silent> [unite]m :<C-u>Unite file_mru<CR>
+nnoremap <silent> [unite]b :<C-u>Unite file_rec/async:!<CR>
+nnoremap <silent> [unite]g :<C-u>Unite grep: -buffer-name=search-buffer<CR>
+nnoremap <silent> [unite]G :<C-u>Unite grep:. -buffer-name=search-buffer<CR><C-R><C-W><CR>
+nnoremap <silent> [unite]r :<C-u>UniteResume search-buffer<CR>
+
+

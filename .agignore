@@ -1,0 +1,11 @@
+log/
+logs/
+.vim/bundle/
+.vim/dict/
+.git/
+.svn/
+*.min.*
+dist/
+node_modules/
+bower_components/
+demo.admin-lte.local/

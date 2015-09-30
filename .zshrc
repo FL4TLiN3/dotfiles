@@ -244,3 +244,5 @@ which rbenv > /dev/null 2>&1 && eval "$(rbenv init - zsh)"
 
 PERL_MB_OPT="--install_base \"/Users/hirano/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/Users/hirano/perl5"; export PERL_MM_OPT;
+
+export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
