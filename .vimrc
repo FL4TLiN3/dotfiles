@@ -27,6 +27,10 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundle 'xoria256.vim'
 
 " Unite
+" sudo.vim
+NeoBundle 'sudo.vim'
+
+" unite.vim
 NeoBundle 'unite.vim'
 NeoBundle 'git://github.com/Shougo/vimproc'
 
@@ -60,7 +64,10 @@ vmap <silent> <leader>/ <Plug>NERDCommenterToggle
 NeoBundle 'pangloss/vim-javascript'
 NeoBundle 'mxw/vim-jsx'
 
-" Markdown
+" Elixir
+NeoBundle "elixir-lang/vim-elixir"
+
+" markdown
 NeoBundle 'Markdown'
 
 call neobundle#end()
