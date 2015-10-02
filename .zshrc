@@ -220,17 +220,21 @@ xterm|xterm-color|kterm|kterm-color)
 esac
 
 # Attache tmux
-if [ -z "$TMUX" -a -z "$STY" ]; then
-    if type tmuxx >/dev/null 2>&1; then
-        tmuxx
-    elif type tmux >/dev/null 2>&1; then
-        if tmux has-session && tmux list-sessions | /usr/bin/grep -qE '.*]$'; then
-            tmux attach && echo "tmux attached session "
-        else
-            tmux new-session && echo "tmux created new session"
+case "${OSTYPE}" in
+darwin*)
+    if [ -z "$TMUX" -a -z "$STY" ]; then
+        if type tmuxx >/dev/null 2>&1; then
+            tmuxx
+        elif type tmux >/dev/null 2>&1; then
+            if tmux has-session && tmux list-sessions | /usr/bin/grep -qE '.*]$'; then
+                tmux attach && echo "tmux attached session "
+            else
+                tmux new-session && echo "tmux created new session"
+            fi
         fi
     fi
-fi
+    ;;
+esac
 
 # load user .zshrc configuration file
 [ -f ${HOME}/.zshrc.mine ] && source ${HOME}/.zshrc.mine
