@@ -9,15 +9,4 @@ ln -s .dotfiles/.vimrc
 ln -s .dotfiles/.vimshrc
 ln -s .dotfiles/.zsh
 ln -s .dotfiles/.zshrc
-ln -s .dotfiles/.tmux-powerlinerc
 ln -s $HOME/.dotfiles/bin/tmuxx /usr/local/bin/tmuxx
-
-if [ ! -d $HOME/.tmux ]; then
-    if which git > /dev/null 2>&1; then
-        mkdir .tmux
-        # install GNU grep
-        brew install grep
-    else
-        echo 'command git is not exist. install git first.' >&2
-    fi
-fi
