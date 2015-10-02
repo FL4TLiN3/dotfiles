@@ -9,4 +9,17 @@ ln -s .dotfiles/.vimrc
 ln -s .dotfiles/.vimshrc
 ln -s .dotfiles/.zsh
 ln -s .dotfiles/.zshrc
-ln -s $HOME/.dotfiles/bin/tmuxx /usr/local/bin/tmuxx
+
+case "${OSTYPE}" in
+darwin*)
+    ln -s $HOME/.dotfiles/bin/tmuxx /usr/local/bin/tmuxx
+    ;;
+esac
+
+mkdir .vim
+cd .vim
+curl https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/install.sh > install.sh
+sh ./install.sh
+rm install.sh
+
+
