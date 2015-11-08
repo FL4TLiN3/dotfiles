@@ -169,6 +169,8 @@ source ~/.dotfiles/.vimrc.lang.javascript
 let g:unite_enable_start_insert=1
 let g:unite_enable_ignore_case = 1
 let g:unite_enable_smart_case = 1
+let g:unite_source_history_yank_enable =1
+let g:unite_source_file_mru_limit = 1000
 
 " unite grep uses The Silver Searcher
 if executable('ag')
@@ -188,5 +190,6 @@ nnoremap <silent> [unite]b :<C-u>Unite file_rec/async:!<CR>
 nnoremap <silent> [unite]g :<C-u>Unite grep: -buffer-name=search-buffer<CR>
 nnoremap <silent> [unite]G :<C-u>Unite grep:. -buffer-name=search-buffer<CR><C-R><C-W><CR>
 nnoremap <silent> [unite]r :<C-u>UniteResume search-buffer<CR>
+nnoremap <silent> [unite]y :<C-u>Unite history/yank<CR>
 
 
