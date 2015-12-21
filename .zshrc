@@ -163,7 +163,7 @@ darwin*)
     alias edit="vim --split=tabedit $$args"
     alias e="edit"
 
-    alias quicklook="qlmanage -p $$args"
+    alias quicklook='qlmanage -p "$@" >& /dev/null'
     alias l=quicklook
 
     alias ssh='ssh -o StrictHostKeyChecking=no'
@@ -245,6 +245,12 @@ which rbenv > /dev/null 2>&1 && eval "$(rbenv init - zsh)"
 # load perlbrew
 [ -f ~/perl5/perlbrew/etc/bashrc ] && source ~/perl5/perlbrew/etc/bashrc
 
+# Agent forward setting
+case "${OSTYPE}" in
+darwin*)
+    ssh-add ~/.ssh/id_rsa > /dev/null 2>&1
+    ;;
+esac
 
 PERL_MB_OPT="--install_base \"/Users/hirano/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/Users/hirano/perl5"; export PERL_MM_OPT;
