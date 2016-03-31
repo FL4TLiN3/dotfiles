@@ -180,10 +180,10 @@ let g:unite_enable_smart_case = 1
 let g:unite_source_history_yank_enable =1
 let g:unite_source_file_mru_limit = 1000
 
-" unite grep uses The Silver Searcher
-if executable('ag')
-  let g:unite_source_grep_command = 'ag'
-  let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
+" Install highway before using unite grep
+if executable('hw')
+  let g:unite_source_grep_command = 'hw'
+  let g:unite_source_grep_default_opts = '--nogroup'
   let g:unite_source_grep_recursive_opt = ''
 endif
 
