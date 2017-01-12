@@ -7,13 +7,11 @@ darwin*)
     export PATH=/usr/local/share/npm/bin:$PATH # npm
     export PATH=/opt/local/apache2/bin:$PATH
     export PATH=$HOME/android-sdk-macosx/platform-tools:$PATH
-    export PATH=$RBENV_ROOT/bin:$PATH # rbenv
+    export PATH="$HOME/.rbenv/bin:$PATH" # rbenv
     export PATH=$HOME/Library/Python/2.7/bin:$PATH # pip
-    export RBENV_ROOT=/usr/local/rbenv
     export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
     ;;
 freebsd*|linux*)
-    export RBENV_ROOT=/usr/local/rbenv
     export PATH=/usr/local/bin:/usr/local/sbin:$PATH
     export PATH=/usr/bin/X11:$PATHexport PATH=/usr/sbin:$PATH
     export PATH=/sbin:$PATH
@@ -22,8 +20,6 @@ freebsd*|linux*)
     export PATH=$HOME/bin:$PATH
     export PATH=$HOME/script/tool:$PATH
     export PATH=$HOME/script/daemon:$PATH
-    export PATH=$RBENV_ROOT/bin:$PATH # rbenv
-    export PATH=$RBENV_ROOT/versions/1.9.3-p429/bin:$PATH # rbenv
     export PATH=.:$PATH
     export EDITOR=vi
     ;;
@@ -240,7 +236,7 @@ esac
 [ -f ${HOME}/.zshrc.mine ] && source ${HOME}/.zshrc.mine
 
 # load rbenv
-which rbenv > /dev/null 2>&1 && eval "$(rbenv init - zsh)"
+which rbenv > /dev/null 2>&1 && eval "$(rbenv init -)"
 
 # load perlbrew
 [ -f ~/perl5/perlbrew/etc/bashrc ] && source ~/perl5/perlbrew/etc/bashrc
@@ -256,3 +252,4 @@ PERL_MB_OPT="--install_base \"/Users/hirano/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/Users/hirano/perl5"; export PERL_MM_OPT;
 
 export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
+

@@ -69,8 +69,10 @@ nmap <silent> <leader>/ <Plug>NERDCommenterToggle
 vmap <silent> <leader>/ <Plug>NERDCommenterToggle
 
 " JavaScript
+NeoBundle 'othree/yajs.vim'
 NeoBundle 'pangloss/vim-javascript'
 NeoBundle 'mxw/vim-jsx'
+let g:jsx_ext_required=0
 
 " Elixir
 NeoBundle "elixir-lang/vim-elixir"
@@ -131,7 +133,7 @@ set shiftwidth=4
 set tabstop=4
 set softtabstop=4
 set expandtab
-set clipboard=unnamed
+set clipboard=unnamed,autoselect
 set autoread
 set nofoldenable
 nnoremap j gj
@@ -167,6 +169,7 @@ source ~/.dotfiles/.vimrc.motion
 source ~/.dotfiles/.vimrc.git
 source ~/.dotfiles/.vimrc.vimshell
 source ~/.dotfiles/.vimrc.lang.perl
+source ~/.dotfiles/.vimrc.lang.ruby
 source ~/.dotfiles/.vimrc.lang.html
 source ~/.dotfiles/.vimrc.lang.javascript
 
