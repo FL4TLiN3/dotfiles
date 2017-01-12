@@ -74,6 +74,9 @@ NeoBundle 'pangloss/vim-javascript'
 NeoBundle 'mxw/vim-jsx'
 let g:jsx_ext_required=0
 
+" TypeScript
+NeoBundle 'HerringtonDarkholme/yats.vim'
+
 " Elixir
 NeoBundle "elixir-lang/vim-elixir"
 
@@ -159,6 +162,10 @@ nnoremap <silent> <C-i> :nohl<CR><C-i>
 " shell
 nnoremap <silent> <leader>s :shell<CR>
 
+" Remap command mode key
+nnoremap ; :
+nnoremap : ;
+
 " Colorscheme
 colorscheme xoria256
 
@@ -172,6 +179,7 @@ source ~/.dotfiles/.vimrc.lang.perl
 source ~/.dotfiles/.vimrc.lang.ruby
 source ~/.dotfiles/.vimrc.lang.html
 source ~/.dotfiles/.vimrc.lang.javascript
+source ~/.dotfiles/.vimrc.lang.typescript
 
 "------------------------------------------------------------
 " Unite Settings

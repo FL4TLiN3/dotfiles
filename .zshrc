@@ -2,13 +2,8 @@
 case "${OSTYPE}" in
 darwin*)
     export PATH=/usr/local/bin:/usr/local/sbin:$PATH # brew
-    export PATH=/opt/local/bin:/opt/local/sbin:$PATH # Mac Ports
-    export PATH=$HOME/.nodebrew/current/bin:$PATH # nodebrew
     export PATH=/usr/local/share/npm/bin:$PATH # npm
-    export PATH=/opt/local/apache2/bin:$PATH
     export PATH=$HOME/android-sdk-macosx/platform-tools:$PATH
-    export PATH="$HOME/.rbenv/bin:$PATH" # rbenv
-    export PATH=$HOME/Library/Python/2.7/bin:$PATH # pip
     export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
     ;;
 freebsd*|linux*)
