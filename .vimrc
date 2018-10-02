@@ -178,6 +178,7 @@ source ~/.dotfiles/.vimrc.vimshell
 source ~/.dotfiles/.vimrc.lang.perl
 source ~/.dotfiles/.vimrc.lang.ruby
 source ~/.dotfiles/.vimrc.lang.html
+source ~/.dotfiles/.vimrc.lang.yaml
 source ~/.dotfiles/.vimrc.lang.javascript
 source ~/.dotfiles/.vimrc.lang.typescript
 

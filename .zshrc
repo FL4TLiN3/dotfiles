@@ -4,6 +4,8 @@ darwin*)
     export PATH=/usr/local/bin:/usr/local/sbin:$PATH # brew
     export PATH=/usr/local/share/npm/bin:$PATH # npm
     export PATH=$HOME/android-sdk-macosx/platform-tools:$PATH
+    export PATH=$HOME/n/bin:$PATH
+    export N_PREFIX=$HOME/n
     export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
     ;;
 freebsd*|linux*)
@@ -246,5 +248,6 @@ esac
 PERL_MB_OPT="--install_base \"/Users/hirano/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/Users/hirano/perl5"; export PERL_MM_OPT;
 
-export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
+[ -f ${HOME}/google-cloud-sdk/completion.zsh.inc ] && source $HOME/google-cloud-sdk/completion.zsh.inc
+[ -f ${HOME}/google-cloud-sdk/path.zsh.inc ] && source $HOME/google-cloud-sdk/path.zsh.inc
 
