@@ -5,7 +5,6 @@ darwin*)
     export PATH=/usr/local/share/npm/bin:$PATH # npm
     export PATH=$HOME/android-sdk-macosx/platform-tools:$PATH
     export PATH=$HOME/n/bin:$PATH
-    export N_PREFIX=$HOME/n
     export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
     ;;
 freebsd*|linux*)
@@ -151,8 +150,8 @@ alias op="open ."
 case "${OSTYPE}" in
 darwin*)
     alias ls="ls -G -w"
-    alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
-    alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
+    # alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
+    # alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
     alias edit="vim --split=tabedit $$args"
     alias e="edit"
 
@@ -251,3 +250,5 @@ PERL_MM_OPT="INSTALL_BASE=/Users/hirano/perl5"; export PERL_MM_OPT;
 [ -f ${HOME}/google-cloud-sdk/completion.zsh.inc ] && source $HOME/google-cloud-sdk/completion.zsh.inc
 [ -f ${HOME}/google-cloud-sdk/path.zsh.inc ] && source $HOME/google-cloud-sdk/path.zsh.inc
 
+
+export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
