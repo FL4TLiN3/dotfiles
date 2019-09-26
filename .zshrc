@@ -5,6 +5,8 @@ darwin*)
     export PATH=/usr/local/share/npm/bin:$PATH # npm
     export PATH=$HOME/android-sdk-macosx/platform-tools:$PATH
     export PATH=$HOME/n/bin:$PATH
+    export PATH=$PYENV_ROOT/bin:$PATH
+    export PYENV_ROOT="$HOME/.pyenv"
     export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
     ;;
 freebsd*|linux*)
@@ -237,6 +239,9 @@ which rbenv > /dev/null 2>&1 && eval "$(rbenv init -)"
 # load perlbrew
 [ -f ~/perl5/perlbrew/etc/bashrc ] && source ~/perl5/perlbrew/etc/bashrc
 
+# load pyenv
+eval "$(pyenv init -)"
+
 # Agent forward setting
 case "${OSTYPE}" in
 darwin*)
@@ -252,3 +257,12 @@ PERL_MM_OPT="INSTALL_BASE=/Users/hirano/perl5"; export PERL_MM_OPT;
 
 
 export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
+
+# Cloud sdk settings
+case "${OSTYPE}" in
+darwin*)
+    [ -f ~/depot/google-cloud-sdk/completion.zsh.inc ] && source ~/depot/google-cloud-sdk/completion.zsh.inc
+    [ -f ~/depot/google-cloud-sdk/path.zsh.inc ] && source ~/depot/google-cloud-sdk/path.zsh.inc
+    ;;
+esac
+
